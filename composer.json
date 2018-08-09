@@ -1,0 +1,17 @@
+{
+    "require": {
+        "slim/slim": "2.*",
+        "slim/views": "0.*",
+        "slim/extras": "2.0.3",
+        "twig/twig": "1.*",
+        "yeriomin/redbean-single-file": "4.*",
+        "google/apiclient": "1.0.*@beta"
+    },
+    "require-dev": {
+        "codeception/codeception": "*"
+    },
+    "autoload": {
+        "classmap": ["backend/controller", "backend/dao", "backend/external"],
+        "files": ["backend/core/DevHelp.php", "backend/core/_app-constants.php", "backend/core/_mdb-config.php", "backend/core/Logger.php"]
+    }
+}

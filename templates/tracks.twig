@@ -1,0 +1,46 @@
+{% include '_header.twig' %}
+<title>CalPlanner - Tracks</title>
+{% include '_banner.twig' %}
+
+<h1>Tracks</h1>
+
+<h3>Create Track</h3>
+<form method="post" action="">
+    Name: <input type="text" name="name" value="">
+    Short code: <input type="text" name="shortcode" value="">
+    Points: <input type="text" name="points" value="">
+    Type: <input type="text" name="type" value="">
+    <input type="submit" name="go" value="Create">
+</form>
+<h2>List</h2>
+<table class="table">
+   <tr>
+        <th>Name</th>
+        <th>Points</th>
+        <th>Disabled?</th>
+        <th>type</th>
+        <th colspan="2">actions</th>
+    </tr>
+
+    {% for track in tracks %}
+    <tr>
+        <td>{{track.id}} - {{track.name}} ({{track.shortcode}})</td>
+        <td>{{track.points}}</td>
+        <td>
+        {% if track.is_disabled %}
+        <span class=" glyphicon glyphicon-remove red"></span>
+        {% else %}
+            <span class="glyphicon  glyphicon-ok green"></span>
+        {% endif  %}
+
+        </td>
+        <td>{{track.type}}</td>
+        <td><a href="{{baseurl}}disable/tracks/{{track.id}}">Disable</a></td>
+        <td><a href="{{baseurl}}delete/tracks/{{track.id}}">Remove</a></td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+
+{% include '_footer.twig' %}

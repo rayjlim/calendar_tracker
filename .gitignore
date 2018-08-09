@@ -1,0 +1,6 @@
+_research_screenshots/*
+/backend/core/_mdb-config.php
+/_config/_mdb-config.php
+/node_modules/
+*.code-workspace
+/vendor

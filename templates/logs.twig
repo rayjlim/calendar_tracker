@@ -1,0 +1,116 @@
+{% include '_header.twig' %}
+  <title>CalPlanner - Logs</title>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.min.css">
+  <style>
+    .dateBtnRow {display:inline}
+  </style>
+{% include '_banner.twig' %}
+
+<h1>Logs</h1>
+
+<h3>Create Log</h3>
+<div>
+<a class="btn btn-default" id="baseWeightBtn">141 weight</a>
+<a class="btn btn-primary" id="weightDecrementSmallBtn">-.2</a>
+<a class="btn btn-success"  id="weightDecrementLargeBtn">-1</a>
+<a class="btn btn-danger"  id="weightIncrementLargeBtn">+1</a>
+<a class="btn btn-default"  id="weightIncrementSmallBtn">+.2</a>
+</div>
+<div>
+
+<form method="post" action=""  class="form-inline">
+  <input type="hidden" name="points" value="" id="pointsEntry">
+  <div class="form-group">
+    <label for="goal">Goal:</label>
+    <input type="text" name="goal" value="" id="goalEntry">
+  </div>
+  <div class="form-group">
+    <label for="count">Count:</label>
+    <input type="text" name="count" value="" id="countEntry">
+  </div>
+  <div class="form-group">
+    <label for="date">Date:</label>
+   <div class="input-group date" data-date-format="yyyy-mm-dd">
+    <div class="input-group-addon" >
+      <span class="glyphicon glyphicon-th"></span>
+    </div>
+    <input  type="text" class="form-control" placeholder="yyyy-mm-dd" name="date" id="logdate">
+  </div>
+  </div>
+    <div class="form-group"  style="width: 100%">
+    <label for="comment">Comment:</label>
+   <input type="text" name="comment" value="" style="width: 100%">
+  </div>
+  <input type="submit" name="go" value="Create"  class="btn btn-warning">
+</form>
+</div>
+<div>
+</div>
+{% for track in tracks %}
+    <a class="btn btn-default trackBtn" data-track="{{track.name}}">{{track.name}} </a>
+{% endfor %}
+<br>
+
+<h2>List</h2>
+<button id="prevBtn" class="button dateBtnRow" >Prev</button>
+<div id="logDate" class="dateBtnRow"></div>
+<button id="nextBtn" class="button dateBtnRow">Next</button>
+<table class="table table-striped">
+   <tr>
+        <th>Goal</th>
+        <th>Date</th>
+        <th>Points</th>
+        <th>Count</th>
+        <th>Comment</th>
+
+    </tr>
+    <tbody id="logTableBody"></tbody>
+</table>
+
+<form method="post" action=""  class="form-inline">
+    <input type="hidden" name="id" value="" id="editId">
+
+<div class="form-group">
+    <label for="goal">Goal:</label>
+    <input type="text" name="goal" value="" id="editGoal">
+  </div>
+  <div class="form-group">
+    <label for="points">Date:</label>
+    <input type="text" name="date" value="" id="editDate">
+  </div>
+
+  <div class="form-group">
+    <label for="count">Count:</label>
+    <input type="text" name="count" value="" id="editCount">
+  </div>
+  <div class="form-group"  style="width: 100%">
+    <label for="comment">Comment:</label>
+   <input type="text" name="comment" value="" id="editComment" style="width: 100%">
+  </div>
+  <div class="form-group">
+    <input type="submit" name="go" value="Update"  class="btn btn-warning">
+  </div>
+</div>
+
+    <input type="hidden" name="points" value="" id="editPoints">
+</form>
+
+{% include '_footer.twig' %}
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+<script src="../../public/js/logsEntries.js"></script>
+<script>
+ $('.input-group.date').datepicker({format: "yyyy-mm-dd"});
+
+$( "#baseWeightBtn" ).click(()=> populateLog('weight', 1, 141.0));
+$( "#weightDecrementSmallBtn" ).click(()=>   incrementWeight(-.2));
+$( "#weightDecrementLargeBtn" ).click(()=>   incrementWeight(-1));
+$( "#weightIncrementLargeBtn" ).click(()=>   incrementWeight(1));
+$( "#weightIncrementSmallBtn" ).click(()=>   incrementWeight(.2));
+
+$( "#prevBtn" ).click(()=> changeLogDate(-1));
+$( "#nextBtn" ).click(()=> changeLogDate(1));
+
+$( ".trackBtn" ).click(e => populateLog($(e.currentTarget).data('track'), 1, 1));
+
+ </script>

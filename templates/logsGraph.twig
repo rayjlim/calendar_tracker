@@ -1,0 +1,82 @@
+{% include '_header.twig' %}
+<title>CalPlanner - Graph</title>
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.min.css">
+<style>
+.line {
+  fill: none;
+}
+
+.grid line {
+  stroke: lightgrey;
+  stroke-opacity: 0.7;
+  shape-rendering: crispEdges;
+}
+
+.grid path {
+  stroke-width: 0;
+}
+
+#logEntriesContainer{
+	display:none;
+}
+.logEntries td{
+	padding: 5px;
+	border: 1px solid black;
+
+}
+.overlay {
+  fill: none;
+  pointer-events: all;
+}
+.focus circle {
+  fill: #F1F3F3;
+  stroke: #6F257F;
+  stroke-width: 5px;
+}
+</style>
+{% include '_banner.twig' %}
+
+<h1>Graph</h1>
+<div id="milestones"></div>
+
+<div id="chartMetricTrend"></div>
+<div>
+<label>Goal</label>
+<input type="text" name="goal" id="goal" value="">
+<label>Start</label>
+<div class="input-group date" data-date-format="yyyy-mm-dd">  
+  <div class="input-group-addon" >
+    <span class="glyphicon glyphicon-th"></span>
+  </div>
+  <input  type="text" class="form-control" placeholder="yyyy-mm-dd" name="startdate" id="startdate">
+</div>
+
+<label>End</label>
+<div class="input-group date" data-date-format="yyyy-mm-dd">
+  
+  <div class="input-group-addon" >
+    <span class="glyphicon glyphicon-th"></span>
+  </div>
+  <input  type="text" class="form-control" placeholder="yyyy-mm-dd" name="enddate" id="enddate">
+</div>
+<button onclick="changeDate()" class="button">Change Date</button>
+</div>
+<div>
+<div id="chartWeekTrend" style="float:right"></div>
+<div id="dayOfWeek"style="float:right"></div>
+</div>
+<button onclick="showEntries()" class="button">Show Logs</button>
+<div id="logEntriesContainer"></div>
+
+{% include '_footer.twig' %}
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+<script src="//d3js.org/d3.v4.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+
+
+<script src="../../public/js/d3-grapher.js"></script>
+<script src="../../public/js/logsGraph.js"></script>
+<script>
+ $('.input-group.date').datepicker({format: "yyyy-mm-dd"}); 
+ </script>
