@@ -32,7 +32,7 @@ $planViewer = new PlanViewer($app, DAOFactory::getPlansDAO());
 $planHandler = new PlanHandler($app, DAOFactory::getPlansDAO());
 $trackHandler = new TrackHandler($app, DAOFactory::getTracksDAO());
 $logHandler = new LogHandler($app, DAOFactory::getLogsDAO());
-
+$cronHandler = new CronHandler($app, DAOFactory::getLogsDAO());
 
 $app->get('/plans/', $planViewer->listItems());
 $app->get('/plans/:id', $planViewer->itemDetails());
@@ -69,6 +69,7 @@ $app->get('/api/report/', $logHandler->report());
 $app->get('/api/reportYear/', $logHandler->reportYear());
 $app->get('/report/', $logHandler->reportView());
 
+$app->get('/cron', $cronHandler->logCronCall());
 
 $app->get('/api/testGoogleConnection/', function(){
 	$resource = DAOFactory::getResourceDAO();

@@ -31,6 +31,7 @@ class LogsRedbeanDAO
         $log->id = $id;
         return $log;
     }
+
     public function update($id, $goal, $points, $count, $comment, $date) {
         $log  = R::findOne(LOGS, ' id = ?',[$id]);
 
@@ -43,7 +44,6 @@ class LogsRedbeanDAO
         R::store( $log );
          return $log;
     }
-
 
     public function delete($id) {
         $xBean = R::load(LOGS, $id);
@@ -71,13 +71,25 @@ class LogsRedbeanDAO
     public function getYearTrend($params) {
         $logs = R::getAll('
         SELECT year(date) as year, avg(count) as average 
-        FROM `cpc_logs` WHERE goal = ? 
+        FROM `cpc_logs` 
+        WHERE goal = ? 
         AND year(date) between ? AND ? 
         GROUP by YEAR(date) 
         ORDER by YEAR(date) ', [$params->goal, $params->start, $params->end]);
 
         return $logs;
     }
+
+    function getSameDayEntries($date) {
+        $sql = ' 
+        SELECT * 
+        FROM `cpc_logs`
+        WHERE goal = ?  
+        AND  MONTH(date) = ' . $date->format('m') . ' 
+        AND Day(date) = ' . $date->format('d') 
+        . ' ORDER by YEAR(date) ';
+        echo $sql;
+        $logs = R::getAll($sql, ["weight"]);
+            return $logs;        
+    }
 }
-
-
