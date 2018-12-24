@@ -4,3 +4,5 @@ _research_screenshots/*
 /node_modules/
 *.code-workspace
 /vendor
+_config/prod/_mdb-config.php
+_config/prod/_mdb-config.php

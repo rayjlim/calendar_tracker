@@ -80,15 +80,14 @@ class LogsRedbeanDAO
         return $logs;
     }
 
-    function getSameDayEntries($date) {
+    function getSameDayEntries($month, $day) {
         $sql = ' 
         SELECT * 
         FROM `cpc_logs`
         WHERE goal = ?  
-        AND  MONTH(date) = ' . $date->format('m') . ' 
-        AND Day(date) = ' . $date->format('d') 
-        . ' ORDER by YEAR(date) ';
-        echo $sql;
+        AND  MONTH(date) = ' . $month . ' 
+        AND Day(date) = ' . $day . '
+        ORDER by YEAR(date) desc';
         $logs = R::getAll($sql, ["weight"]);
             return $logs;        
     }

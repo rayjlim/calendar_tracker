@@ -12,32 +12,36 @@ class CronHandler extends AbstractController
 
   public function logCronCall() {
     return function () {
+      $app = $this->app;
+      $request = $app->request();
       $resource = DAOFactory::getResourceDAO();
-    $targetDay = $resource->getDateTime();
-    
-    $entries = $this->dao->getSameDayEntries($targetDay);
+    $today = $resource->getDateTime();
+      $month = $request->params('month') !== null ? $request->params('month') : $today->format('n');
+      $day = $request->params('day') !== null ? $request->params('day') : $today->format('d');
+
+    $entries = $this->dao->getSameDayEntries($month, $day);
 
     $printedNonWeight = array_reduce($entries, "printEntrys");
-      echo(sizeof($entries));
-    $message = "<HTML><BODY><ul>" . $printedNonWeight . "</ul></BODY></HTML>";
+    $message = "<HTML><BODY><h1>Weight Trend</h1><ul>" . $printedNonWeight . "</ul></BODY></HTML>";
 
-    $subject = "On this day ". $targetDay->format('M d'); 
-    $to = 'rayjlim1@gmail.com';
+    $subject = "On this day ". $today->format('M d'); 
+    $to = REPORT_TO;
     
-      $headers = "From: smsblog@lilplaytime.com\r\n";
-      $headers .= "Reply-To: rayjlim1@gmail.com". "\r\n";
+      $headers = "From: cal_tracker@lilplaytime.com\r\n";
+      $headers .= "Reply-To: ". REPORT_TO . "\r\n";
       $headers .= "X-Mailer: PHP/" . phpversion();
       $headers .= "MIME-Version: 1.0\r\n";
       $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+      echo $message;
 
-    //mail($to, $subject, $message, $headers);
-    echo $message;
+    mail($to, $subject, $message, $headers);
+    echo "mail sent";
     };
   }
 
 }
 function printEntrys($carry, $item){
   $entryDay = new DateTime($item['date']);
-  $message =  "<li>". $entryDay->format('Y-D') . ': ' . $item['content'] . "</li>";
+  $message =  "<li>". $entryDay->format('Y-D') . ': ' . $item['count']. ': ' . $item['comment'] . "</li>";
   return $carry.=$message;
 }
