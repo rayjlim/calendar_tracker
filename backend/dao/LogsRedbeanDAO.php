@@ -91,4 +91,24 @@ class LogsRedbeanDAO
         $logs = R::getAll($sql, ["weight"]);
             return $logs;        
     }
+
+    // function getWeightAYearAgo($userId, $date) {
+    //     $targetYear =  ($date->format('Y') - 1);
+    //     $whereClause = ' where user_id = ? and date = \'' . $targetYear. $date->format('-m-d') 
+    //         . '\' and content  like "%#weight%"';
+    //     $posts = R::findAll(POSTS, $whereClause . ' ', [$userId]);
+    //     $sequencedArray = array_values(array_map("getExportValues", $posts));
+    //     return (count($sequencedArray)) ? substr($sequencedArray[0]['content'],0,5) : 'none';
+    // }
+    
+    // function getWeightAYearAgoAverage($userId, $date) {
+    //     $targetYear =  ($date->format('Y') - 1);
+    //     $whereClause = ' where user_id = ? and date <= \'' . $targetYear. $date->format('-m-d') 
+    //         . '\' and content  like "%#weight%"'
+    //         . ' order by date desc limit 10';
+    //     $posts = R::findAll(POSTS, $whereClause . ' ', [$userId]);
+    //     $sequencedArray = array_values(array_map("getExportValues", $posts));
+
+    //     return $sequencedArray;
+    // }
 }

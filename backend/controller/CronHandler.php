@@ -22,7 +22,7 @@ class CronHandler extends AbstractController
     $entries = $this->dao->getSameDayEntries($month, $day);
 
     $printedNonWeight = array_reduce($entries, "printEntrys");
-    $message = "<HTML><BODY><h1>Weight Trend</h1><ul>" . $printedNonWeight . "</ul></BODY></HTML>";
+    $message = "<HTML><BODY><h1>Weight Trends</h1><ul>" . $printedNonWeight . "</ul></BODY></HTML>";
 
     $subject = "On this day ". $today->format('M d'); 
     $to = REPORT_TO;
