@@ -1,9 +1,7 @@
 <?php
 use \Lpt\DevHelp;
 
-define("MAX_YEAR", "2019");
 define("MIN_YEAR", "2010");
-
 
 class LogHandler extends AbstractController
 {
@@ -26,6 +24,7 @@ class LogHandler extends AbstractController
             $app->render('logs.twig', $viewModel);
         };
     }
+
     public function save() {
         return function () {
             $app = $this->app;
@@ -50,6 +49,7 @@ class LogHandler extends AbstractController
             $func();
         };
     }
+
     public function remove() {
         return function ($id) {
             $app = $this->app;
@@ -60,6 +60,7 @@ class LogHandler extends AbstractController
 
         };
     }
+
     public function trigger() {
          return function ($id) {
             $app = $this->app;
@@ -70,6 +71,7 @@ class LogHandler extends AbstractController
 
         };
     }
+
     public function graphView() {
         return function () {
             $app = $this->app;
@@ -78,6 +80,7 @@ class LogHandler extends AbstractController
             $app->render('logsGraph.twig', $viewModel);
         };
     }
+
     public function graphItems() {
         return function () {
             $app = $this->app;
