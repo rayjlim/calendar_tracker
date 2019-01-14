@@ -18,7 +18,8 @@ function renderLogData(data) {
         <td>${log.points}</td>
         <td>${log.count}</td>
         <td>${log.comment}
-        <a href="#" onclick="populateEdit(${log.id}, '${log.goal}', '${log.date}', '${log.points}', '${log.count}', '${log.comment}');">edit</a>
+        <a href="#" onclick="populateEdit(${log.id}, '${log.goal}', '${log.date}', '${log.points}', '${log.count}', '${log.comment.replace(/'/g, '\\\'')
+          }');">edit</a>
         </td>
     </tr>
     `;
