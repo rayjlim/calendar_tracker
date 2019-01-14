@@ -1,6 +1,10 @@
 <?php
 use \Lpt\DevHelp;
 
+define("MAX_YEAR", "2019");
+define("MIN_YEAR", "2010");
+
+
 class LogHandler extends AbstractController
 {
     var $dao = null;
@@ -42,9 +46,8 @@ class LogHandler extends AbstractController
             }else{
                 $this->dao->insert($goal, $points, $count, $comment, $date);
             }
-
-            return $this->app->response->redirect('./'); 
-
+            $func = $this->listem(); 
+            $func();
         };
     }
     public function remove() {
@@ -121,11 +124,11 @@ class LogHandler extends AbstractController
             $startParam = $request->params('start');
             $params->start = isset($startParam) 
                 ? date("Y", strtotime($startParam))
-                : '2010';
+                : MIN_YEAR;
             $endParam = $request->params('end');
             $params->end = isset($endParam) 
                 ? date("Y", strtotime($endParam))
-                : '2018';
+                : date_create()->format('Y-m-d');
 
              $logs = $this->dao->getMonthTrend($params);
 
@@ -146,13 +149,13 @@ class LogHandler extends AbstractController
             $startParam = $request->params('start');
             $params->start = isset($startParam) 
                 ? date("Y", strtotime($startParam))
-                : '2010';
+                : MIN_YEAR;
             $endParam = $request->params('end');
             $params->end = isset($endParam) 
                 ? date("Y", strtotime($endParam))
-                : '2018';
+                : date_create()->format('Y-m-d');
 
-             $logs = $this->dao->getYearTrend($params);
+            $logs = $this->dao->getYearTrend($params);
 
             $viewModel = array('params' => $params, 'logs' => $logs);
             echo json_encode($viewModel);
