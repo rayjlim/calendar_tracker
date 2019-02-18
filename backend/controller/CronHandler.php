@@ -15,17 +15,28 @@ class CronHandler extends AbstractController
       $app = $this->app;
       $request = $app->request();
       $resource = DAOFactory::getResourceDAO();
-    $today = $resource->getDateTime();
+      $today = $resource->getDateTime();
       $month = $request->params('month') !== null ? $request->params('month') : $today->format('n');
       $day = $request->params('day') !== null ? $request->params('day') : $today->format('d');
 
-    $entries = $this->dao->getSameDayEntries($month, $day);
+      $entries = $this->dao->getSameDayEntries($month, $day);
+      $params = new stdClass();
+      $params->goal = 'weight';
+      $params->start = date_create()->format('Y');
+      $params->end = date_create()->format('Y-m-d');
 
-    $printedNonWeight = array_reduce($entries, "printEntrys");
-    $message = "<HTML><BODY><h1>Weight Trends</h1><ul>" . $printedNonWeight . "</ul></BODY></HTML>";
+      $logs = $this->dao->getYearTrend($params);    
+      $yearAvg = $logs[0];
+      $printedNonWeight = array_reduce($entries, "printEntrys");
 
-    $subject = "On this day ". $today->format('M d'); 
-    $to = REPORT_TO;
+      $message = "<HTML><BODY><h1>Weight Trends</h1>".
+        "<h2>Year " . $yearAvg['year'] ." to date, Average: ".$yearAvg['average'] . "</h2>" .
+        "<ul>" . 
+        $printedNonWeight . 
+        "</ul></BODY></HTML>";
+
+      $subject = "On this day ". $today->format('M d'); 
+      $to = REPORT_TO;
     
       $headers = "From: cal_tracker@lilplaytime.com\r\n";
       $headers .= "Reply-To: ". REPORT_TO . "\r\n";
