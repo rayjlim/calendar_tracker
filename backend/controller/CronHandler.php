@@ -29,8 +29,11 @@ class CronHandler extends AbstractController
       $yearAvg = $logs[0];
       $printedNonWeight = array_reduce($entries, "printEntrys");
 
-      $message = "<HTML><BODY><h1>Weight Trends</h1>".
-        "<h2>Year " . $yearAvg['year'] ." to date, Average: ".$yearAvg['average'] . "</h2>" .
+      $message = "<HTML><BODY>" . 
+        "<h1>Weight Trends</h1>".
+        "<a href=\"http://www.lilplaytime.com/cal_plan_creator/index.php/logs/\">Log Entry</a>".
+        "<h2>Year " . $yearAvg['year'] ." to date, Average: " . 
+        number_format($yearAvg['average'],2) . "</h2>" .
         "<ul>" . 
         $printedNonWeight . 
         "</ul></BODY></HTML>";
