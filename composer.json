@@ -12,6 +12,6 @@
     },
     "autoload": {
         "classmap": ["backend/controller", "backend/dao", "backend/external"],
-        "files": ["backend/core/DevHelp.php", "backend/core/_app-constants.php", "backend/core/_mdb-config.php", "backend/core/Logger.php"]
+        "files": ["backend/core/DevHelp.php", "backend/core/_app-constants.php", "backend/SERVER_CONFIG.php", "backend/core/Logger.php"]
     }
 }

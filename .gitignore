@@ -6,3 +6,4 @@ _config/_mdb-config.php
 /node_modules/
 *.code-workspace
 /vendor
+backend/SERVER_CONFIG.php

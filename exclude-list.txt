@@ -7,4 +7,4 @@ vendor/
 *.code-workspace
 composer.lock
 .gitignore
-_mdb-config.php
+SERVER_CONFIG.php
