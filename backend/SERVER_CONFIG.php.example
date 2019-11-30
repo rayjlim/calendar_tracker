@@ -1,0 +1,19 @@
+<?php
+/** * MySQL setting - prod
+ */
+define("DB_HOST", "----");
+define("DB_USER", "----");
+define("DB_PASSWORD", "----");
+define("DB_NAME", "----");
+
+define('GOOGLE_CLIENT_ID','----');
+define('GOOGLE_CLIENT_SECRET', '----');
+define ("GCAL_ID", "----");
+
+define ("REPORT_TO", "my-email@gmail.com");
+define ("SESSION_GOOGLE_TOKEN", "----");
+
+define ("rooturl", "/");
+define ("baseurl", rooturl . "cal_plan_creator/index.php/");
+
+define ("REPORT_TO", "my-email@gmail.com");
