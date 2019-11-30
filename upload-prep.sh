@@ -15,9 +15,9 @@ cd $PREP_DIR
 echo "start upload"
 
 # # setup passwordless ssh
-ssh-keygen -f "/home/ray/.ssh/known_hosts" -R $HOST
-ssh-copy-id -f -i ~/.ssh/id_rsa -oHostKeyAlgorithms=+ssh-dss $USER@$HOST
+# ssh-keygen -f "/home/ray/.ssh/known_hosts" -R $HOST
+# ssh-copy-id -f -i ~/.ssh/id_rsa -oHostKeyAlgorithms=+ssh-dss $USER@$HOST
 
-rsync -r -a -v -e  'ssh -oHostKeyAlgorithms=+ssh-dss' --delete $SOURCEFOLDER $USER@$HOST:$TARGETFOLDER 
+rsync -r -a -v -e  'ssh -oHostKeyAlgorithms=+ssh-dss' --delete . $USER@$HOST:$TARGETFOLDER 
 
 popd
