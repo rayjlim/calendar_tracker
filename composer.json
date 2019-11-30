@@ -11,7 +11,7 @@
         "codeception/codeception": "*"
     },
     "autoload": {
-        "classmap": ["backend/controller", "backend/dao", "backend/external"],
-        "files": ["backend/core/DevHelp.php", "backend/core/_app-constants.php", "backend/SERVER_CONFIG.php", "backend/core/Logger.php"]
+        "classmap": [ "backend/core", "backend/controller", "backend/dao", "backend/external"],
+        "files": ["backend/SERVER_CONFIG.php"]
     }
 }
