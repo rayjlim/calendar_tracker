@@ -26,7 +26,7 @@ $view->appendData(array(
 	'baseurl'=> baseurl
 	));
 
-$app->get('/', function() use ($app) { $app->redirect('index.php/plans/'); });
+$app->get('/', function() use ($app) { $app->redirect('plans/'); });
 
 $planViewer = new PlanViewer($app, DAOFactory::getPlansDAO());
 $planHandler = new PlanHandler($app, DAOFactory::getPlansDAO());
