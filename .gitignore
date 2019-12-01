@@ -1,7 +1,6 @@
-_research_screenshots/*
-_config/prod/*
-
 /node_modules/
 /vendor
 backend/SERVER_CONFIG.php
 _config/SERVER_CONFIG.php
+env_vars.sh
+_config/SERVER_CONFIG.php.prod
