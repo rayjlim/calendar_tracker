@@ -1,5 +1,6 @@
 #!/bin/bash
-. ./upload.sh
+
+. ./env_vars.sh
 PREP_DIR='../cal_track_prod'
 mkdir $PREP_DIR
 
