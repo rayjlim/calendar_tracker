@@ -23,7 +23,8 @@ $view = $app->view();
 
 $view->appendData(array(
 	'rooturl'=> rooturl,
-	'baseurl'=> baseurl
+	'baseurl'=> baseurl,
+	'rootHttp'=> rootHttp
 	));
 
 $app->get('/', function() use ($app) { $app->redirect('plans/'); });

@@ -8,3 +8,4 @@ vendor/
 composer.lock
 .gitignore
 SERVER_CONFIG.php
+env_vars.sh.example
