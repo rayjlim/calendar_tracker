@@ -37,29 +37,36 @@
 </style>
 {% include '_banner.twig' %}
 
-<h1>Graph</h1>
+<h2>Graph</h2>
 <div id="milestones"></div>
 
 <div id="chartMetricTrend"></div>
 <div>
 <label>Goal</label>
 <input type="text" name="goal" id="goal" value="">
-<label>Start</label>
-<div class="input-group date" data-date-format="yyyy-mm-dd">  
-  <div class="input-group-addon" >
-    <span class="glyphicon glyphicon-th"></span>
-  </div>
-  <input  type="text" class="form-control" placeholder="yyyy-mm-dd" name="startdate" id="startdate">
-</div>
 
-<label>End</label>
-<div class="input-group date" data-date-format="yyyy-mm-dd">
-  
-  <div class="input-group-addon" >
+  <div class="form-row">
+      <div class="input-group input-group-sm mb-3 col date" data-date-format="yyyy-mm-dd">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="inputGroup-sizing-sm">Start</span>
+      </div>
+      <input type="text" class="form-control" placeholder="yyyy-mm-dd" name="startdate" id="startdate" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+    <div class="input-group-addon" >
     <span class="glyphicon glyphicon-th"></span>
   </div>
-  <input  type="text" class="form-control" placeholder="yyyy-mm-dd" name="enddate" id="enddate">
-</div>
+    </div>
+  </div>
+  <div class="form-row" data-date-format="yyyy-mm-dd">
+      <div class="input-group input-group-sm mb-3 col date" data-date-format="yyyy-mm-dd">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="inputGroup-sizing-sm">End</span>
+      </div>
+      <input type="text" class="form-control" placeholder="yyyy-mm-dd" name="enddate" id="enddate" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+    <div class="input-group-addon" >
+    <span class="glyphicon glyphicon-th"></span>
+  </div>
+    </div>
+  </div>
 <button onclick="changeDate()" class="button">Change Date</button>
 </div>
 <div>

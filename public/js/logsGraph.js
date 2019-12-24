@@ -101,10 +101,15 @@ function renderGraphData(data) {
   });
 
   $("#milestones").html(`
-    current: ${currentWeekAvg}, past week: ${pastcurrentWeekAvg},
-    rest of month: ${restOfMonthAvg}<br>
-    Overall: ${overallAvg}, Highest: ${highest.count} on ${highest.date},
-    Lowest: ${lowest.count} on ${lowest.date}`);
+    <ul>
+    <li>current: ${currentWeekAvg}</li> 
+    <li>past week: ${pastcurrentWeekAvg}</li>
+    <li>rest of month: ${restOfMonthAvg}</li>
+    <li>Overall: ${overallAvg}</li>
+    <li>Highest: ${highest.count} on ${highest.date}</li>
+    <li>Lowest: ${lowest.count} on ${lowest.date}</li>
+    
+    </ul>`);
   $("#dayOfWeek").html(`
     Sun: ${average(dayOfWeekValues["Sun"])}<br>
     Mon: ${average(dayOfWeekValues["Mon"])}<br>
