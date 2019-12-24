@@ -1,6 +1,13 @@
 #!/bin/bash
 
 . ./env_vars.sh
+if ![ -n "$FTP_HOST" ]; then
+    echo "Missing env_vars"
+    exit 2
+fi
+
+echo "FTP HOST " $FTP_HOST
+
 PREP_DIR='../cal_track_prod'
 mkdir $PREP_DIR
 
@@ -15,7 +22,7 @@ echo "Usage: " $0 " [option reset key]"
 
 echo "start upload"
 
-# # setup passwordless ssh
+# setup passwordless ssh
 if [ $# -eq 1 ]; then
     echo "Resetting SSH key"
     ssh-keygen -f "/home/ray/.ssh/known_hosts" -R $FTP_HOST
