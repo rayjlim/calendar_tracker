@@ -3,13 +3,15 @@ use \Lpt\DevHelp;
 
 class TrackHandler extends AbstractController
 {
-    var $dao = null;
-    function __construct($app, $_dao) {
+    public $dao = null;
+    public function __construct($app, $_dao)
+    {
         $this->dao = $_dao;
         parent::__construct($app);
     }
 
-    public function listem() {
+    public function listem()
+    {
         return function () {
             $app = $this->app;
             DevHelp::debugMsg('start listTracks ' . __FILE__);
@@ -18,7 +20,8 @@ class TrackHandler extends AbstractController
             $app->render('tracks.twig', array('tracks' => $tracks));
         };
     }
-    public function save() {
+    public function save()
+    {
         return function () {
             $app = $this->app;
             $request = $app->request();
@@ -29,27 +32,27 @@ class TrackHandler extends AbstractController
             $type = $request->params('type');
             $this->dao->insert($name, $shortcode, $points, $type);
 
-            return $this->app->response->redirect('./'); 
+            return $this->app->response->redirect('./');
         };
     }
-    public function remove() {
+    public function remove()
+    {
         return function ($id) {
             $app = $this->app;
             $request = $app->request();
             DevHelp::debugMsg('start removeTrack ' . __FILE__);
             $this->dao->delete($id);
-            return $this->app->response->redirect('../../tracks/'); 
-
+            return $this->app->response->redirect('../../tracks/');
         };
     }
-    public function disable() {
-         return function ($id) {
+    public function disable()
+    {
+        return function ($id) {
             $app = $this->app;
             $request = $app->request();
             DevHelp::debugMsg('start removeTrack ' . __FILE__);
             $this->dao->toggleDisable($id);
-            return $this->app->response->redirect('../../tracks/'); 
-
+            return $this->app->response->redirect('../../tracks/');
         };
     }
 }

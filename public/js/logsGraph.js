@@ -6,7 +6,7 @@ let margins = {
 };
 
 function average(group) {
-  if(!group){return null;}
+  if (!group) { return null; }
   let sum = group.reduce((a, b) => a + b, 0);
   return (sum / group.length).toFixed(3);
 }
@@ -137,8 +137,8 @@ function renderGraphData(data) {
   console.log(finalArray);
 
   params.highlight = [
-    {"label": "highest", "date": highest.date},
-    {"label": "lowest", "date": lowest.date}
+    { "label": "highest", "date": highest.date },
+    { "label": "lowest", "date": lowest.date }
   ];
   params.XAXIS_LABEL = "%b-%d";
   TrendGrapher.drawFromData(params, finalArray).then(() => {
@@ -168,7 +168,7 @@ function renderGraphData(data) {
 
   params2.height = 200;
   console.log(dayOfWeekValues);
-let transformedDayOfWeekAverages = [];
+  let transformedDayOfWeekAverages = [];
 
   transformedDayOfWeekAverages.push({
     "date": "2018-07-01",

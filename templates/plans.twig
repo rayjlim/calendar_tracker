@@ -38,11 +38,9 @@
 </p>
 </form>
 
-
 <h2>Plans in Calendar</h2>
 <table class="table">
    <tr>
-    
         <th>Description</th>
         <th>Duration (weeks)</th>
         <th colspan=2>Action</th>
@@ -50,7 +48,6 @@
 
     {% for plan in plansInCalendar %}
     <tr>
-        
         <td>{{plan.id}} - {{plan.description}}</td>
         <td>{{plan.weeks_duration}}</td>
         <td><a href="{{baseurl}}api/delete/dates/{{plan.id}}">Remove from Calendar</a></td>

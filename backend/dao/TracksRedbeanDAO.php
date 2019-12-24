@@ -8,46 +8,50 @@ class TracksRedbeanDAO
      *
      * @param $orderColumn column name
      */
-    public function queryAllOrderBy($orderColumn) {
+    public function queryAllOrderBy($orderColumn)
+    {
         $tracks = R::findAll(TRACKS, ' order by ?', [$orderColumn]);
         $sequencedArray = array_values(array_map("getExportValues", $tracks));
         return $sequencedArray;
     }
-    public function getActive() {
+    public function getActive()
+    {
         $tracks = R::findAll(TRACKS, ' is_archived = 0');
         // $sequencedArray = array_values(array_map("getExportValues", $tracks));
         return $tracks;
     }
 
 
-    public function load($id) {
+    public function load($id)
+    {
         $track = R::load(TRACKS, $id);
         return $track->export();
     }
 
-    public function insert($name, $shortcode, $points, $type) {
-    	$track = R::xdispense( TRACKS );
+    public function insert($name, $shortcode, $points, $type)
+    {
+        $track = R::xdispense(TRACKS);
         $track->name = $name;
         $track->shortcode = $shortcode;
         $track->points = $points;
         $track->type = $type;
-        $id = R::store( $track );
+        $id = R::store($track);
         $track->id = $id;
         return $track;
     }
 
-    function delete($id) {
+    public function delete($id)
+    {
         $xBean = R::load(TRACKS, $id);
         R::trash($xBean);
         return;
     }
 
-    public function toggleDisable($id) {
+    public function toggleDisable($id)
+    {
         $track = R::load(TRACKS, $id);
         $track->is_archived = !$track->is_archived;
-        R::store( $track );
+        R::store($track);
         return;
     }
 }
-
-

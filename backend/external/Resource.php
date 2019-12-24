@@ -10,7 +10,7 @@
     * @author   Raymond Lim <rayjlim1@gmail.com>
     * @license  lilplaytime http://www.lilplaytime.com
     * @link     www.lilplaytime.com
-    * 
+    *
     */
 /**
     * Resource
@@ -24,7 +24,7 @@
     * @license  lilplaytime http://www.lilplaytime.com
     * @link     www.lilplaytime.com
     * @codeCoverageIgnore
-    */ 
+    */
 class Resource implements IResourceDAO
 {
 
@@ -33,11 +33,11 @@ class Resource implements IResourceDAO
      *
      * @param string $url site url
      *
-     * @return site content 
+     * @return site content
      */
     public function setSession($key, $value)
     {
-        if(session_id() == '') {
+        if (session_id() == '') {
             session_start();// session isn't started
         }
         $_SESSION[$key] = $value;
@@ -52,7 +52,7 @@ class Resource implements IResourceDAO
      */
     public function getSession($key)
     {
-        if(session_id() == '') {
+        if (session_id() == '') {
             session_start();// session isn't started
         }
         return $_SESSION[$key];
@@ -60,15 +60,14 @@ class Resource implements IResourceDAO
 
     public function issetSession($key)
     {
-        if(session_id() == '') {
+        if (session_id() == '') {
             session_start();// session isn't started
         }
         return isset($_SESSION[$key]);
     }
     public function setCookie($key, $value, $expiration)
     {
-        setcookie($key, $value, $expiration);  
-
+        setcookie($key, $value, $expiration);
     }
     public function destroySession()
     {
@@ -78,7 +77,6 @@ class Resource implements IResourceDAO
 
     public function writeFile($filename, $content)
     {
-        
         $filehandler = fopen($filename, 'a') or die("can't open file");
         fwrite($filehandler, $content);
         fclose($filehandler);
@@ -166,7 +164,5 @@ class Resource implements IResourceDAO
 
 '+w'=>'work on',
 );
-
     }
-
 }

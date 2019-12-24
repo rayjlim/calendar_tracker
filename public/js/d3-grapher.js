@@ -7,7 +7,7 @@ var TrendGrapher = (() => {
       return new Promise(resolve => {
         console.log("TrendGrapher:draw");
 
-        let bisectDate = d3.bisector(function(d) {
+        let bisectDate = d3.bisector(function (d) {
           return d.date;
         }).left;
 
@@ -25,7 +25,7 @@ var TrendGrapher = (() => {
         const XAXIS_LABEL = params.XAXIS_LABEL || "%b-%d %H:%M";
         const XAXIS_TICKS = params.XAXIS_TICKS || null;
         const highlight = params.highlight || [];
-        console.log('params.YAXIS_UPPER_PAD:' +         params.YAXIS_UPPER_PAD);
+        console.log('params.YAXIS_UPPER_PAD:' + params.YAXIS_UPPER_PAD);
         const YAXIS_UPPER_PAD = params.YAXIS_UPPER_PAD || 1;
         console.log('YAXIS_UPPER_PAD:' + YAXIS_UPPER_PAD);
         const YAXIS_LOWER_PAD = params.YAXIS_LOWER_PAD || 1;
@@ -53,27 +53,27 @@ var TrendGrapher = (() => {
           };
         });
 
-        console.log("YAXIS_UPPER_PAD"+YAXIS_UPPER_PAD);
+        console.log("YAXIS_UPPER_PAD" + YAXIS_UPPER_PAD);
 
         let yUpper = Math.ceil(
           parseFloat(d3.max(timelineData, d => d.value)) + YAXIS_UPPER_PAD
         );
 
         //  console.log(yUpper);
-        let yLower = Math.floor(d3.min(timelineData, d => d.value) ) - YAXIS_LOWER_PAD;
+        let yLower = Math.floor(d3.min(timelineData, d => d.value)) - YAXIS_LOWER_PAD;
         // yUpper = yLower > yUpper ? yLower + 10 : yUpper;
-         console.log(yLower);
+        console.log(yLower);
         var x = d3.scaleTime().range([0, width]).domain(d3.extent(timelineData, d => d.date));
         var y = d3.scaleLinear().range([height, 0]).domain([yLower, yUpper]);
 
-        highlight.map(d=>{
+        highlight.map(d => {
           svg.append("line")
-          .attr("x1", x(parseTime(d.date)))
-          .attr("y1", y(yLower))
-          .attr("x2", x(parseTime(d.date)))
-          .attr("y2", y(yUpper))
-          .style("stroke", "red")
-          .attr("class", "line")
+            .attr("x1", x(parseTime(d.date)))
+            .attr("y1", y(yLower))
+            .attr("x2", x(parseTime(d.date)))
+            .attr("y2", y(yUpper))
+            .style("stroke", "red")
+            .attr("class", "line")
             .attr("stroke-width", "1px");
 
         });
@@ -178,10 +178,10 @@ var TrendGrapher = (() => {
           .attr("width", width)
           .attr("height", height)
           .style("color", "white")
-          .on("mouseover", function() {
+          .on("mouseover", function () {
             focus.style("display", null);
           })
-          .on("mouseout", function() {
+          .on("mouseout", function () {
             focus.style("display", "none");
           })
           .on("mousemove", mousemove);
@@ -189,10 +189,10 @@ var TrendGrapher = (() => {
         function mousemove() {
           var x0 = x.invert(d3.mouse(this)[0]);
           var y0 = y.invert(d3.mouse(this)[1]);
-            // i = bisectDate(data, x0, 1),
-            // d0 = data[i - 1],
-            // d1 = data[i],
-            // d = x0 - d0.date > d1.date - x0 ? d1 : d0;
+          // i = bisectDate(data, x0, 1),
+          // d0 = data[i - 1],
+          // d1 = data[i],
+          // d = x0 - d0.date > d1.date - x0 ? d1 : d0;
 
           //console.log(x0+":"+y0);
 
@@ -204,14 +204,14 @@ var TrendGrapher = (() => {
           //    "translate(100,200)"
           //   );
           let dateVal = moment(x0).format("YYYY-MM-DD");
-          let yVal = data.filter(x=> x.date == dateVal && x.goal != 'trend')[0]||{"count":"", "comment":""};
+          let yVal = data.filter(x => x.date == dateVal && x.goal != 'trend')[0] || { "count": "", "comment": "" };
           let hoverText = yVal.count !== "" ?
-          moment(x0).format("YYYY-MM-DD") + "," + yVal.count + ', '+yVal.comment :
-          "";
+            moment(x0).format("YYYY-MM-DD") + "," + yVal.count + ', ' + yVal.comment :
+            "";
           focus.select("text")
-                      .attr("x", d3.mouse(this)[0])
+            .attr("x", d3.mouse(this)[0])
             .attr("y", d3.mouse(this)[1])
-            .text(function() { return hoverText ; });
+            .text(function () { return hoverText; });
         }
         resolve();
       });

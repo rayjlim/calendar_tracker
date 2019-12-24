@@ -19,7 +19,7 @@ function renderLogData(data) {
         <td>${log.count}</td>
         <td>${log.comment}
         <a href="#" onclick="populateEdit(${log.id}, '${log.goal}', '${log.date}', '${log.points}', '${log.count}', '${log.comment.replace(/'/g, '\\\'')
-          }');">edit</a>
+      }');">edit</a>
         </td>
     </tr>
     `;
@@ -38,7 +38,7 @@ function changeLogDate(direction) {
   $.getJSON(`../api/logs/?goal=%&start=${start}&end=${start}`, renderLogData);
 }
 
-function populateEdit(id, goal, date, points, count, comment){
+function populateEdit(id, goal, date, points, count, comment) {
   console.log(id, goal, date, points, count, comment);
   $("#editId").val(id);
   $("#editGoal").val(goal);
