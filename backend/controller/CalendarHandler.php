@@ -3,14 +3,16 @@ use \Lpt\DevHelp;
 
 class CalendarHandler extends AbstractController
 {
-    var $plandatesDao = null;
-    function __construct($app, $_planDao) {
+    public $plandatesDao = null;
+    public function __construct($app, $_planDao)
+    {
         $this->dao = $_planDao;
         parent::__construct($app);
     }
 
     // TODO: move this function to calendarhandler
-    public function sendToCalendar() {
+    public function sendToCalendar()
+    {
         return function () {
             DevHelp::debugMsg('start sendToCalendar ' . __FILE__);
 
@@ -27,7 +29,7 @@ class CalendarHandler extends AbstractController
             $plandates = $planDatesDao->queryByPlan($templateId);
             // var_dump($plandates);
             $planDisplay = $this->createPlanDisplayRows($plan['weeks_duration'], $plandates, $targetEndDate);
-                      echo '<hr/>';
+            echo '<hr/>';
             var_dump($planDisplay);
             echo '<hr/>';
             
@@ -35,7 +37,7 @@ class CalendarHandler extends AbstractController
                 var_dump($value);
                 if ($value['content'] != '') {
                     echo ' ==send it:' . $value['content'] . ":" . $value['date'];
-                     $resource->sendToGcal($gClient, $value['content'], '', $value['date']);
+                    $resource->sendToGcal($gClient, $value['content'], '', $value['date']);
                 }
             }
 
@@ -43,7 +45,8 @@ class CalendarHandler extends AbstractController
         };
     }
 
-    function createPlanDisplayRows($numberOfWeeks, $plandates, $targetEndDate) {
+    public function createPlanDisplayRows($numberOfWeeks, $plandates, $targetEndDate)
+    {
         $planDisplay = array();
         $endDateTimestamp = strtotime($targetEndDate);
         $daysInPlan = $numberOfWeeks * 7;
@@ -68,7 +71,8 @@ class CalendarHandler extends AbstractController
         return array_reverse($planDisplay);
     }
 
-    function foundInPlan($i, $plandates) {
+    public function foundInPlan($i, $plandates)
+    {
         for ($j = 0; $j < count($plandates); $j++) {
             if ($plandates[$j]['days_from_target'] == $i) {
                 return $plandates[$j];

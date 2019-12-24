@@ -6,7 +6,6 @@ require 'vendor/autoload.php';
 $app = new \Slim\Slim();
 
 // TEMPLATING
-
 // Prepare view
 $app->view(new \Slim\Views\Twig());
 $app->view->parserOptions = array(
@@ -22,12 +21,14 @@ $view = $app->view();
 // END TEMPLATING
 
 $view->appendData(array(
-	'rooturl'=> rooturl,
-	'baseurl'=> baseurl,
-	'rootHttp'=> rootHttp
-	));
+    'rooturl'=> rooturl,
+    'baseurl'=> baseurl,
+    'rootHttp'=> rootHttp
+    ));
 
-$app->get('/', function() use ($app) { $app->redirect('plans/'); });
+$app->get('/', function () use ($app) {
+    $app->redirect('plans/');
+});
 
 $planViewer = new PlanViewer($app, DAOFactory::getPlansDAO());
 $planHandler = new PlanHandler($app, DAOFactory::getPlansDAO());
@@ -37,11 +38,11 @@ $cronHandler = new CronHandler($app, DAOFactory::getLogsDAO());
 
 $app->get('/plans/', $planViewer->listItems());
 $app->get('/plans/:id', $planViewer->itemDetails());
-$app->post('/plans/', $planHandler->addEntry()); 	
+$app->post('/plans/', $planHandler->addEntry());
 $app->post('/plans/saveTemplateDates', $planHandler->saveTemplateDates());
 $app->post('/plans/publish', $planHandler->publish());
 
-$app->get('/viewDates/', $planViewer->viewDates());  // calendar view
+$app->get('/viewDates/', $planViewer->viewDates());   // calendar view
 $app->post('/viewDates/', $planViewer->createDate());  // calendar view
 
 $app->get('/api/plans/:id', $planViewer->itemDetails());
@@ -72,13 +73,13 @@ $app->get('/report/', $logHandler->reportView());
 
 $app->get('/cron', $cronHandler->logCronCall());
 
-$app->get('/api/testGoogleConnection/', function(){
-	$resource = DAOFactory::getResourceDAO();
-	$gClient = $resource->createGoogleCalendarConnection();
-	// $helper = new CalendarHelper($resource);//$resource->getDateTime()
-	$date = $resource->getDateTime();
-	$resource->sendToGcal($gClient, 'test title3', 'test content', $date->format('Y-m-d'));
-	echo 'test calendar entry created';
+$app->get('/api/testGoogleConnection/', function () {
+    $resource = DAOFactory::getResourceDAO();
+    $gClient = $resource->createGoogleCalendarConnection();
+    // $helper = new CalendarHelper($resource);//$resource->getDateTime()
+    $date = $resource->getDateTime();
+    $resource->sendToGcal($gClient, 'test title3', 'test content', $date->format('Y-m-d'));
+    echo 'test calendar entry created';
 });
 
 $app->run();

@@ -8,5 +8,5 @@ define("ABSPATH", $getcwd . $DIR_SEP);
 
 define("APP_NAME", "cal_plan_creator");
 
-define ("LOGS_DIR", dirname( ABSPATH ) . DIR_SEP .'_logs');
-define ("LOG_PREFIX", APP_NAME);
+define("LOGS_DIR", dirname(ABSPATH) . DIR_SEP .'_logs');
+define("LOG_PREFIX", APP_NAME);

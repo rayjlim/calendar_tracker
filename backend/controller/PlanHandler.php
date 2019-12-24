@@ -7,13 +7,15 @@ use \Lpt\DevHelp;
  */
 class PlanHandler extends AbstractController
 {
-    var $dao = null;
-    function __construct($app, $_planDao) {
+    public $dao = null;
+    public function __construct($app, $_planDao)
+    {
         $this->dao = $_planDao;
         parent::__construct($app);
     }
 
-    public function addEntry() {
+    public function addEntry()
+    {
         return function () {
             DevHelp::debugMsg('start add' . __FILE__);
             
@@ -28,7 +30,8 @@ class PlanHandler extends AbstractController
         };
     }
     
-    public function updateEntry() {
+    public function updateEntry()
+    {
         $me = $this;
         return function ($id) use ($me) {
             DevHelp::debugMsg('start update' . __FILE__);
@@ -41,7 +44,8 @@ class PlanHandler extends AbstractController
         };
     }
     
-    public function updateEntryUnit($iDao, $iResource, $entry, $id) {
+    public function updateEntryUnit($iDao, $iResource, $entry, $id)
+    {
         $smsEntry = $iDao->load($id);
         
         if ($iResource->getSession(SESSION_USER_ID) != $smsEntry->userId) {
@@ -55,7 +59,8 @@ class PlanHandler extends AbstractController
         return $smsEntry;
     }
     
-    public function deleteEntry() {
+    public function deleteEntry()
+    {
         $me = $this;
         return function ($id) use ($me) {
             DevHelp::debugMsg('start delete' . __FILE__);
@@ -63,19 +68,18 @@ class PlanHandler extends AbstractController
             $this->dao->delete($id);
             // echo '{"rows_affected": ' . $rows_affected . '}';
             echo ' deleted ';
-
         };
     }
 
     
-    public function saveTemplateDates() {
+    public function saveTemplateDates()
+    {
         return function () {
             $planDatesDao = DAOFactory::getPlandatesDAO();
             $request = $this->app->request();
             var_dump($request->params());
             $templateId = $request->params('templateId');
             foreach ($request->params() as $key => $value) {
-                
                 if (strpos($key, 'pdate') === 0) {
                     $day_from_target = substr($key, 5);
                     echo 'saving: ' . $day_from_target . ':' . $value . ':' . $templateId;
@@ -87,7 +91,8 @@ class PlanHandler extends AbstractController
         };
     }
 
-    public function publish() {
+    public function publish()
+    {
         return function () {
             $planDatesDao = DAOFactory::getPlandatesDAO();
             $datesDao = DAOFactory::getDatesDAO();
@@ -102,7 +107,7 @@ class PlanHandler extends AbstractController
 
             $datesDao->deleteByTemplateId($planId);
             $date=date_create($endDate);
-            echo date_format($date,"Y-m-d");
+            echo date_format($date, "Y-m-d");
             echo $goal;
 
             //save
@@ -111,13 +116,14 @@ class PlanHandler extends AbstractController
 
             foreach ($plandatesContent as $key => $value) {
                 $target =  (new \DateTime(date_format($date, "Y-m-d")))->modify('-'.$key." days");
-                $datesDao->insert(date_format($target,"Y-m-d"), $value['template_id'], $value['content'], $goal);
+                $datesDao->insert(date_format($target, "Y-m-d"), $value['template_id'], $value['content'], $goal);
             }
             echo 'done';
         };
     }
 
-    public function deleteDatesPlan() {
+    public function deleteDatesPlan()
+    {
         return function ($id) {
             $request = $this->app->request();
             $datesDao = DAOFactory::getDatesDAO();
@@ -144,11 +150,9 @@ class PlanHandler extends AbstractController
             echo 'done';
         };
     }
-
-
-    
 }
 
-function hasContent($x){
+function hasContent($x)
+{
     return $x['content'] !== '';
 }

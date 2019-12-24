@@ -3,9 +3,8 @@ use \Lpt\DevHelp;
 
 class CalResource extends Resource implements ICalResource
 {
-
-    var $shortenMonth = array("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec");
-    var $expandedMonth   = array("January","February","March","April","May","June","July","August","September","October","November","December");
+    public $shortenMonth = array("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec");
+    public $expandedMonth   = array("January","February","March","April","May","June","July","August","September","October","November","December");
 
     public function sendToGcal($gClient, $title, $content, $date)
     {
@@ -25,7 +24,8 @@ class CalResource extends Resource implements ICalResource
         return $createdEvent->getId();
     }
 
-    function createGoogleCalendarConnection(){
+    public function createGoogleCalendarConnection()
+    {
         // OAuth2 client ID and secret can be found in the Google Developers Console.
         $scriptUri = "http://".$_SERVER["HTTP_HOST"].$_SERVER['PHP_SELF'];
         $scriptUri .= isset($_SERVER['QUERY_STRING']) ? "?".$_SERVER['QUERY_STRING'] : '';
@@ -49,7 +49,7 @@ class CalResource extends Resource implements ICalResource
         if (isset($_SESSION['token'])) { // extract token from session and configure client
             $token = $_SESSION['token'];
             $client->setAccessToken($token);
-        } else if (isset($_GET['code'])) { // we received the positive auth callback, get the token and store it in session
+        } elseif (isset($_GET['code'])) { // we received the positive auth callback, get the token and store it in session
             $client->authenticate($_GET['code']);
             $token = $client->getAccessToken();
             $_SESSION['token'] = $token;
@@ -66,7 +66,5 @@ class CalResource extends Resource implements ICalResource
 
         return $client;
         // $_SESSION['gClient'] = $client;
-    
     }
-
 }// end class

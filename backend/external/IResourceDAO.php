@@ -10,7 +10,7 @@
 * @author   Raymond Lim <rayjlim1@gmail.com>
 * @license  lilplaytime http://www.lilplaytime.com
 * @link     www.lilplaytime.com
-* 
+*
 */
 /**
 * Intreface IResourceDAO
@@ -21,7 +21,7 @@
 * @author   Raymond Lim <rayjlim1@gmail.com>
 * @license  lilplaytime http://www.lilplaytime.com
 * @link     www.lilplaytime.com
-*/  
+*/
 interface IResourceDAO
 {
     public function setSession($key, $value);
@@ -39,7 +39,7 @@ interface IResourceDAO
      *
      * @param string $url site url
      *
-     * @return site content 
+     * @return site content
      */
     public function load($url);
     public function sendEmail($email, $subject, $message);

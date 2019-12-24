@@ -1,15 +1,16 @@
 <?php
 namespace Lpt;
+
 /**
 * Logger
 *
 * Debugging helper
 * @package  Lpt
-*/ 
+*/
 
 class Logger
 {
-    static function log($message)
+    public static function log($message)
     {
         if (! isset($_SESSION['logger'])) {
             $iResource = \DAOFactory::getResourceDAO();

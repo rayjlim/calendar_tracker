@@ -32,12 +32,11 @@ class DAOFactory
 
     public static function getResourceDAO()
     {
-        return new CalResource ();
+        return new CalResource();
     }
 
     public static function getEmailDAO()
     {
-        return new EmailDAO ();
+        return new EmailDAO();
     }
-
 }
