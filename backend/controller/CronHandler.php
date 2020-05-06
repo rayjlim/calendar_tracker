@@ -31,7 +31,7 @@ class CronHandler extends AbstractController
 
       $message = "<HTML><BODY>" . 
         "<h1>Weight Trends</h1>".
-        "<a href=\"http://www.lilplaytime.com/cal_plan_creator/logs/\">Log Entry</a>".
+        "<a href=\"https://www.lilplaytime.com/tracker/logs/\">Log Entry</a>".
         "<h2>Year " . $yearAvg['year'] ." to date, Average: " . 
         number_format($yearAvg['average'],2) . "</h2>" .
         "<ul>" . 

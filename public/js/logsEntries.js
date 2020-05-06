@@ -1,3 +1,5 @@
+const START_COUNT_VAL = 144;
+
 function populateLog(goal, points, count) {
   $("#goalEntry").val(goal);
   $("#pointsEntry").val(points);
@@ -5,7 +7,7 @@ function populateLog(goal, points, count) {
 }
 
 function incrementWeight(diff) {
-  let val = $("#countEntry").val();
+  let val = $("#countEntry").val() !== '' ? $("#countEntry").val() : START_COUNT_VAL;
   $("#countEntry").val((parseFloat(val) + diff).toFixed(1));
 }
 

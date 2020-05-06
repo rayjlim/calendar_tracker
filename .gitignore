@@ -5,3 +5,6 @@ _config/SERVER_CONFIG.php
 _config/SERVER_CONFIG.php.prod
 _config/env_vars.sh
 env_vars.sh
+_config/calplanner/*
+_config/ui_ideas/*
+ui-svelte/*

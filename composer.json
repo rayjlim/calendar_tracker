@@ -4,14 +4,23 @@
         "slim/views": "0.*",
         "slim/extras": "2.0.3",
         "twig/twig": "1.*",
-        "yeriomin/redbean-single-file": "4.*",
-        "google/apiclient": "1.0.*@beta"
+        "yeriomin/redbean-single-file": "4.*"
     },
     "require-dev": {
-        "codeception/codeception": "*"
+        "codeception/codeception": "^4.1",
+        "codeception/module-phpbrowser": "^1.0.0",
+        "codeception/module-asserts": "^1.0.0",
+        "codeception/module-rest": "^1.2"
     },
     "autoload": {
-        "classmap": [ "backend/core", "backend/controller", "backend/dao", "backend/external"],
-        "files": ["backend/SERVER_CONFIG.php"]
+        "classmap": [
+            "backend/core",
+            "backend/controller",
+            "backend/dao",
+            "backend/external"
+        ],
+        "files": [
+            "backend/SERVER_CONFIG.php"
+        ]
     }
 }
