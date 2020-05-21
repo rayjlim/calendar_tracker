@@ -22,12 +22,13 @@
         "files": [
             "backend/SERVER_CONFIG.php"
         ]
-    }
-    , "scripts":{
+    },
+    "scripts": {
         "up": "./upload-go.sh",
         "release": "npx standard-version",
         "test:steps": "php vendor/bin/codecept run --steps",
         "test:acceptance": "php vendor/bin/codecept run acceptance",
-        "test:api": "php vendor/bin/codecept run api"  
-    }
+        "test:api": "php vendor/bin/codecept run api"
+    },
+    "version": "1.0.1"
 }
