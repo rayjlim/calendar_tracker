@@ -1,10 +1,9 @@
 /node_modules/
 /vendor
 backend/SERVER_CONFIG.php
-_config/SERVER_CONFIG.php
-_config/SERVER_CONFIG.php.prod
-_config/env_vars.sh
+_config/*
+
 env_vars.sh
-_config/calplanner/*
-_config/ui_ideas/*
+
 ui-svelte/*
+_config/bluehost/SERVER_CONFIG.php

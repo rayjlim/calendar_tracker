@@ -12,13 +12,11 @@
 #
 
 # create GET request
-
-$request = "http://www.lilplaytime.com/cal_plan_creator/index.php/cron";      //quotes url
-
+require 'backend/SERVER_CONFIG.php';
+$request = $rootHttp."cron";      //quotes url
 
 print "\nrequest = $request \n\n";
 
-# download results from MAST as an array called $data
-# (ignore errors)
+$data = file_get_contents($request);
 
-$data = @file($request);
+echo $data;
