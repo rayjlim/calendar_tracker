@@ -15,12 +15,11 @@ mkdir $PREP_DIR
 
 while getopts rsn option
 do
-case "${option}"
-in
-r) RESETSSH=true;;
-s) BUILD=true;;
-n) NOBUILDSPA=true;;
-esac
+  case "${option}" in
+    r) RESETSSH=true;;
+    s) BUILD=true;;
+    n) NOBUILDSPA=true;;
+  esac
 done
 
 if [ -z $BUILD ]; then
@@ -61,5 +60,6 @@ else
     echo "Skip SSH Reset"
 fi
 
-rsync -rave  'ssh -oHostKeyAlgorithms=+ssh-dss' --delete . $FTP_USER@$FTP_HOST:$FTP_TARGETFOLDER 
+rsync -rave  'ssh -oHostKeyAlgorithms=+ssh-dss' --delete . $FTP_USER@$FTP_HOST:$FTP_TARGETFOLDER
+chmod 755 *.php
 ssh  $FTP_USER@$FTP_HOST "chmod 755 $FTP_TARGETFOLDER"
