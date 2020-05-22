@@ -11,7 +11,8 @@
         "codeception/module-phpbrowser": "^1.0.0",
         "codeception/module-asserts": "^1.0.0",
         "codeception/module-rest": "^1.2",
-        "squizlabs/php_codesniffer": "3.*"
+        "squizlabs/php_codesniffer": "3.*",
+        "phpmd/phpmd" : "@stable"
     },
     "autoload": {
         "classmap": [
@@ -27,9 +28,12 @@
     "scripts": {
         "up": "./upload-go.sh",
         "release": "npx standard-version",
-        "test:steps": "php vendor/bin/codecept run --steps",
-        "test:acceptance": "php vendor/bin/codecept run acceptance",
-        "test:api": "php vendor/bin/codecept run api"
+        "test:steps": "vendor/bin/codecept run --steps",
+        "test:acceptance": "vendor/bin/codecept run acceptance",
+        "test:api": "vendor/bin/codecept run api",
+        "cs": "vendor/bin/phpcs -d standard=PSR2 backend/",
+        "cbf": "vendor/bin/phpcbf -d standard=PSR2 backend/",
+        "md": "vendor/bin/phpmd backend/ text codesize"   
     },
     "version": "1.1.0"
 }
