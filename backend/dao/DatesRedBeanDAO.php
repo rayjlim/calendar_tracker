@@ -86,10 +86,10 @@ class DatesRedBeanDAO
             ' date >= ? and date <= ? order by date',
             [$start, $end]
         );
-        $sequencedArray = array_values(array_map(
-            return $item->export();,
-            $tracks
-        ));
+        $sequencedArray = array_values(array_map(function ($item) {
+            return $item->export();
+        },
+            $tracks));
         return $sequencedArray;
     }
     /**
