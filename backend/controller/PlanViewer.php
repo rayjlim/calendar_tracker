@@ -172,77 +172,76 @@ function makeCalendarData($month, $year)
     $week = [];
 
     /* print "blank" days until the first of the current week */
-    for ($x = 0; $x < $running_day; $x++):
+    for ($x = 0; $x < $running_day; $x++) :
         $obj1 = new \stdClass;
-    $obj1->num = 'x';
-    $obj1->goals = [];
-    array_push($week, $obj1);
+        $obj1->num = 'x';
+        $obj1->goals = [];
+        array_push($week, $obj1);
 
-    $days_in_this_week++;
+        $days_in_this_week++;
     endfor;
 
     /* keep going with days.... */
-    for ($list_day = 1; $list_day <= $days_in_month; $list_day++):
+    for ($list_day = 1; $list_day <= $days_in_month; $list_day++) :
         $obj1 = new stdClass;
-    $obj1->num = $list_day;
-    $obj1->goals = [];
-    $obj1->logs = [];
+        $obj1->num = $list_day;
+        $obj1->goals = [];
+        $obj1->logs = [];
         
-    $targetDate = $year.'-'.$month.'-'.$list_day;
-    $dates = $datesDao->getDatesBetween($targetDate, $targetDate);
+        $targetDate = $year.'-'.$month.'-'.$list_day;
+        $dates = $datesDao->getDatesBetween($targetDate, $targetDate);
 
-    $params = new stdClass();
-    $params->goal = '%';
-    $params->start = date("Y-m-d", strtotime($targetDate));
-    $params->end =  date("Y-m-d", strtotime($targetDate));
+        $params = new stdClass();
+        $params->goal = '%';
+        $params->start = date("Y-m-d", strtotime($targetDate));
+        $params->end =  date("Y-m-d", strtotime($targetDate));
                 
-    $datesLog = $logsDao->get($params);
-    $current = new DateTime($targetDate);
-    $today = new DateTime((new DateTime())->format('Y-n-j'));
+        $datesLog = $logsDao->get($params);
+        $current = new DateTime($targetDate);
+        $today = new DateTime((new DateTime())->format('Y-n-j'));
 
-    if ($current == $today) {
-        $obj1->today = true;
-    } elseif ($current < $today) {
-        $obj1->passed = true;
-    }
+        if ($current == $today) {
+            $obj1->today = true;
+        } elseif ($current < $today) {
+            $obj1->passed = true;
+        }
 
-    foreach ($dates as $date) {
-        // $calendar.= '<p>'.$date['detail'].'</p>';
-        $obj2 = new stdClass;
-        $obj2->goal = $date['goal'];
-        $obj2->detail = $date['detail'];
+        foreach ($dates as $date) {
+            // $calendar.= '<p>'.$date['detail'].'</p>';
+            $obj2 = new stdClass;
+            $obj2->goal = $date['goal'];
+            $obj2->detail = $date['detail'];
 
-        array_push($obj1->goals, $obj2);
-    }
-    foreach ($datesLog as $date) {
-        // $calendar.= '<p>'.$date['detail'].'</p>';
-        array_push($obj1->logs, $date['goal']. ' '.$date['count'].' '.$date['comment']);
-    }
-    // $calendar.= '</td>';
-    array_push($week, $obj1);
+            array_push($obj1->goals, $obj2);
+        }
+        foreach ($datesLog as $date) {
+            // $calendar.= '<p>'.$date['detail'].'</p>';
+            array_push($obj1->logs, $date['goal']. ' '.$date['count'].' '.$date['comment']);
+        }
+        // $calendar.= '</td>';
+        array_push($week, $obj1);
 
-    if ($running_day == 6):
+        if ($running_day == 6) :
             // $calendar.= '</tr>';
                 array_push($weeks, $week);
-    $week = [];
-    $running_day = -1;
-    $days_in_this_week = 0;
-    endif;
-    $days_in_this_week++;
-    $running_day++;
-    $day_counter++;
-
+            $week = [];
+            $running_day = -1;
+            $days_in_this_week = 0;
+        endif;
+        $days_in_this_week++;
+        $running_day++;
+        $day_counter++;
     endfor;
 
     /* finish the rest of the days in the week */
-    if ($days_in_this_week < 8):
-        for ($x = 1; $x <= (8 - $days_in_this_week); $x++):
+    if ($days_in_this_week < 8) :
+        for ($x = 1; $x <= (8 - $days_in_this_week); $x++) :
             // $calendar.= '<td class="calendar-day-np"> </td>';
                     $obj1 = new \stdClass;
-    $obj1->num = 'x';
-    $obj1->detail = [];
-    array_push($week, $obj1);
-    endfor;
+            $obj1->num = 'x';
+            $obj1->detail = [];
+            array_push($week, $obj1);
+        endfor;
     endif;
     
     array_push($weeks, $week);

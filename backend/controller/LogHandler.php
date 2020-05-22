@@ -1,17 +1,49 @@
 <?php
+/**
+ * LogHandler.php
+ *
+ * PHP Version 7.0
+ *
+ * @category Personal
+ * @package  Default
+ * @author   Raymond Lim <rayjlim1@gmail.com>
+ * @license  lilplaytime http://www.lilplaytime.com
+ * @link     www.lilplaytime.com
+ */
 use \Lpt\DevHelp;
 
 define("MIN_YEAR", "2010");
-
+/**
+ * LogHandler
+ *
+ * PHP Version 7.0
+ *
+ * @category Personal
+ * @package  Default
+ * @author   Raymond Lim <rayjlim1@gmail.com>
+ * @license  lilplaytime http://www.lilplaytime.com
+ * @link     www.lilplaytime.com
+ */
 class LogHandler extends AbstractController
 {
     public $dao = null;
+       /**
+        * Constructor
+        *
+        * @param   $app
+        * @param   $_dao
+        * @return none
+        */
     public function __construct($app, $_dao)
     {
         $this->dao = $_dao;
         parent::__construct($app);
     }
-
+       /**
+        * Listem
+        *
+        * @return function callback
+        */
     public function listem()
     {
         return function () {
@@ -26,7 +58,11 @@ class LogHandler extends AbstractController
             $app->render('logs.twig', $viewModel);
         };
     }
-
+       /**
+        * Save
+        *
+        * @return function callback
+        */
     public function save()
     {
         return function () {
@@ -52,7 +88,11 @@ class LogHandler extends AbstractController
             $func();
         };
     }
-
+       /**
+        * Remove
+        *
+        * @return function callback
+        */
     public function remove()
     {
         return function ($id) {
@@ -63,7 +103,11 @@ class LogHandler extends AbstractController
             return $this->app->response->redirect('../../logs/');
         };
     }
-
+       /**
+        * Trigger
+        *
+        * @return function callback
+        */
     public function trigger()
     {
         return function ($id) {
@@ -74,7 +118,11 @@ class LogHandler extends AbstractController
             return $this->app->response->redirect('../../logs/');
         };
     }
-
+       /**
+        * GraphView
+        *
+        * @return function callback
+        */
     public function graphView()
     {
         return function () {
@@ -84,7 +132,11 @@ class LogHandler extends AbstractController
             $app->render('logsGraph.twig', $viewModel);
         };
     }
-
+       /**
+        * GraphItems
+        *
+        * @return function callback
+        */
     public function graphItems()
     {
         return function () {
@@ -110,7 +162,11 @@ class LogHandler extends AbstractController
             echo json_encode($viewModel);
         };
     }
-
+       /**
+        * Report view
+        *
+        * @return function callback
+        */
     public function reportView()
     {
         return function () {
@@ -120,7 +176,11 @@ class LogHandler extends AbstractController
             $app->render('report.twig', $viewModel);
         };
     }
-
+       /**
+        * Report
+        *
+        * @return function callback
+        */
     public function report()
     {
         return function () {
@@ -146,7 +206,11 @@ class LogHandler extends AbstractController
             echo json_encode($viewModel);
         };
     }
-
+       /**
+        * Report Year
+        *
+        * @return function callback
+        */
     public function reportYear()
     {
         return function () {

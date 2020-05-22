@@ -2,11 +2,12 @@
 namespace Lpt;
 
 /**
-* Logger
-*
-* Debugging helper
-* @package  Lpt
-*/
+ * Logger
+ *
+ * Debugging helper
+ *
+ * @package Lpt
+ */
 
 class Logger
 {

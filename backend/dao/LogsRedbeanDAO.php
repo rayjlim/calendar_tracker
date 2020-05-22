@@ -66,25 +66,31 @@ class LogsRedbeanDAO
     }
     public function getMonthTrend($params)
     {
-        $logs = R::getAll('
+        $logs = R::getAll(
+            '
         SELECT AVG( count ) AS average, month(DATE) as month
         FROM  cpc_logs 
         WHERE goal like ?
              AND year(date) BETWEEN ? AND ? 
         GROUP by month(date) 
-        ORDER by month(date) ', [$params->goal, $params->start, $params->end]);
+        ORDER by month(date) ',
+            [$params->goal, $params->start, $params->end]
+        );
 
         return $logs;
     }
     public function getYearTrend($params)
     {
-        $logs = R::getAll('
+        $logs = R::getAll(
+            '
         SELECT year(date) as year, avg(count) as average 
         FROM `cpc_logs` 
         WHERE goal = ? 
         AND year(date) between ? AND ? 
         GROUP by YEAR(date) 
-        ORDER by YEAR(date) ', [$params->goal, $params->start, $params->end]);
+        ORDER by YEAR(date) ',
+            [$params->goal, $params->start, $params->end]
+        );
 
         return $logs;
     }

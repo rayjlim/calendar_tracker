@@ -1,34 +1,33 @@
 <?php
 /**
-    * Resource.php
-    *
-    * PHP Version 5.4
-    *
-    * @date     2007-11-28
-    * @category Personal
-    * @package  default
-    * @author   Raymond Lim <rayjlim1@gmail.com>
-    * @license  lilplaytime http://www.lilplaytime.com
-    * @link     www.lilplaytime.com
-    *
-    */
+ * Resource.php
+ *
+ * PHP Version 5.4
+ *
+ * @date     2007-11-28
+ * @category Personal
+ * @package  default
+ * @author   Raymond Lim <rayjlim1@gmail.com>
+ * @license  lilplaytime http://www.lilplaytime.com
+ * @link     www.lilplaytime.com
+ */
 /**
-    * Resource
-    *
-    * get contents from an external
-    *
-    * @date     2007-11-28
-    * @category Personal
-    * @package  default
-    * @author   Raymond Lim <rayjlim1@gmail.com>
-    * @license  lilplaytime http://www.lilplaytime.com
-    * @link     www.lilplaytime.com
-    * @codeCoverageIgnore
-    */
+ * Resource
+ *
+ * get contents from an external
+ *
+ * @date               2007-11-28
+ * @category           Personal
+ * @package            default
+ * @author             Raymond Lim <rayjlim1@gmail.com>
+ * @license            lilplaytime http://www.lilplaytime.com
+ * @link               www.lilplaytime.com
+ * @codeCoverageIgnore
+ */
 class Resource implements IResourceDAO
 {
 
-   /**
+    /**
      * Content from URL
      *
      * @param string $url site url
@@ -46,7 +45,7 @@ class Resource implements IResourceDAO
     /**
      * appendToFile
      *
-     * @param string $file    location for the file
+     * @param string $file location for the file
      *
      * @return mixed value
      */
@@ -145,24 +144,24 @@ class Resource implements IResourceDAO
     {
         return array(
             '#a'=>'#awake',
-'#b'=>'#Bloodpressure',
-'#f'=>'#fitness',
-'#hr'=>'#Morning-hr',
-//'#m'=>'#mtnb',
-'#n'=>'#inthenews',
-'#p'=>'#pics',
-'#r'=>'#repeated-names',
-'#s'=>'#sleep',
-'#x'=>'#xexy',
-'#w'=>'#weight',
+        '#b'=>'#Bloodpressure',
+        '#f'=>'#fitness',
+        '#hr'=>'#Morning-hr',
+        //'#m'=>'#mtnb',
+        '#n'=>'#inthenews',
+        '#p'=>'#pics',
+        '#r'=>'#repeated-names',
+        '#s'=>'#sleep',
+        '#x'=>'#xexy',
+        '#w'=>'#weight',
 
-'@b'=>'@baths',
-'@c'=>'@chores',
-'@p'=>'@pushups',
-'@s'=>'@snacks',
-'@u'=>'@pullups',
+        '@b'=>'@baths',
+        '@c'=>'@chores',
+        '@p'=>'@pushups',
+        '@s'=>'@snacks',
+        '@u'=>'@pullups',
 
-'+w'=>'work on',
-);
+        '+w'=>'work on',
+        );
     }
 }

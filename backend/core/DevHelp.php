@@ -11,7 +11,6 @@
  * @author   Raymond Lim <rayjlim1@gmail.com>
  * @license  lilplaytime http://www.lilplaytime.com
  * @link     www.lilplaytime.com
- *
  */
 namespace Lpt;
 

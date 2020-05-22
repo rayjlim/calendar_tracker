@@ -1,27 +1,26 @@
 <?php
 /**
-* IResourceDAO.class.php
-*
-* PHP Version 5.4
-*
-* @date     2007-11-28
-* @category Personal
-* @package  Lpt
-* @author   Raymond Lim <rayjlim1@gmail.com>
-* @license  lilplaytime http://www.lilplaytime.com
-* @link     www.lilplaytime.com
-*
-*/
+ * IResourceDAO.class.php
+ *
+ * PHP Version 5.4
+ *
+ * @date     2007-11-28
+ * @category Personal
+ * @package  Lpt
+ * @author   Raymond Lim <rayjlim1@gmail.com>
+ * @license  lilplaytime http://www.lilplaytime.com
+ * @link     www.lilplaytime.com
+ */
 /**
-* Intreface IResourceDAO
-*
-* @date     2007-11-28
-* @category Personal
-* @package  Lpt
-* @author   Raymond Lim <rayjlim1@gmail.com>
-* @license  lilplaytime http://www.lilplaytime.com
-* @link     www.lilplaytime.com
-*/
+ * Intreface IResourceDAO
+ *
+ * @date     2007-11-28
+ * @category Personal
+ * @package  Lpt
+ * @author   Raymond Lim <rayjlim1@gmail.com>
+ * @license  lilplaytime http://www.lilplaytime.com
+ * @link     www.lilplaytime.com
+ */
 interface IResourceDAO
 {
     public function setSession($key, $value);

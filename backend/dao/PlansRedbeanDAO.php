@@ -1,6 +1,27 @@
 <?php
+/**
+ * PlansRedbeanDAO.php
+ *
+ * PHP Version 7.0
+ *
+ * @category Personal
+ * @package  Default
+ * @author   Raymond Lim <rayjlim1@gmail.com>
+ * @license  lilplaytime http://www.lilplaytime.com
+ * @link     www.lilplaytime.com
+ */
 define('PLANS', 'cpc_templates');
-
+/**
+ * PlansRedbeanDAO
+ *
+ * PHP Version 7.0
+ *
+ * @category Personal
+ * @package  Default
+ * @author   Raymond Lim <rayjlim1@gmail.com>
+ * @license  lilplaytime http://www.lilplaytime.com
+ * @link     www.lilplaytime.com
+ */
 class PlansRedbeanDAO
 {
     /**
