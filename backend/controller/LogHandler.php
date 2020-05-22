@@ -134,7 +134,7 @@ class LogHandler extends AbstractController
             $request = $app->request();
             DevHelp::debugMsg('start graphItems ' . __FILE__);
             // todo: get params from request vars
-            $params = new stdClass();
+            $params = new \stdClass();
            
             $params->goal = $request->params('goal');
             $startParam = $request->params('start');
