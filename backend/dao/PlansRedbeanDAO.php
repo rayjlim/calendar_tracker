@@ -22,9 +22,9 @@ class PlansRedbeanDAO
     public function queryAllOrderBy($orderColumn)
     {
         $plans = \R::findAll(PLANS, ' order by ?', [$orderColumn]);
-        $sequencedArray = array_values(array_map(function ($item){
+        $sequencedArray = array_values(array_map(function ($item) {
             return $item->export();
-            }, $plans));
+        }, $plans));
         
         return $sequencedArray;
     }
@@ -51,4 +51,3 @@ class PlansRedbeanDAO
         return 1;
     }
 }
-

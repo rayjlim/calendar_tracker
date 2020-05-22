@@ -12,9 +12,9 @@ class TracksRedbeanDAO
     public function queryAllOrderBy($orderColumn)
     {
         $tracks = \R::findAll(TRACKS, ' order by ?', [$orderColumn]);
-        $sequencedArray = array_values(array_map(function ($item){
-    return $item->export();
-    }, $tracks));
+        $sequencedArray = array_values(array_map(function ($item) {
+            return $item->export();
+        }, $tracks));
         return $sequencedArray;
     }
     public function getActive()

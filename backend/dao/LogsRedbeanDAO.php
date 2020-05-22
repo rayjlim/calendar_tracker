@@ -7,9 +7,9 @@ class LogsRedbeanDAO
     public function queryAllOrderBy($orderColumn)
     {
         $logs = \R::findAll(LOGS, ' order by ?', [$orderColumn]);
-        $sequencedArray = array_values(array_map(function ($item){
-    return $item->export();
-    }, $logs));
+        $sequencedArray = array_values(array_map(function ($item) {
+            return $item->export();
+        }, $logs));
         return $sequencedArray;
     }
 
@@ -20,9 +20,9 @@ class LogsRedbeanDAO
             ' goal like ? AND date between ? and ? order by date',
             [$params->goal, $params->start, $params->end]
         );
-        $sequencedArray = array_values(array_map(function ($item){
-    return $item->export();
-    }, $logs));
+        $sequencedArray = array_values(array_map(function ($item) {
+            return $item->export();
+        }, $logs));
         return $sequencedArray;
     }
 
@@ -141,4 +141,3 @@ class LogsRedbeanDAO
     //     return $sequencedArray;
     // }
 }
-

@@ -21,9 +21,9 @@ class DatesRedBeanDAO
     public function queryAllOrderBy()
     {
         $tracks = \R::findAll(DATES, ' order by date');
-        $sequencedArray = array_values(array_map(function ($item){
+        $sequencedArray = array_values(array_map(function ($item) {
             return $item->export();
-            }, $tracks));
+        }, $tracks));
         return $sequencedArray;
     }
     /**
@@ -86,7 +86,10 @@ class DatesRedBeanDAO
             ' date >= ? and date <= ? order by date',
             [$start, $end]
         );
-        $sequencedArray = array_values(array_map(    return $item->export();, $tracks));
+        $sequencedArray = array_values(array_map(
+            return $item->export();,
+            $tracks
+        ));
         return $sequencedArray;
     }
     /**

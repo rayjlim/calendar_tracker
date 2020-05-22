@@ -7,9 +7,9 @@ class PlanDatesRedBeanDAO
     public function queryByPlan($planId)
     {
         $plans = \R::findAll(PLANDATES, ' template_id = ?  order by days_from_target', [$planId]);
-        $sequencedArray = array_values(array_map(function ($item){
+        $sequencedArray = array_values(array_map(function ($item) {
             return $item->export();
-            }, $plans));
+        }, $plans));
         
         return $sequencedArray;
     }
