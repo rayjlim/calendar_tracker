@@ -1,23 +1,5 @@
-<?php
-/**
- * DAOFactory.php
- *
- * PHP Version 7.0
- *
- * @category Personal
- * @package  Default
- * @author   Raymond Lim <rayjlim1@gmail.com>
- * @license  lilplaytime http://www.lilplaytime.com
- * @link     www.lilplaytime.com
- */
-R::setup('mysql:host=' . DB_HOST . ';dbname=' . DB_NAME, DB_USER, DB_PASSWORD);
-R::freeze(true);
-R::ext(
-    'xdispense',
-    function ($type) {
-        return R::getRedBean()->dispense($type);
-    }
-);
+<?php namespace tracker;
+
 /**
  * DAOFactory
  *

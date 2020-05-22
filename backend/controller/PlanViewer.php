@@ -1,4 +1,5 @@
-<?php
+<?php namespace tracker;
+
 use \Lpt\DevHelp;
 
 class PlanViewer extends AbstractController
@@ -148,7 +149,12 @@ class PlanViewer extends AbstractController
             $templateId = -1;
 
             $datesDao = DAOFactory::getDatesDAO();
-            $datesDao->insert($request->params('date'), $templateId, $request->params('detail'), $request->params('goal'));
+            $datesDao->insert(
+                $request->params('date'),
+                $templateId,
+                $request->params('detail'),
+                $request->params('goal')
+            );
         };
     }
 }

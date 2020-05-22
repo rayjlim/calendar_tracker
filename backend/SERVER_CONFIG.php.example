@@ -13,7 +13,8 @@ define ("GCAL_ID", "----");
 define ("REPORT_TO", "my-email@gmail.com");
 define ("SESSION_GOOGLE_TOKEN", "----");
 
-define ("rooturl", "/");
-define ("baseurl", rooturl . "cal_plan_creator/");
+define("ROOTURL", "/projects/");
+define("BASEURL", ROOTURL . "tracker/");
+define("ROOT_HTTP", "http://localhost".ROOTURL."calendar_tracker/");
 
 define ("REPORT_TO", "my-email@gmail.com");

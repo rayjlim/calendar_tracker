@@ -1,16 +1,5 @@
+<?php namespace tracker;
 
-<?php
-/**
- * CronHandler.php
- *
- * PHP Version 7.0
- *
- * @category Personal
- * @package  Default
- * @author   Raymond Lim <rayjlim1@gmail.com>
- * @license  lilplaytime http://www.lilplaytime.com
- * @link     www.lilplaytime.com
- */
 use \Lpt\DevHelp;
 
 /**
@@ -26,16 +15,15 @@ use \Lpt\DevHelp;
  */
 class CronHandler extends AbstractController
 {
-    var $plandatesDao = null;
-       /**
-        * Constructor
-        *
-        * @param   $app
-        * @param $_logsDao
-        *
-        * @return none
-        */
-    function __construct($app, $_logsDao)
+    /**
+    * Constructor
+    *
+    * @param   $app
+    * @param $_logsDao
+    *
+    * @return none
+    */
+    public function __construct($app, $_logsDao)
     {
         $this->dao = $_logsDao;
         parent::__construct($app);

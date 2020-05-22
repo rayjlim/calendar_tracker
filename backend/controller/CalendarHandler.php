@@ -1,4 +1,5 @@
-<?php
+<?php namespace tracker;
+
 use \Lpt\DevHelp;
 
 class CalendarHandler extends AbstractController
