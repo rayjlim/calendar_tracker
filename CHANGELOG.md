@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/rayjlim/calendar_tracker/compare/v1.1.0...v2.0.0) (2020-05-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* :green_heart: phpmd fixes
+
+### Features
+
+* :green_heart: phpmd fixes ([5738064](https://github.com/rayjlim/calendar_tracker/commit/5738064e1327183bd59fd1355bec512697fb8593))
+
 ## 1.1.0 (2020-05-22)
 
 
