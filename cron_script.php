@@ -13,7 +13,7 @@
 
 # create GET request
 require 'backend/SERVER_CONFIG.php';
-$request = $rootHttp."cron";      //quotes url
+$request = $ROOT_HTTP."cron";      //quotes url
 
 print "\nrequest = $request \n\n";
 

@@ -1,5 +1,4 @@
-<?php
-namespace Lpt;
+<?php namespace Lpt;
 
 /**
  * Logger

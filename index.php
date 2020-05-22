@@ -1,8 +1,23 @@
 <?php
 ini_set('MAX_EXECUTION_TIME', 3600);
 session_start();
+
+if (isset($_REQUEST['debug'])) {
+    $_SESSION['debug'] = $_REQUEST['debug'] == 'on' ? true : false;
+}
 require 'vendor/autoload.php';
 
+R::setup('mysql:host=' . DB_HOST . ';dbname=' . DB_NAME, DB_USER, DB_PASSWORD);
+R::freeze(true);
+R::ext(
+    'xdispense',
+    function ($type) {
+        return R::getRedBean()->dispense($type);
+    }
+);
+date_default_timezone_set('America/Los_Angeles');
+$getcwd = getcwd();
+$DIR_SEP = (strpos($getcwd, "\\") != 0) ? "\\" : "/";
 $app = new \Slim\Slim();
 
 // TEMPLATING
@@ -21,9 +36,9 @@ $view = $app->view();
 // END TEMPLATING
 
 $view->appendData(array(
-    'rooturl'=> rooturl,
-    'baseurl'=> baseurl,
-    'rootHttp'=> rootHttp
+    'rooturl'=> ROOTURL,
+    'baseurl'=> BASEURL,
+    'rootHttp'=> ROOT_HTTP
     ));
 
 $app->get('/', function () use ($app) {

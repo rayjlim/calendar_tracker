@@ -1,4 +1,5 @@
-<?php
+<?php namespace tracker;
+
 define('LOGS', 'cpc_logs');
 
 class LogsRedbeanDAO
@@ -12,7 +13,11 @@ class LogsRedbeanDAO
 
     public function get($params)
     {
-        $logs = R::findAll(LOGS, ' goal like ? AND date between ? and ? order by date', [$params->goal, $params->start, $params->end]);
+        $logs = R::findAll(
+            LOGS,
+            ' goal like ? AND date between ? and ? order by date',
+            [$params->goal, $params->start, $params->end]
+        );
         $sequencedArray = array_values(array_map("getExportValues", $logs));
         return $sequencedArray;
     }

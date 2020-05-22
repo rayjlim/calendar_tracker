@@ -1,10 +1,12 @@
-<?php
+<?php namespace tracker;
+
 use \Lpt\DevHelp;
 
 class CalResource extends Resource implements ICalResource
 {
     public $shortenMonth = array("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec");
-    public $expandedMonth   = array("January","February","March","April","May","June","July","August","September","October","November","December");
+    public $expandedMonth   = array("January","February","March","April","May","June","July","August",
+        "September","October","November","December");
 
     public function sendToGcal($gClient, $title, $content, $date)
     {
@@ -49,7 +51,8 @@ class CalResource extends Resource implements ICalResource
         if (isset($_SESSION['token'])) { // extract token from session and configure client
             $token = $_SESSION['token'];
             $client->setAccessToken($token);
-        } elseif (isset($_GET['code'])) { // we received the positive auth callback, get the token and store it in session
+        } elseif (isset($_GET['code'])) { // we received the positive auth callback, get the
+                                         //  token and store it in session
             $client->authenticate($_GET['code']);
             $token = $client->getAccessToken();
             $_SESSION['token'] = $token;

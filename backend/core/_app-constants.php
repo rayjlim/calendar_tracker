@@ -10,10 +10,9 @@
  * @license  lilplaytime http://www.lilplaytime.com
  * @link     www.lilplaytime.com
  */
-date_default_timezone_set('America/Los_Angeles');
-$getcwd = getcwd();
+
 // Windows or Unix separators
-$DIR_SEP = (strpos($getcwd, "\\") != 0) ? "\\" : "/";
+
 define("DIR_SEP", $DIR_SEP);
 define("ABSPATH", $getcwd . $DIR_SEP);
 

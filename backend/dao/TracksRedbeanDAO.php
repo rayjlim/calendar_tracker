@@ -1,4 +1,5 @@
-<?php
+<?php namespace tracker;
+
 define('TRACKS', 'cpc_tracks');
 
 class TracksRedbeanDAO

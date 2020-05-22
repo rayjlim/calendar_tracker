@@ -1,16 +1,7 @@
-<?php
-/**
- * DatesRedBeanDAO.php
- *
- * PHP Version 7.0
- *
- * @category Personal
- * @package  Default
- * @author   Raymond Lim <rayjlim1@gmail.com>
- * @license  lilplaytime http://www.lilplaytime.com
- * @link     www.lilplaytime.com
- */
+<?php namespace tracker;
+
 define('DATES', 'cpc_dates');
+
 /**
  * DatesRedBeanDAO
  *

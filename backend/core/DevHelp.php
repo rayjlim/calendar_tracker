@@ -1,18 +1,4 @@
-<?php
-
-/**
- * DevHelp Class Doc Comment
- *
- * PHP Version 5.4
- *
- * @date     2007-11-28
- * @category Personal
- * @package  Lpt
- * @author   Raymond Lim <rayjlim1@gmail.com>
- * @license  lilplaytime http://www.lilplaytime.com
- * @link     www.lilplaytime.com
- */
-namespace Lpt;
+<?php namespace Lpt;
 
 /**
  * DevHelp
@@ -66,8 +52,4 @@ class DevHelp
         }
         exit;
     }
-}
-
-if (isset($_REQUEST['debug'])) {
-    $_SESSION['debug'] = $_REQUEST['debug'] == 'on' ? true : false;
 }

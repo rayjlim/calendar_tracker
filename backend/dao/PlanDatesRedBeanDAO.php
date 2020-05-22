@@ -1,4 +1,5 @@
-<?php
+<?php namespace tracker;
+
 define('PLANDATES', 'cpc_plandates');
 
 class PlanDatesRedBeanDAO
@@ -14,7 +15,11 @@ class PlanDatesRedBeanDAO
     public function updateTemplatePlan($templateId, $days_from_target, $value)
     {
         echo $templateId .':'. $days_from_target.':'.$value;
-        $plandate  = R::findOne(PLANDATES, ' template_id = ? and days_from_target = ?', [$templateId, $days_from_target]);
+        $plandate  = R::findOne(
+            PLANDATES,
+            ' template_id = ? and days_from_target = ?',
+            [$templateId, $days_from_target]
+        );
         if ($plandate == null) {
             $plandate = R::xdispense(PLANDATES);
             $plandate->template_id = $templateId;

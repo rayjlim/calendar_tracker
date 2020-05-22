@@ -23,4 +23,8 @@ New feature: spiritual, mental, physical scale tracker
 
 ## Known fixes
 
-sudo chown -R ray /home/ray/.composer/cache/repo/   
+sudo chown -R ray /home/ray/.composer/cache/repo/
+
+## Development
+
+`vendor/bin/phpcs --config-set default_standard PSR2`
