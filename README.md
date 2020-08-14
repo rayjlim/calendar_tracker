@@ -9,17 +9,16 @@ A personal project for tracking weight and graphing
 install composer globally
 
 ### php-curl
-sudo apt-get install php7.0-curl php7.0-mbstring php7.0-xml
+
+requires `sudo apt install -y php7.3-curl php7.3-mbstring php7.3-xml`
 
 ## Setup
 
 copy `backend/SERVER_CONFIG.php.example` to `backend/SERVER_CONFIG.php` and edit accordingly.  
-same with `upload.sh`  
+
 That's it
 
 New feature: spiritual, mental, physical scale tracker
-
-
 
 ## Known fixes
 
