@@ -1,9 +1,10 @@
 {
     "require": {
+        "php": "7.3.*",
         "slim/slim": "2.*",
         "slim/views": "0.*",
         "slim/extras": "2.0.3",
-        "twig/twig": "1.*",
+        "twig/twig": "1.35.3",
         "yeriomin/redbean-single-file": "4.*"
     },
     "require-dev": {

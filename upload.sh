@@ -2,19 +2,17 @@
 
 . ./env_vars.sh
 
-if ![ -n "$FTP_HOST" ]; then
+if [ -z "$FTP_HOST" ]; then
     echo "Missing env_vars"
     exit 2
 fi
 
-
 echo "FTP HOST " $FTP_HOST
 
 PREP_DIR='../cal_track_prod'
-mkdir $PREP_DIR
+mkdir -p $PREP_DIR
 
-while getopts rsn option
-do
+while getopts rsn option; do
   case "${option}" in
     r) RESETSSH=true;;
     s) BUILD=true;;
@@ -23,31 +21,29 @@ do
 done
 
 if [ -z $BUILD ]; then
-    rsync -ravz  --exclude-from 'exclude-list.txt' --delete . $PREP_DIR
-    rsync -avz  _config/bluehost/SERVER_CONFIG.php $PREP_DIR/backend/SERVER_CONFIG.php
-    rsync -avz  .htaccess $PREP_DIR/
+  rsync -ravz  --exclude-from 'exclude-list.txt' --delete . $PREP_DIR
+  rsync -avz  _config/bluehost/SERVER_CONFIG.php $PREP_DIR/backend/SERVER_CONFIG.php
+  rsync -avz  .htaccess $PREP_DIR/
 
-if [ -z "$NOBUILDSPA" ]; then
+  if [ -z "$NOBUILDSPA" ]; then
+    cd vue-app
+    npm run build
+    buildresult=$?
+    if [ $buildresult != 0 ]; then
+      echo "SPA Build Fail"
+      exit 1
+    fi
 
-  cd vue-app
-  npm run build
-  buildresult=$?
-  if [ $buildresult != 0 ]; then
-    echo "SPA Build Fail"
-    exit 1
+    cd ..
   fi
 
-  cd ..
-fi
   rsync -ravz  vue-app/dist/ $PREP_DIR/
 
-    cd $PREP_DIR
-    /usr/local/bin/composer install  --no-dev
-
-
+  cd $PREP_DIR
+  /usr/local/bin/composer install  --no-dev
 else
-    echo "Skip Build"
-    cd $PREP_DIR
+  echo "Skip Build"
+  cd $PREP_DIR
 fi
 
 echo "start upload"

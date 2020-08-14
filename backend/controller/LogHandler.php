@@ -178,7 +178,7 @@ class LogHandler extends AbstractController
             $request = $app->request();
             DevHelp::debugMsg('start reportMonth ' . __FILE__);
             // todo: get params from request vars
-            $params = new stdClass();
+            $params = new \stdClass();
            
             $params->goal = 'weight';
             $startParam = $request->params('start');
@@ -208,7 +208,7 @@ class LogHandler extends AbstractController
             $request = $app->request();
             DevHelp::debugMsg('start reportYear ' . __FILE__);
             // todo: get params from request vars
-            $params = new stdClass();
+            $params = new \stdClass();
            
             $params->goal = 'weight';
             $startParam = $request->params('start');
