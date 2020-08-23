@@ -9,7 +9,7 @@ fi
 
 echo "FTP HOST " $FTP_HOST
 
-PREP_DIR='../cal_track_prod'
+PREP_DIR='../tracks_prod'
 mkdir -p $PREP_DIR
 
 while getopts rsn option; do
@@ -21,12 +21,12 @@ while getopts rsn option; do
 done
 
 if [ -z $BUILD ]; then
-  rsync -ravz  --exclude-from 'exclude-list.txt' --delete . $PREP_DIR
+  rsync -ravz  --exclude-from 'production-exclude.txt' --delete . $PREP_DIR
   rsync -avz  _config/bluehost/SERVER_CONFIG.php $PREP_DIR/backend/SERVER_CONFIG.php
-  rsync -avz  .htaccess $PREP_DIR/
+  rsync -avz  _config/.htaccess $PREP_DIR/public
 
   if [ -z "$NOBUILDSPA" ]; then
-    cd vue-app
+    cd ui-react-native-web
     npm run build
     buildresult=$?
     if [ $buildresult != 0 ]; then
@@ -34,10 +34,9 @@ if [ -z $BUILD ]; then
       exit 1
     fi
 
+    rsync -ravz dist/ $PREP_DIR/
     cd ..
   fi
-
-  rsync -ravz  vue-app/dist/ $PREP_DIR/
 
   cd $PREP_DIR
   /usr/local/bin/composer install  --no-dev
@@ -57,5 +56,6 @@ else
 fi
 
 rsync -rave  'ssh -oHostKeyAlgorithms=+ssh-dss' --delete . $FTP_USER@$FTP_HOST:$FTP_TARGETFOLDER
+cd public
 chmod 755 *.php
-ssh  $FTP_USER@$FTP_HOST "chmod 755 $FTP_TARGETFOLDER"
+ssh  $FTP_USER@$FTP_HOST "chmod 755 $FTP_TARGETFOLDER\public"

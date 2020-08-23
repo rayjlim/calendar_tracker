@@ -2,6 +2,7 @@ _config/
 vendor/
 tests/
 .git/
+
 *.sh
 *.txt
 *.md
@@ -10,8 +11,4 @@ composer.lock
 .gitignore
 SERVER_CONFIG.php
 env_vars.*
-.htaccess
 codeception.yml
-
-ui-svelte/
-vue-app/

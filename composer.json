@@ -1,40 +1,37 @@
 {
     "require": {
-        "php": "7.3.*",
-        "slim/slim": "2.*",
-        "slim/views": "0.*",
-        "slim/extras": "2.0.3",
-        "twig/twig": "1.35.3",
-        "yeriomin/redbean-single-file": "4.*"
+        "slim/psr7": "^1",
+        "slim/slim": "^4.4"
     },
     "require-dev": {
         "codeception/codeception": "^4.1",
-        "codeception/module-phpbrowser": "^1.0.0",
         "codeception/module-asserts": "^1.0.0",
-        "codeception/module-rest": "^1.2",
-        "squizlabs/php_codesniffer": "3.*",
-        "phpmd/phpmd": "@stable"
+        "spatie/phpunit-watcher": "^1.22"
+    },
+    "scripts": {
+        "start:dev": "php -S localhost:8080 -t public public/index.php",
+        "kill": "ps x | grep localhost:8080 | grep -v grep | awk '{ print $1}' | xargs kill -9",
+        "test": "vendor/bin/codecept run unit",
+        "test:watch": "./vendor/bin/phpunit-watcher watch"
     },
     "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        },
         "classmap": [
-            "backend/core",
-            "backend/controller",
-            "backend/dao",
-            "backend/external"
+            "src"
         ],
         "files": [
             "backend/SERVER_CONFIG.php"
         ]
     },
-    "scripts": {
-        "up": "./upload-go.sh",
-        "release": "npx standard-version",
-        "test:steps": "vendor/bin/codecept run --steps",
-        "test:acceptance": "vendor/bin/codecept run acceptance",
-        "test:api": "vendor/bin/codecept run api",
-        "cs": "vendor/bin/phpcs -d standard=PSR2 backend/",
-        "cbf": "vendor/bin/phpcbf -d standard=PSR2 backend/",
-        "md": "vendor/bin/phpmd backend/ text codesize"
+    "autoload-dev": {
+        "psr-4": {
+            "App\\Test\\": "tests/"
+        }
     },
-    "version": "2.0.0"
+    "config": {
+        "process-timeout": 0,
+        "sort-packages": true
+    }
 }

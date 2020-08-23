@@ -1,8 +1,0 @@
-actor: ApiTester
-modules:
-    enabled:
-        - REST:
-            url: http://localhost/projects/calendar_tracker/index.php/
-            depends: PhpBrowser
-            part: Json
-        - \Helper\Api

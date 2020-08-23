@@ -5,5 +5,4 @@ _config/*
 
 env_vars.sh
 
-ui-svelte/*
 _config/bluehost/SERVER_CONFIG.php
