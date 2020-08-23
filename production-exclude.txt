@@ -1,0 +1,14 @@
+_config/
+vendor/
+tests/
+.git/
+
+*.sh
+*.txt
+*.md
+*.code-workspace
+composer.lock
+.gitignore
+SERVER_CONFIG.php
+env_vars.*
+codeception.yml
