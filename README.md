@@ -1,29 +1,27 @@
 # Calendar Tracker
 
-A personal project for tracking weight and graphing
-
-[github](https://github.com/rayjlim/calendar_tracker)  
-
-## Dependencies
-
-install composer globally
-
-### php-curl
-
-requires `sudo apt install -y php7.3-curl php7.3-mbstring php7.3-xml`
+A personal project for tracking goals with inspiration from the Strides app
 
 ## Setup
 
-copy `backend/SERVER_CONFIG.php.example` to `backend/SERVER_CONFIG.php` and edit accordingly.  
+### Backend
 
-That's it
+Requires `composer`  
+Run `composer install`  
+Create the DB using `config\base.sql`  
+Use `config/SERVER_CONFIG.php.example` as template and edit accordingly.  
+Place it at `backend/SERVER_CONFIG.php` .  
 
-New feature: spiritual, mental, physical scale tracker
+That sets up the API.
 
-## Known fixes
+### Frontend
 
-sudo chown -R ray /home/ray/.composer/cache/repo/
+Go in to the `ui-react-native-web` folder
 
-## Development
+`npm run start`
 
-`vendor/bin/phpcs --config-set default_standard PSR2`
+## Footnote
+
+See [Additional Docs](docs/index.md)
+
+[github](https://github.com/rayjlim/calendar_tracker)  

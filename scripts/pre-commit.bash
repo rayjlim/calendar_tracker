@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 echo "Running pre-commit hook"
-composer run test:api
+composer run test
 
 # $? stores exit value of the last command
 if [ $? -ne 0 ]; then

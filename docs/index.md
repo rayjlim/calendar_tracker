@@ -1,5 +1,13 @@
 # Index
 
+## Tasks / On Deck
+
+## Bugs
+
+## Features
+
+
+----
 On save go to graph- most common flow
 codeception coverage: unit tests
   SQL builder check
@@ -27,3 +35,15 @@ Fix responsive design
 Convert to SPA
 
 Api for all data
+
+
+
+New feature: spiritual, mental, physical scale tracker
+
+
+## Known fixes
+
+sudo chown -R ray /home/ray/.composer/cache/repo/
+
+
+`vendor/bin/phpcs --config-set default_standard PSR2`
