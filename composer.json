@@ -1,4 +1,6 @@
 {
+    "name": "lilplaytime/Calendar-Tracker",
+    "description": "Calendar Tracker",
     "require": {
         "slim/psr7": "^1",
         "slim/slim": "^4.4"
@@ -6,11 +8,13 @@
     "require-dev": {
         "codeception/codeception": "^4.1",
         "codeception/module-asserts": "^1.0.0",
-        "spatie/phpunit-watcher": "^1.22"
+        "spatie/phpunit-watcher": "^1.22",
+        "squizlabs/php_codesniffer": "3.*"
     },
     "scripts": {
         "start:dev": "php -S localhost:8080 -t public public/index.php",
         "kill": "ps x | grep localhost:8080 | grep -v grep | awk '{ print $1}' | xargs kill -9",
+        "lint:php": "./vendor/bin/phpcs --standard=cs-ruleset.xml src",
         "test": "vendor/bin/codecept run unit",
         "test:watch": "./vendor/bin/phpunit-watcher watch"
     },

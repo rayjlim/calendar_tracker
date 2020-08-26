@@ -1,4 +1,4 @@
-<?php 
+<?php
 use Codeception\Stub\Expected;
 use \tracker\RecordHandler;
 
@@ -45,7 +45,5 @@ class RecordHandlerTest extends \Codeception\Test\Unit
         $this->assertTrue($record->hasOrm);
         // $this->assertNotNull($result);
         // $this->assertEquals($result, 'foo2');
-
-   
     }
 }
