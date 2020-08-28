@@ -5,6 +5,7 @@
 - add redbean
 - migrate redbean file
 - create DAOFactory
+- log notes view
 
 ## Bugs
 

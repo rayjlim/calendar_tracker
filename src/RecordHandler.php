@@ -1,6 +1,6 @@
 <?php
 
-namespace tracker;
+namespace Tracker;
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -26,15 +26,9 @@ class RecordHandler
     public function __construct($ORM = null)
     {
         echo "RecordHandler construct<br>";
-        // parent::__construct($app);
-        if ($ORM != null) {
-            // "use Injected ORM<br>";
-            $this->hasOrm = true;
-            $this->_ORM = $ORM;
-        } else {
-            // use Factory ORM
-            $this->_ORM = new \tracker\ORM();
-        }
+        $this->_ORM = ($ORM != null)
+            ? $ORM // for DI in testing
+            : new LogsRedbeanDAO();
     }
     /**
      * Store the Record
@@ -48,8 +42,14 @@ class RecordHandler
     public function store(Request $request, Response $response, $args)
     {
         $message = "Hello store it!" . $args['id'];
-        $response->getBody()->write($message);
-        $this->_ORM->save($args['id'], 2, 'weight');
+
+        $logEntry = $this->_ORM->insert(
+            $args['id'],
+            '2020-08-01',
+            2,
+            'comment about weight'
+        );
+        $response->getBody()->write($message . 'new id ' . $logEntry->id);
         return $response;
     }
 }
