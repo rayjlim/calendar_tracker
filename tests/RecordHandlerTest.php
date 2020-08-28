@@ -1,6 +1,5 @@
-<?php 
-use Codeception\Stub\Expected;
-use \tracker\RecordHandler;
+<?php
+use \Tracker\RecordHandler;
 
 class RecordHandlerTest extends \Codeception\Test\Unit
 {
@@ -14,38 +13,29 @@ class RecordHandlerTest extends \Codeception\Test\Unit
     }
 
     // tests
-    public function testHasOrm()
+    public function testCanStoreNewRecord()
     {
-        $orm = new stdClass;
-        $record = new RecordHandler($orm);
-        $this->assertTrue($record->hasOrm);
-    }
+        $fakeEntry = json_decode('{"id":101}');
+        
+        $orm = $this->createMock('\Tracker\LogsRedbeanDAO');
+        $orm->method('insert')
+            ->with(1, '2020-08-01', 2, 'comment about weight')
+            ->willReturn($fakeEntry);
 
-    // tests
-    public function testCallsOrm()
-    {
-        $orm = $this->createMock('\tracker\ORM');
-        $orm->method('save')
-            ->with(1, 2, 'weight');
-
-        $record = new RecordHandler($orm);
         $request = $this->createMock('Psr\Http\Message\ServerRequestInterface');
 
         $mockBody = $this->createMock('Psr\Http\Message\StreamInterface');
         $mockBody->method('write')
-            ->with($this->equalTo('Hello store it!1'));
+            ->with($this->equalTo('Hello store it!1new id 101'));
 
         $response = $this->createStub('Psr\Http\Message\ResponseInterface');
         $response->method('getBody')
              ->willReturn($mockBody);
         $args = ['id'=> 1];
+        $record = new RecordHandler($orm);
+        $record->store($request, $response, $args);
 
-
-        $result = $record->store($request, $response, $args);
-        $this->assertTrue($record->hasOrm);
         // $this->assertNotNull($result);
         // $this->assertEquals($result, 'foo2');
-
-   
     }
 }

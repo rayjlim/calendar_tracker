@@ -1,5 +1,17 @@
 # Index
 
+## Tasks / On Deck
+
+- add redbean
+- migrate redbean file
+- create DAOFactory
+- log notes view
+
+## Bugs
+
+## Features
+
+----
 On save go to graph- most common flow
 codeception coverage: unit tests
   SQL builder check
@@ -27,3 +39,11 @@ Fix responsive design
 Convert to SPA
 
 Api for all data
+
+New feature: spiritual, mental, physical scale tracker
+
+## Known fixes
+
+sudo chown -R ray /home/ray/.composer/cache/repo/
+
+`vendor/bin/phpcs --config-set default_standard PSR2`
