@@ -11,9 +11,8 @@ class App extends React.Component {
   render() {
     return (
       <View style={styles.appContainer}>
-        <Header title="Tracker" />
+        <Header title="Tracker 3" />
         <Home />
-        <p>learn react</p>
       </View>
     );
   }

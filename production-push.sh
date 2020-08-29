@@ -34,8 +34,8 @@ if [ -z $BUILD ]; then
       echo "SPA Build Fail"
       exit 1
     fi
-
-    rsync -ravz dist/ $PREP_DIR/
+    
+    rsync -ravz build/* ../$PREP_DIR/public/
     cd ..
   fi
 
@@ -60,6 +60,4 @@ rsync -rave  'ssh -oHostKeyAlgorithms=+ssh-dss' \
   --exclude-from 'production-exclude-push.txt' \
   --delete . $FTP_USER@$FTP_HOST:$FTP_TARGETFOLDER
 
-ssh  $FTP_USER@$FTP_HOST "chmod 755 $FTP_TARGETFOLDER/"
-ssh  $FTP_USER@$FTP_HOST "chmod 755 $FTP_TARGETFOLDER/public"
-ssh  $FTP_USER@$FTP_HOST "chmod 755 $FTP_TARGETFOLDER/public/*"
+ssh  $FTP_USER@$FTP_HOST "chmod -R 755 $FTP_TARGETFOLDER/"

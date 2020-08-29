@@ -26,6 +26,6 @@ $app->get(PREFIX    . 'record/', 'Tracker\RecordHandler:list')->setName('record-
 $app->get(PREFIX, function (Request $request, Response $response, $args) {
     $response->getBody()->write("lilplaytime/Tracks");
     return $response;
-});
+})->setName('root');
 
 $app->run();
