@@ -2,6 +2,7 @@ import React from "react";
 import constants from './constants';
 import { ScrollView, StyleSheet, ActivityIndicator } from "react-native";
 import UserList from "./user-list";
+import RecordForm from "./record-form";
 
 class Home extends React.Component {
   state = {
@@ -29,6 +30,8 @@ class Home extends React.Component {
   render() {
     return (
       <ScrollView noSpacer={true} noScroll={true} style={styles.container}>
+        <RecordForm />
+
         {this.state.loading ? (
           <ActivityIndicator
             style={[styles.centering]}
