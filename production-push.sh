@@ -59,6 +59,7 @@ fi
 rsync -rave  'ssh -oHostKeyAlgorithms=+ssh-dss' \
   --exclude-from 'production-exclude-push.txt' \
   --delete . $FTP_USER@$FTP_HOST:$FTP_TARGETFOLDER
-cd public
-chmod 755 *.php
-ssh  $FTP_USER@$FTP_HOST "chmod 755 $FTP_TARGETFOLDER\public"
+
+ssh  $FTP_USER@$FTP_HOST "chmod 755 $FTP_TARGETFOLDER/"
+ssh  $FTP_USER@$FTP_HOST "chmod 755 $FTP_TARGETFOLDER/public"
+ssh  $FTP_USER@$FTP_HOST "chmod 755 $FTP_TARGETFOLDER/public/*"

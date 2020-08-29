@@ -16,10 +16,11 @@ $app = AppFactory::create();
 $app->addBodyParsingMiddleware();
 $app->addErrorMiddleware(true, true, true);
 
-$app->post(PREFIX . 'record/', 'Tracker\RecordHandler:store');
-$app->put(PREFIX . 'record/{id}', 'Tracker\RecordHandler:update');
-// $app->get(PREFIX  . 'record/{id}', 'Tracker\RecordHandler:get');
-// $app->get(PREFIX  . 'record/', 'Tracker\RecordHandler:list');
+
+$app->post(PREFIX . 'record/', 'Tracker\RecordHandler:store')->setName('record-post');
+$app->put(PREFIX . 'record/{id}', 'Tracker\RecordHandler:update')->setName('record-put');
+$app->get(PREFIX  . 'record/{id}', 'Tracker\RecordHandler:get')->setName('record-get');
+$app->get(PREFIX  . 'record/', 'Tracker\RecordHandler:list');
 
 $app->get(PREFIX, function (Request $request, Response $response, $args) {
     $response->getBody()->write("lilplaytime/Tracks");
