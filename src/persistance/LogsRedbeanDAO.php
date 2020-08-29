@@ -17,7 +17,7 @@ define('LOGS', 'cpc_logs');
 class LogsRedbeanDAO implements ILogsDAO
 {
     /**
-     * Insert the Record
+     * Insert a Record
      * 
      * @param $goalId  Goal Id
      * @param $date    Date
@@ -38,7 +38,30 @@ class LogsRedbeanDAO implements ILogsDAO
         $log->id = $id;
         return $log;
     }
+    /**
+     * Update a Record
+     * 
+     * @param $goalId  Goal Id
+     * @param $date    Date
+     * @param $count   Number
+     * @param $comment String
+     * @param $id      Record Id
+     *
+     * @return LogEntry
+     */
+    public function update($goal, $date, $count, $comment, $id)
+    {
+        $log  = \R::findOne(LOGS, ' id = ?', [$id]);
 
+        // echo ' rb: '. $value;
+        $log->goal = $goal;
+        $log->points = 0;
+        $log->count = $count;
+        $log->comment = $comment;
+        $log->date = $date;
+        \R::store($log);
+        return $log;
+    }
     // public function queryAllOrderBy($orderColumn)
     // {
     //     $logs = \R::findAll(LOGS, ' order by ?', [$orderColumn]);
@@ -69,19 +92,7 @@ class LogsRedbeanDAO implements ILogsDAO
 
 
 
-    // public function update($id, $goal, $points, $count, $comment, $date)
-    // {
-    //     $log  = \R::findOne(LOGS, ' id = ?', [$id]);
 
-    //     // echo ' rb: '. $value;
-    //     $log->goal = $goal;
-    //     $log->points = $points;
-    //     $log->count = $count;
-    //     $log->comment = $comment;
-    //     $log->date = $date;
-    //     R::store($log);
-    //     return $log;
-    // }
 
     // public function delete($id)
     // {
@@ -144,14 +155,14 @@ class LogsRedbeanDAO implements ILogsDAO
     // function getWeightAYearAgo($userId, $date) {
     //     $targetYear =  ($date->format('Y') - 1);
     //     $whereClause = ' where user_id = ? and date = \'' 
-        // . $targetYear. $date->format('-m-d')
+    // . $targetYear. $date->format('-m-d')
     //         . '\' and content  like "%#weight%"';
     //     $posts = \R::findAll(POSTS, $whereClause . ' ', [$userId]);
     //     $sequencedArray = array_values(array_map(function ($array_item){
     // return $item->export();
     // }, $posts));
     //     return (count($sequencedArray)) 
-        // ? substr($sequencedArray[0]['content'],0,5) 
+    // ? substr($sequencedArray[0]['content'],0,5) 
     // : 'none';
     // }
 

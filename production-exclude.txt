@@ -2,9 +2,11 @@ _config/
 vendor/
 tests/
 .git/
+.vscode/
+scripts/
+docs/
 
 *.sh
-*.txt
 *.md
 *.code-workspace
 composer.lock
@@ -12,3 +14,6 @@ composer.lock
 SERVER_CONFIG.php
 env_vars.*
 codeception.yml
+.phpunit-watcher.yml
+cs-ruleset.xml
+phpcs.xml

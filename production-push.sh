@@ -21,9 +21,10 @@ while getopts rsn option; do
 done
 
 if [ -z $BUILD ]; then
-  rsync -ravz  --exclude-from 'production-exclude.txt' --delete . $PREP_DIR
+  rsync -ravz --exclude-from 'production-exclude.txt' --delete . $PREP_DIR
   rsync -avz  _config/bluehost/SERVER_CONFIG.php $PREP_DIR/backend/SERVER_CONFIG.php
   rsync -avz  _config/.htaccess $PREP_DIR/public
+
 
   if [ -z "$NOBUILDSPA" ]; then
     cd ui-react-native-web
@@ -55,7 +56,9 @@ else
     echo "Skip SSH Reset"
 fi
 
-rsync -rave  'ssh -oHostKeyAlgorithms=+ssh-dss' --delete . $FTP_USER@$FTP_HOST:$FTP_TARGETFOLDER
+rsync -rave  'ssh -oHostKeyAlgorithms=+ssh-dss' \
+  --exclude-from 'production-exclude-push.txt' \
+  --delete . $FTP_USER@$FTP_HOST:$FTP_TARGETFOLDER
 cd public
 chmod 755 *.php
 ssh  $FTP_USER@$FTP_HOST "chmod 755 $FTP_TARGETFOLDER\public"
