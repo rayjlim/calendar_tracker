@@ -15,25 +15,60 @@ class RecordHandlerTest extends \Codeception\Test\Unit
     // tests
     public function testCanStoreNewRecord()
     {
-        $fakeEntry = json_decode('{"id":101}');
-        
-        $orm = $this->createMock('\Tracker\LogsRedbeanDAO');
-        $orm->method('insert')
-            ->with(1, '2020-08-01', 2, 'comment about weight')
-            ->willReturn($fakeEntry);
-
         $request = $this->createMock('Psr\Http\Message\ServerRequestInterface');
+        $request->method('getParsedBody')->willReturn([
+            "date"=> "2020-08-29",
+            "count"=> "20",
+            "comment"=> "new comment",
+            "goalId"=>"10"
+        ]);
+
+        $orm = $this->createMock('\Tracker\LogsRedbeanDAO');
+        $orm
+            // ->expects($this->once())
+            ->method('insert')
+            ->with(10, '2020-08-29', 20, 'new comment')
+            ->willReturn(json_decode('{"id":101}'));
 
         $mockBody = $this->createMock('Psr\Http\Message\StreamInterface');
         $mockBody->method('write')
-            ->with($this->equalTo('Hello store it!1new id 101'));
+            ->with($this->equalTo('{"success":true,"record":{"id":101}}'));
+        $response = $this->createStub('Psr\Http\Message\ResponseInterface');
+        $response->method('getBody')
+             ->willReturn($mockBody);
+
+        $record = new RecordHandler($orm);
+        $record->store($request, $response, []);
+    }
+
+    public function testCanUpdateARecord()
+    {
+        $request = $this->createMock('Psr\Http\Message\ServerRequestInterface');
+        $request->method('getParsedBody')->willReturn([
+            "date"=> "2020-08-29",
+            "count"=> "20",
+            "comment"=> "new comment",
+            "goalId"=>"10"
+        ]);
+
+        $orm = $this->createMock('\Tracker\LogsRedbeanDAO');
+        $orm
+            // ->expects($this->once())
+            ->method('update')
+            ->with(10, '2020-08-29', 20, 'new comment', 1)
+            ->willReturn(json_decode('{"id":101}'));
+
+        $mockBody = $this->createMock('Psr\Http\Message\StreamInterface');
+        $mockBody->method('write')
+            ->with($this->equalTo('{"success":true,"record":{"id":101}}'));
 
         $response = $this->createStub('Psr\Http\Message\ResponseInterface');
         $response->method('getBody')
              ->willReturn($mockBody);
         $args = ['id'=> 1];
         $record = new RecordHandler($orm);
-        $record->store($request, $response, $args);
+        $record->update($request, $response, $args);
+        
 
         // $this->assertNotNull($result);
         // $this->assertEquals($result, 'foo2');
