@@ -1,4 +1,8 @@
 <?php
+error_reporting(E_ALL);
+date_default_timezone_set('America/Los_Angeles');
+ini_set('display_errors', 1);
+
 require __DIR__ . '/../vendor/autoload.php';
 
 use Psr\Http\Message\ResponseInterface as Response;
@@ -9,16 +13,19 @@ use Slim\Factory\AppFactory;
 \R::freeze(true);
 
 $app = AppFactory::create();
+$app->addBodyParsingMiddleware();
 $app->addErrorMiddleware(true, true, true);
-$PREFIX = '/projects/tracks/';
-// $PREFIX = '/tracks/public';
 
-// $app->get($PREFIX.'store/', \tracker\RecordHandler::class.':store');
-$app->get($PREFIX . 'store/{id}', 'Tracker\RecordHandler:store');
 
-$app->get($PREFIX, function (Request $request, Response $response, $args) {
-    $response->getBody()->write("Hello world!");
+$app->post(PREFIX   . 'record/', 'Tracker\RecordHandler:store')->setName('record-post');
+$app->put(PREFIX    . 'record/{id}', 'Tracker\RecordHandler:update')->setName('record-put');
+$app->delete(PREFIX . 'record/{id}', 'Tracker\RecordHandler:delete')->setName('record-delete');
+$app->get(PREFIX    . 'record/{id}', 'Tracker\RecordHandler:get')->setName('record-get-one');
+$app->get(PREFIX    . 'record/', 'Tracker\RecordHandler:list')->setName('record-list');
+
+$app->get(PREFIX, function (Request $request, Response $response, $args) {
+    $response->getBody()->write("lilplaytime/Tracks");
     return $response;
-});
+})->setName('root');
 
 $app->run();
