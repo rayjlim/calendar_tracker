@@ -6,7 +6,9 @@
 	],
 	"settings": {
 		"files.watcherExclude": {
-			"**/vendor/**": true
-		}
+			"**/vendor/**": true,
+			"**/node_modules/**": true
+		},
+		"git.ignoreLimitWarning": true
 	}
 }

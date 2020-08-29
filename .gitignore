@@ -6,3 +6,5 @@ _config/*
 env_vars.sh
 
 _config/bluehost/SERVER_CONFIG.php
+**/ui-react-native-web/build/**
+**/ui-react-native-web/node_modules/**
