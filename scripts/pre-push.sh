@@ -9,7 +9,7 @@ if [ $? -ne 0 ]; then
  exit 1
 fi
 
-composer run lint:php
+composer run lint
 
 # $? stores exit value of the last command
 if [ $? -ne 0 ]; then

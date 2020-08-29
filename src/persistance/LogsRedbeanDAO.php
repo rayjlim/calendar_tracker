@@ -41,7 +41,7 @@ class LogsRedbeanDAO implements ILogsDAO
     /**
      * Update a Record
      * 
-     * @param $goalId  Goal Id
+     * @param $goal    Goal Id
      * @param $date    Date
      * @param $count   Number
      * @param $comment String
@@ -61,6 +61,18 @@ class LogsRedbeanDAO implements ILogsDAO
         $log->date = $date;
         \R::store($log);
         return $log;
+    }
+    /**
+     * Delete a Record
+     * 
+     * @param $id Record Id
+     *
+     * @return LogEntry
+     */
+    public function delete($id)
+    {
+        $xBean = \R::load(LOGS, $id);
+        \R::trash($xBean);
     }
     // public function queryAllOrderBy($orderColumn)
     // {
@@ -94,12 +106,7 @@ class LogsRedbeanDAO implements ILogsDAO
 
 
 
-    // public function delete($id)
-    // {
-    //     $xBean = \R::load(LOGS, $id);
-    //     R::trash($xBean);
-    //     return;
-    // }
+
 
     // public function toggleDisable($id)
     // {

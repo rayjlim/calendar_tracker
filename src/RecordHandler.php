@@ -49,7 +49,14 @@ class RecordHandler
             $data['comment']
         );
 
-        $response->getBody()->write(json_encode(['success' => true, 'record' => $logEntry]));
+        $response->getBody()->write(
+            json_encode(
+                [
+                    'success' => true,
+                    'record' => $logEntry
+                ]
+            )
+        );
         $response->withHeader('Content-Type', 'application/json');
         return $response;
     }
@@ -73,10 +80,38 @@ class RecordHandler
             $args['id']
         );
 
-        $response->getBody()->write(json_encode(['success' => true, 'record' => $logEntry]));
+        $response->getBody()->write(
+            json_encode(
+                [
+                    'success' => true,
+                    'record' => $logEntry
+                ]
+            )
+        );
         $response->withHeader('Content-Type', 'application/json');
         return $response;
     }
+    /**
+     * Delete the Record
+     * 
+     * @param $request  Request data
+     * @param $response Response data
+     * @param $args     Array
+     *
+     * @return Response
+     */
+    public function delete(Request $request, Response $response, $args)
+    {
+        $data = $request->getParsedBody();
+        $logEntry = $this->_ORM->delete($args['id']);
+
+        $response->getBody()->write(
+            json_encode(['success' => true])
+        );
+        $response->withHeader('Content-Type', 'application/json');
+        return $response;
+    }
+
     /**
      * Get a Record
      * 
@@ -96,7 +131,7 @@ class RecordHandler
         //     2,
         //     'comment about weight'
         // );
-        $response->getBody()->write($message . 'new id ' . $logEntry->id);
+        $response->getBody()->write($message . '<br>new id ' . $logEntry->id);
         return $response;
     }
     /**
