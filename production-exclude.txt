@@ -1,10 +1,12 @@
-_config/
-vendor/
-tests/
-.git/
-.vscode/
-scripts/
-docs/
+
+**/_config/
+**/vendor/
+**/tests/
+**/.git/
+**/.vscode/
+**/ui-react-native-web/
+**/scripts/
+**/docs/
 
 *.sh
 *.md

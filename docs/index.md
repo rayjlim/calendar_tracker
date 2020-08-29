@@ -2,8 +2,8 @@
 
 ## Tasks / On Deck
 
-- add redbean
-- migrate redbean file
+- react-native-web-ui (entry add page)
+- get an entry by day
 - create DAOFactory
 - log notes view
 

@@ -1,7 +1,10 @@
 {
     "name": "lilplaytime/calendar-tracker",
     "description": "Calendar Tracker",
+    "version": "2.0.0",
+    "license": "proprietary",
     "require": {
+        "php": "7.3.*",
         "slim/psr7": "^1",
         "slim/slim": "^4.4",
         "yeriomin/redbean-single-file": "dev-master"

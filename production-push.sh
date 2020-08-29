@@ -23,6 +23,7 @@ done
 if [ -z $BUILD ]; then
   rsync -ravz --exclude-from 'production-exclude.txt' --delete . $PREP_DIR
   rsync -avz  _config/bluehost/SERVER_CONFIG.php $PREP_DIR/backend/SERVER_CONFIG.php
+  rsync -avz  _config/bluehost/.htaccess $PREP_DIR/public/.htaccess
   rsync -avz  _config/.htaccess $PREP_DIR/public
 
 
@@ -34,8 +35,8 @@ if [ -z $BUILD ]; then
       echo "SPA Build Fail"
       exit 1
     fi
-
-    rsync -ravz dist/ $PREP_DIR/
+    
+    rsync -ravz build/* ../$PREP_DIR/public/
     cd ..
   fi
 
@@ -60,6 +61,4 @@ rsync -rave  'ssh -oHostKeyAlgorithms=+ssh-dss' \
   --exclude-from 'production-exclude-push.txt' \
   --delete . $FTP_USER@$FTP_HOST:$FTP_TARGETFOLDER
 
-ssh  $FTP_USER@$FTP_HOST "chmod 755 $FTP_TARGETFOLDER/"
-ssh  $FTP_USER@$FTP_HOST "chmod 755 $FTP_TARGETFOLDER/public"
-ssh  $FTP_USER@$FTP_HOST "chmod 755 $FTP_TARGETFOLDER/public/*"
+ssh  $FTP_USER@$FTP_HOST "chmod -R 755 $FTP_TARGETFOLDER/"
