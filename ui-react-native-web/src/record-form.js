@@ -1,43 +1,61 @@
-import React from "react";
+import React, { useState } from 'react';
+import moment from 'moment';
 import {
-  View,
-  Image,
-  Text,
-  StyleSheet,
-  Button,
-  Picker,
-  Switch,
-  TextInput,
+
+  Button
+
 } from "react-native";
 import Constants from "./constants";
 
-async function sendRecord() {
-  console.log("sendRecord");
-  const data = {
-    date: "2020-08-20",
-    count: "20",
-    comment: "new comment",
-    goalId: "weight",
-  };
-  const url = `${Constants.REST_ENDPOINT}record/`;
-  // const response = await fetch(url);
-  const response = await fetch(url, {
-    method: "POST", // *GET, POST, PUT, DELETE, etc.
-    mode: "cors", // no-cors, *cors, same-origin
-    cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-    credentials: "same-origin", // include, *same-origin, omit
-    headers: {
-      "Content-Type": "application/json",
-      // 'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    redirect: "follow", // manual, *follow, error
-    referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-    body: JSON.stringify(data), // body data type must match "Content-Type" header
+const UserList = ({ users }) => {
+  const [state, setState] = useState({
+    recordDate: moment().format('YYYY-MM-DD'),
+    count: 0,
+    comment: '',
+    refForm: React.createRef(),
   });
-  console.log(response);
+
+
+  function fieldChange(e) {
+    e.preventDefault();
+    console.log('fieldChange#e :', e);
+    const target = e.target;
+    const name = target.name;
+    console.log('target :>> ', target.name, target.value);
+    console.log('state[name] :>> ', state[target.name]);
+    const updated = {};
+    updated[name] = target.value;
+    setState({ ...state, ...updated });
 }
 
-const UserList = ({ users }) => {
+  async function sendRecord() {
+    console.log("sendRecord");
+    console.log("state", state);
+
+    const data = {
+      date: state.recordDate,
+      count: state.count,
+      comment: state.comment,
+      goalId: "weight",
+    };
+    const url = `${Constants.REST_ENDPOINT}record/`;
+    // const response = await fetch(url);
+    const response = await fetch(url, {
+      method: "POST", // *GET, POST, PUT, DELETE, etc.
+      mode: "cors", // no-cors, *cors, same-origin
+      cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+      credentials: "same-origin", // include, *same-origin, omit
+      headers: {
+        "Content-Type": "application/json",
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      redirect: "follow", // manual, *follow, error
+      referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+      body: JSON.stringify(data), // body data type must match "Content-Type" header
+    });
+    console.log(response);
+  }
+
   return (
     <section class="quickBtnRow">
       <a class="btn btn-primary btn-sm" id="baseWeightBtn">
@@ -79,7 +97,8 @@ const UserList = ({ users }) => {
             <input
               type="text"
               name="count"
-              value=""
+              value={state.count}
+              onChange={e => fieldChange(e)}
               id="countEntry"
               placeholder="Count"
               class="form-control"
@@ -98,8 +117,10 @@ const UserList = ({ users }) => {
             <input
               type="text"
               class="form-control"
+              value={state.recordDate}
+              onChange={e => fieldChange(e)}
               placeholder="yyyy-mm-dd"
-              name="date"
+              name="recordDate"
               id="logdate"
               aria-label="Small"
               aria-describedby="inputGroup-sizing-sm"
@@ -108,9 +129,10 @@ const UserList = ({ users }) => {
         </div>
         <div class="form-group">
           <label for="comment">Comment:</label>
-          <input type="text" name="comment" value="" />
+          <input type="text" name="comment" value={state.comment} 
+                        onChange={e => fieldChange(e)}/>
         </div>
-        <input type="submit" name="go" value="Create" class="btn btn-warning" />
+
         <Button
           onPress={() => {
             sendRecord();

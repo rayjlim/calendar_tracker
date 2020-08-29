@@ -5,7 +5,7 @@ import UserActions from "./user-actions";
 const UserItem = ({ item: user }) => {
   let isEnabled=false;  //changed to react hook
   let toggleSwitch = ()=>{alert('value changed'); isEnabled=!isEnabled};
-  let value='aa';
+  let value='';
   let onChangeText = (text)=>value=text;
   return (
     <View style={styles.row}>

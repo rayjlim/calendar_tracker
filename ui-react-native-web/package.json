@@ -2,8 +2,9 @@
   "name": "ui-react-native-web",
   "version": "0.1.0",
   "private": true,
-  "proxy":"http://localhost/projects/tracks/",
+  "proxy": "http://localhost/projects/tracks/",
   "dependencies": {
+    "moment": "^2.27.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-native-swipeable-flat-list": "^0.1.2",
