@@ -1,3 +1,7 @@
 RewriteEngine on
+
+#RewriteCond %{SERVER_PORT} 80
+#RewriteRule ^(.*)$ https://tracks.lilplaytime.com/$1 [R,L]
+
 RewriteRule ^$ public/ [L]
 RewriteRule (.*) public/$1 [L]

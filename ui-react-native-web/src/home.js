@@ -31,7 +31,7 @@ class Home extends React.Component {
     return (
       <ScrollView noSpacer={true} noScroll={true} style={styles.container}>
         <RecordForm />
-
+{/* 
         {this.state.loading ? (
           <ActivityIndicator
             style={[styles.centering]}
@@ -40,7 +40,7 @@ class Home extends React.Component {
           />
         ) : (
           <UserList users={this.state.users} />
-        )}
+        )} */}
       </ScrollView>
     );
   }
