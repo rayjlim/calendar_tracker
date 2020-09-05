@@ -27,6 +27,9 @@ const styles = StyleSheet.create({
     marginRight: 5,
     marginLeft: 5,
   },
+  defaultButton: {
+    width: "98%",
+  },
   actionButtonDestructive: {
     backgroundColor: "#ff4b21",
   },
@@ -38,7 +41,7 @@ const styles = StyleSheet.create({
 const RecordForm = ({ users }) => {
   const [state, setState] = useState({
     recordDate: moment().format("YYYY-MM-DD"),
-    count: 0,
+    count: 140.0,
     comment: "",
     refForm: React.createRef(),
   });
@@ -76,12 +79,11 @@ const RecordForm = ({ users }) => {
         body: JSON.stringify(data), // body data type must match "Content-Type" header
       });
       console.log(response);
-      if(response.ok) {
+      if (response.ok) {
         alert("Save Complete");
       } else {
-        console.log('Network response was not ok.');
+        console.log("Network response was not ok.");
       }
-     
     } catch (error) {
       alert("Error: " + error);
     }
@@ -90,7 +92,11 @@ const RecordForm = ({ users }) => {
   return (
     <View>
       <TouchableHighlight
-        style={[styles.actionButton, styles.actionButtonDestructive]}
+        style={[
+          styles.actionButton,
+          styles.actionButtonDestructive,
+          styles.defaultButton,
+        ]}
         onPress={() => {
           const updated = { count: 140.0 };
           setState({ ...state, ...updated });
@@ -101,7 +107,7 @@ const RecordForm = ({ users }) => {
 
       <View style={styles.actionsContainer}>
         <TouchableHighlight
-          style={[styles.actionButton, styles.actionButtonDestructive]}
+          style={[styles.actionButton]}
           onPress={() => {
             const factor = -0.2;
             const updated = { count: +(state.count + factor).toFixed(2) };
@@ -111,7 +117,7 @@ const RecordForm = ({ users }) => {
           <Text style={styles.actionButtonText}>-.2</Text>
         </TouchableHighlight>
         <TouchableHighlight
-          style={[styles.actionButton, styles.actionButtonDestructive]}
+          style={[styles.actionButton]}
           onPress={() => {
             const factor = -1.0;
             const updated = { count: +(state.count + factor).toFixed(2) };
@@ -121,7 +127,7 @@ const RecordForm = ({ users }) => {
           <Text style={styles.actionButtonText}>-1</Text>
         </TouchableHighlight>
         <TouchableHighlight
-          style={[styles.actionButton, styles.actionButtonDestructive]}
+          style={[styles.actionButton]}
           onPress={() => {
             const factor = 1.0;
             const updated = { count: +(state.count + factor).toFixed(2) };
@@ -131,7 +137,7 @@ const RecordForm = ({ users }) => {
           <Text style={styles.actionButtonText}>+1</Text>
         </TouchableHighlight>
         <TouchableHighlight
-          style={[styles.actionButton, styles.actionButtonDestructive]}
+          style={[styles.actionButton]}
           onPress={() => {
             const factor = 0.2;
             const updated = { count: +(state.count + factor).toFixed(2) };
@@ -145,7 +151,11 @@ const RecordForm = ({ users }) => {
       <View style={styles.actionsContainer}>
         <Text style={styles.actionButtonText}>Track</Text>
 
-        <select className="form-control form-control-sm" name="goal" id="goalEntry">
+        <select
+          className="form-control form-control-sm"
+          name="goal"
+          id="goalEntry"
+        >
           <option>weight</option>
         </select>
       </View>
