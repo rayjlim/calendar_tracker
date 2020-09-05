@@ -4,6 +4,7 @@ namespace Tracker;
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use stdClass;
 
 /**
  * RecordHandler
@@ -25,7 +26,7 @@ class RecordHandler
      */
     public function __construct($ORM = null)
     {
-        echo "RecordHandler construct<br>";
+        // echo "RecordHandler construct<br>";
         $this->_ORM = ($ORM != null)
             ? $ORM // for DI in testing
             : new LogsRedbeanDAO();
@@ -123,15 +124,13 @@ class RecordHandler
      */
     public function get(Request $request, Response $response, $args)
     {
-        $message = "Get it!" . $args['id'];
-        $logEntry = json_decode('{"id":101}');
-        // $logEntry = $this->_ORM->get(
-        //     $args['id'],
-        //     '2020-08-01',
-        //     2,
-        //     'comment about weight'
-        // );
-        $response->getBody()->write($message . '<br>new id ' . $logEntry->id);
+        $logEntry = $this->_ORM->getById($args['id']);
+        $response->getBody()->write(
+            json_encode(
+                $logEntry
+            )
+        );
+        $response->withHeader('Content-Type', 'application/json');
         return $response;
     }
     /**
@@ -145,15 +144,23 @@ class RecordHandler
      */
     public function list(Request $request, Response $response, $args)
     {
-        $message = "List it!";
-        $logEntry = json_decode('{"id":101}');
-        // $logEntry = $this->_ORM->get(
-        //     $args['id'],
-        //     '2020-08-01',
-        //     2,
-        //     'comment about weight'
-        // );
-        $response->getBody()->write($message . 'new id ' . $logEntry->id);
+        $params = $request->getQueryParams();
+        $params['goal'] =  (array_key_exists('goal', $params)) ? 
+            $params['goal'] : 'weight';
+        $params['start'] =  (array_key_exists('start', $params)) ? 
+            $params['start'] : date("Y-m-d", strtotime("-2 months"));
+        $params['end'] =  (array_key_exists('end', $params)) ? 
+            $params['end'] : date('Y-m-d');
+        $logEntry = $this->_ORM->getByDateRange($params);
+        $returnObj = new stdClass();
+        $returnObj->data = $logEntry;
+        $returnObj->params = $params;
+        $response->getBody()->write(
+            json_encode(
+                $returnObj
+            )
+        );
+        $response->withHeader('Content-Type', 'application/json');
         return $response;
     }
 }
