@@ -51,8 +51,7 @@ class LogsRedbeanDAO implements ILogsDAO
      */
     public function update($goal, $date, $count, $comment, $id)
     {
-        $log  = \R::findOne(LOGS, ' id = ?', [$id]);
-
+        $log = \R::load(LOGS, $id);
         // echo ' rb: '. $value;
         $log->goal = $goal;
         $log->points = 0;
@@ -71,9 +70,44 @@ class LogsRedbeanDAO implements ILogsDAO
      */
     public function delete($id)
     {
-        $xBean = \R::load(LOGS, $id);
-        \R::trash($xBean);
+        $log = \R::load(LOGS, $id);
+        \R::trash($log);
     }
+    /**
+     * Get a Record by Id
+     * 
+     * @param $id Record Id
+     *
+     * @return LogEntry
+     */
+    public function getById($id)
+    {
+        $log = \R::load(LOGS, $id);
+        return $log;
+    }
+
+    /**
+     * Get a Record by Date Range
+     * 
+     * @param $id Record Id
+     *
+     * @return LogEntry
+     */
+    public function getByDateRange($params)
+    {
+
+
+        $logs = \R::findAll(
+            LOGS,
+            ' goal like ? AND date between ? and ? order by date',
+            [$params['goal'], $params['start'], $params['end']]
+        );
+        $sequencedArray = array_values(array_map(function ($item) {
+            return $item->export();
+        }, $logs));
+        return $sequencedArray;
+    } 
+
     // public function queryAllOrderBy($orderColumn)
     // {
     //     $logs = \R::findAll(LOGS, ' order by ?', [$orderColumn]);
@@ -82,31 +116,6 @@ class LogsRedbeanDAO implements ILogsDAO
     //     }, $logs));
     //     return $sequencedArray;
     // }
-
-    // public function get($params)
-    // {
-    //     $logs = \R::findAll(
-    //         LOGS,
-    //         ' goal like ? AND date between ? and ? order by date',
-    //         [$params->goal, $params->start, $params->end]
-    //     );
-    //     $sequencedArray = array_values(array_map(function ($item) {
-    //         return $item->export();
-    //     }, $logs));
-    //     return $sequencedArray;
-    // }
-
-    // public function load($id)
-    // {
-    //     $log = \R::load(LOGS, $id);
-    //     return $log->export();
-    // }
-
-
-
-
-
-
 
     // public function toggleDisable($id)
     // {
