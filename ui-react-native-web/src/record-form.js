@@ -145,7 +145,7 @@ const UserList = ({ users }) => {
       <View style={styles.actionsContainer}>
         <Text style={styles.actionButtonText}>Track</Text>
 
-        <select class="form-control form-control-sm" name="goal" id="goalEntry">
+        <select className="form-control form-control-sm" name="goal" id="goalEntry">
           <option>weight</option>
         </select>
       </View>

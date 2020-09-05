@@ -4,8 +4,10 @@
   "private": true,
   "proxy": "http://localhost/projects/tracks/",
   "dependencies": {
+    "chart.js": "^2.9.3",
     "moment": "^2.27.0",
     "react": "^16.13.1",
+    "react-chartjs-2": "^2.10.0",
     "react-dom": "^16.13.1",
     "react-native-swipeable-flat-list": "^0.1.2",
     "react-native-web": "^0.12.2",
