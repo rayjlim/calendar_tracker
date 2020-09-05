@@ -89,22 +89,28 @@ class LogsRedbeanDAO implements ILogsDAO
     /**
      * Get a Record by Date Range
      * 
-     * @param $id Record Id
+     * @param $params array holding parameters
+     *                ['goal'] String goal name
+     *                ['start'] String start date range
+     *                ['end'] String end of date range
      *
      * @return LogEntry
      */
     public function getByDateRange($params)
     {
-
-
         $logs = \R::findAll(
             LOGS,
             ' goal like ? AND date between ? and ? order by date',
             [$params['goal'], $params['start'], $params['end']]
         );
-        $sequencedArray = array_values(array_map(function ($item) {
-            return $item->export();
-        }, $logs));
+        $sequencedArray = array_values(
+            array_map(
+                function ($item) {
+                    return $item->export();
+                }, 
+                $logs
+            )
+        );
         return $sequencedArray;
     } 
 

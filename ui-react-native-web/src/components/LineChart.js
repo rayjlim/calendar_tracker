@@ -19,8 +19,9 @@ class Chart extends Component{
   render(){
     console.log(this.state.chartData.datasets);
     var s1 = {
-      label: 's1',
+      label: 'Weight',
       borderColor: 'blue',
+      pointRadius: 2,
       data: this.state.chartData
     };
     

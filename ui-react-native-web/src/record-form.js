@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const UserList = ({ users }) => {
+const RecordForm = ({ users }) => {
   const [state, setState] = useState({
     recordDate: moment().format("YYYY-MM-DD"),
     count: 0,
@@ -191,4 +191,4 @@ const UserList = ({ users }) => {
   );
 };
 
-export default UserList;
+export default RecordForm;
