@@ -6,18 +6,6 @@ const Header = ({ onBack, title }) => (
     <View style={styles.header}>
       <View style={styles.headerCenter}>
         <Text accessibilityRole="heading" aria-level="3" style={styles.title}>{title}</Text>
-        <Button
-          onPress={() => {
-            alert('You tapped the button!');
-          }}
-          title="Logs"
-        />
-        <Button
-          onPress={() => {
-            alert('You tapped the button!');
-          }}
-          title="Graphs"
-        />
       </View>
     </View>
   </SafeAreaView>

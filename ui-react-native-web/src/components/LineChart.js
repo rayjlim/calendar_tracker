@@ -5,7 +5,8 @@ class Chart extends Component{
   constructor(props){
     super(props);
     this.state = {
-      chartData: props.chartData
+      chartData: props.chartData,
+      trendData: props.trendData
     }
   }
 
@@ -25,20 +26,18 @@ class Chart extends Component{
       data: this.state.chartData
     };
     
-    // var s2 = {
-    //   label: 's2',
-    //   borderColor: 'red',
-    //   data: [
-    //     { x: '2017-01-07 18:00:00', y: 90 },
-    //     { x: '2017-01-08 18:00:00', y: 105 },
-    //   ]
-    // };
+    var s2 = {
+      label: 'Trend',
+      borderColor: 'red',
+      fill: 'none',
+      data: this.state.trendData
+    };
 
     return (
       <div className="chart">
         <Line data={
 
-{ datasets: [s1] }
+{ datasets: [s1, s2] }
         }
 
 options={ {

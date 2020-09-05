@@ -13,7 +13,8 @@ class App extends React.Component {
     super();
     this.state = {
       loading: true,
-      chartData: {},
+      chartData: [],
+      trendData: [],
       metrics: {}
     };
   }
@@ -46,10 +47,22 @@ class App extends React.Component {
           y: record.count,
         }));
         const metrics = this.calculateMetrics(records);
+
+          //moving average
+          let movingAverageSize = 10;
+          let trendData = [];
+          for (let i = movingAverageSize; i <= records.length; i++) {
+            let currentSet = records.slice(i - movingAverageSize, i);
+            let currentSetAverage = this.average(currentSet.map(record => parseFloat(record.y)));
+            trendData.push({
+              y: currentSetAverage,
+              x: currentSet[currentSet.length - 1].x
+            });
+          }
+          
         this.setState({
-          chartData: {
-            datasets: records,
-          },
+          chartData: records,
+          trendData,
           metrics,
           loading: false,
         });
@@ -123,7 +136,7 @@ class App extends React.Component {
         ) : (
           <Fragment>
             <Metrics data={this.state.metrics}/>
-            <Chart chartData={this.state.chartData.datasets} />
+            <Chart chartData={this.state.chartData} trendData={this.state.trendData}/>
           </Fragment>
         )}
       </View>
