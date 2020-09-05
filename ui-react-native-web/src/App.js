@@ -1,63 +1,74 @@
-import React from 'react';
-import {
-  AppRegistry,
-  StyleSheet,
-  View,
-} from 'react-native';
-import Home from './home';
-import Header from './header';
-import Chart from './components/LineChart';
+import React from "react";
+import { AppRegistry, StyleSheet, View, ActivityIndicator } from "react-native";
+import Home from "./home";
+import Header from "./header";
+import Chart from "./components/LineChart";
+
+import Constants from "./constants";
 
 class App extends React.Component {
-
-  constructor (){
-        super();
+  constructor() {
+    super();
     this.state = {
-      chartData: {}
+      loading: true,
+      chartData: {},
+    };
+  }
+  componentDidMount() {
+    this.getChartData();
+  }
+  async getChartData() {
+    // Ajax calls here
+    console.log("getChartData");
+    const url = `${Constants.REST_ENDPOINT}record/`;
+    try {
+      const response = await fetch(url, {
+        method: "GET", // *GET, POST, PUT, DELETE, etc.
+        mode: "cors", // no-cors, *cors, same-origin
+        cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: "same-origin", // include, *same-origin, omit
+        headers: {
+          "Content-Type": "application/json",
+        },
+        redirect: "follow", // manual, *follow, error
+        referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+      });
+
+      if (response.ok) {
+        const results = await response.json();
+        console.log(results);
+        //map the data
+        const records = results.data.map(record => ({ x: record.date, y: record.count }));
+
+        this.setState({
+          chartData: {
+            datasets: records,
+          },
+          loading: false,
+        });
+      } else {
+        console.log("Network response was not ok.");
+      }
+    } catch (error) {
+      alert("Error: " + error);
     }
   }
-  componentWillMount(){
-     this.getChartData();
-   }
-  getChartData(){
-    // Ajax calls here
-    this.setState({
-      chartData:{
-        labels: ['Boston', 'Worcester', 'Springfield', 'Lowell', 'Cambridge', 'New Bedford'],
-        datasets:[
-          {
-            label:'Population',
-            data:[
-              617594,
-              181045,
-              153060,
-              106519,
-              105162,
-              95072
-            ],
-            backgroundColor:[
-              'rgba(255, 99, 132, 0.6)',
-              'rgba(54, 162, 235, 0.6)',
-              'rgba(255, 206, 86, 0.6)',
-              'rgba(75, 192, 192, 0.6)',
-              'rgba(153, 102, 255, 0.6)',
-              'rgba(255, 159, 64, 0.6)',
-              'rgba(255, 99, 132, 0.6)'
-            ]
-          }
-        ]
-      }
-    });
-  }
-
-
 
   render() {
     return (
       <View style={styles.appContainer}>
         <Header title="Tracker 3 app" />
         <Home />
-        <Chart chartData={this.state.chartData} />
+
+        {this.state.loading ? (
+          <ActivityIndicator
+            style={[styles.centering]}
+            color="#ff8179"
+            size="large"
+          />
+        ) : (
+          <Chart chartData={this.state.chartData.datasets} />
+        )}
       </View>
     );
   }
@@ -69,6 +80,6 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('App', () => App);
+AppRegistry.registerComponent("App", () => App);
 
 export default App;
