@@ -1,8 +1,10 @@
-import React from "react";
+import React, {Fragment} from "react";
 import { AppRegistry, StyleSheet, View, ActivityIndicator } from "react-native";
 import Home from "./home";
 import Header from "./header";
 import Chart from "./components/LineChart";
+import Metrics from "./components/Metrics";
+import moment from "moment";
 
 import Constants from "./constants";
 
@@ -12,6 +14,7 @@ class App extends React.Component {
     this.state = {
       loading: true,
       chartData: {},
+      metrics: {}
     };
   }
   componentDidMount() {
@@ -38,12 +41,16 @@ class App extends React.Component {
         const results = await response.json();
         console.log(results);
         //map the data
-        const records = results.data.map(record => ({ x: record.date, y: record.count }));
-
+        const records = results.data.map((record) => ({
+          x: record.date,
+          y: record.count,
+        }));
+        const metrics = this.calculateMetrics(records);
         this.setState({
           chartData: {
             datasets: records,
           },
+          metrics,
           loading: false,
         });
       } else {
@@ -52,6 +59,53 @@ class App extends React.Component {
     } catch (error) {
       alert("Error: " + error);
     }
+  }
+
+  calculateMetrics(records) {
+    let today = moment();
+    let oneWeekAgo = moment().subtract(7, "days");
+    let twoWeekAgo = moment().subtract(14, "days");
+    let oneMonthAgo = moment().subtract(1, "month");
+
+    var currentWeek = records.filter(item => {
+      let curr = moment(item.x);
+      return curr >= oneWeekAgo && curr <= today;
+    });
+
+    var pastWeek = records.filter((item) => {
+      let curr = moment(item.x);
+      return curr >= twoWeekAgo && curr <= oneWeekAgo;
+    });
+
+    var restOfMonth = records.filter((item) => {
+      let curr = moment(item.x);
+      return curr >= oneMonthAgo && curr <= twoWeekAgo;
+    });
+    let overallAvg = this.average(records.map((record) => parseFloat(record.y)));
+    let currentWeekAvg = this.average(currentWeek.map((record) => parseFloat(record.y)));
+    let pastCurrentWeekAvg = this.average(pastWeek.map((record) => parseFloat(record.y)));
+    let restOfMonthAvg = this.average(restOfMonth.map((record) => parseFloat(record.y)));
+
+    let highest = records.reduce((agg, record) => {
+      return agg === null || record.y > agg.y ? record : agg;
+    }, null);
+
+    let lowest = records.reduce((agg, record) => {
+      return agg === null || record.y < agg.y ? record : agg;
+    }, null);
+    return {
+      overallAvg,
+      currentWeekAvg,
+      pastCurrentWeekAvg,
+      restOfMonthAvg,
+      highest,
+      lowest
+    };
+  }
+   average(group) {
+    if (!group) { return null; }
+    let sum = group.reduce((a, b) => a + b, 0);
+    return (sum / group.length).toFixed(3);
   }
 
   render() {
@@ -67,7 +121,10 @@ class App extends React.Component {
             size="large"
           />
         ) : (
-          <Chart chartData={this.state.chartData.datasets} />
+          <Fragment>
+            <Metrics data={this.state.metrics}/>
+            <Chart chartData={this.state.chartData.datasets} />
+          </Fragment>
         )}
       </View>
     );
