@@ -185,9 +185,9 @@ class RecordHandler
         $params['goal'] = 'weight';
 
         if ($params['by'] == 'month') {
-            $MIN_YEAR = '2012';
+            $MIN_YEAR = MONTHLY_MIN_YEAR;
         } else {
-            $MIN_YEAR = '2010';
+            $MIN_YEAR = YEARLY_MIN_YEAR;
         }
         $params['start'] = (array_key_exists('start', $params))
             ? $params['start']
