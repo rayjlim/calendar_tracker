@@ -12,6 +12,7 @@ import Header from "./header";
 import Chart from "./components/LineChart";
 import Metrics from "./components/Metrics";
 import RecordList from "./components/RecordList";
+import AggregateSection from "./AggregateSection";
 import moment from "moment";
 import Constants from "./constants";
 
@@ -26,9 +27,11 @@ class App extends React.Component {
       showAllLogs: false,
     };
   }
+
   componentDidMount() {
     this.getChartData();
   }
+
   async getChartData() {
     // Ajax calls here
     console.log("getChartData");
@@ -66,7 +69,6 @@ class App extends React.Component {
             i <= movingAverageSize
               ? metrics.overallAvg
               : this.average(currentSet.map((record) => parseFloat(record.y)));
-          console.log(currentSet, records[i].x);
           trendData.push({
             y: currentSetAverage,
             x: records[i].x,
@@ -144,13 +146,6 @@ class App extends React.Component {
     return (sum / group.length).toFixed(3);
   }
 
-  toggleSwitch = (value) => {
-    //onValueChange of the switch this function will be called
-    this.setState({ showAllLogs: value });
-    //state changes according to switch
-    //which will result in re-render the text
-  };
-
   render() {
     return (
       <View style={styles.appContainer}>
@@ -168,7 +163,9 @@ class App extends React.Component {
             <View>
               <Text>Show All</Text>
               <Switch
-                onValueChange={this.toggleSwitch}
+                onValueChange={(value) => {
+                  this.setState({ showAllLogs: value });
+                }}
                 value={this.state.showAllLogs}
               />
             </View>
@@ -181,6 +178,7 @@ class App extends React.Component {
               chartData={this.state.chartData}
               trendData={this.state.trendData}
             />
+            <AggregateSection />
           </Fragment>
         )}
       </View>
