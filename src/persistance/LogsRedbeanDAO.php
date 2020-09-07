@@ -94,7 +94,7 @@ class LogsRedbeanDAO implements ILogsDAO
      *                ['start'] String start date range
      *                ['end'] String end of date range
      *
-     * @return LogEntry
+     * @return Array Log entries
      */
     public function getByDateRange($params)
     {
@@ -107,12 +107,64 @@ class LogsRedbeanDAO implements ILogsDAO
             array_map(
                 function ($item) {
                     return $item->export();
-                }, 
+                },
                 $logs
             )
         );
         return $sequencedArray;
-    } 
+    }
+
+    /**
+     * Get Metrics for Monthly Average
+     * 
+     * @param $params array holding parameters
+     *                ['goal'] String goal name
+     *                ['start'] String start date range
+     *                ['end'] String end of date range
+     *
+     * @return Array Month / Average by Month
+     */
+    public function getMonthTrend($params)
+    {
+        $logs = \R::getAll(
+            '
+        SELECT AVG( count ) AS average, month(DATE) as month
+        FROM  cpc_logs 
+        WHERE goal like ?
+             AND year(date) BETWEEN ? AND ? 
+        GROUP by month(date) 
+        ORDER by month(date) ',
+            [$params['goal'], $params['start'], $params['end']]
+        );
+
+        return $logs;
+    }
+
+    /**
+     * Get Metrics for Yearly Average
+     * 
+     * @param $params array holding parameters
+     *                ['goal'] String goal name
+     *                ['start'] String start date range
+     *                ['end'] String end of date range
+     *
+     * @return Array Year / Average by each Year
+     */
+    public function getYearTrend($params)
+    {
+        $logs = \R::getAll(
+            '
+        SELECT year(date) as year, avg(count) as average 
+        FROM `cpc_logs` 
+        WHERE goal = ? 
+        AND year(date) between ? AND ? 
+        GROUP by YEAR(date) 
+        ORDER by YEAR(date) ',
+            [$params['goal'], $params['start'], $params['end']]
+        );
+
+        return $logs;
+    }
 
     // public function queryAllOrderBy($orderColumn)
     // {
@@ -130,36 +182,7 @@ class LogsRedbeanDAO implements ILogsDAO
     //     R::store($log);
     //     return;
     // }
-    // public function getMonthTrend($params)
-    // {
-    //     $logs = \R::getAll(
-    //         '
-    //     SELECT AVG( count ) AS average, month(DATE) as month
-    //     FROM  cpc_logs 
-    //     WHERE goal like ?
-    //          AND year(date) BETWEEN ? AND ? 
-    //     GROUP by month(date) 
-    //     ORDER by month(date) ',
-    //         [$params->goal, $params->start, $params->end]
-    //     );
 
-    //     return $logs;
-    // }
-    // public function getYearTrend($params)
-    // {
-    //     $logs = \R::getAll(
-    //         '
-    //     SELECT year(date) as year, avg(count) as average 
-    //     FROM `cpc_logs` 
-    //     WHERE goal = ? 
-    //     AND year(date) between ? AND ? 
-    //     GROUP by YEAR(date) 
-    //     ORDER by YEAR(date) ',
-    //         [$params->goal, $params->start, $params->end]
-    //     );
-
-    //     return $logs;
-    // }
 
     // public function getSameDayEntries($month, $day)
     // {

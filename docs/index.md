@@ -2,25 +2,36 @@
 
 ## Tasks / On Deck
 
-- other graphs: weekly average
+- other graphs: weekly average [bar chart]
+  - front end
 - other graphs: monthly average
 - other graphs: yearly average
+- Show logs - add day of the week
 - can change date range of graph
 - swipeable rows [need use case](https://github.com/jemise111/react-native-swipe-list-view), like in strides (left to delete), right to edit
+- record form: datepicker
+- migrate cron job for daily report
 
 ## Bugs
 
 ## Features
 
 ----
-On save go to graph- most common flow
+
+```mermaid
+sequenceDiagram
+    "End User"->>"Local Back End": GET endpionts
+    "Local Back End"-->>"End User": endpoints!
+    Note right of "End User": Check for Auth Cookie
+    "End User"->>"Auth Endpoint": GET session
+    "Auth Endpoint"-->>"End User": User Info / Token
+```
+
 codeception coverage: unit tests
   SQL builder check
 
-buttons to +/- for date
-Show logs -nowrap date
-Show logs - add day of the week
-datepicker
+buttons to +/- for date or Date picker
+Show logs - nowrap date
 
 log > entries
     better spacing; include create btn

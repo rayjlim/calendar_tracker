@@ -145,15 +145,59 @@ class RecordHandler
     public function list(Request $request, Response $response, $args)
     {
         $params = $request->getQueryParams();
-        $params['goal'] =  (array_key_exists('goal', $params)) ? 
+        $params['goal'] =  (array_key_exists('goal', $params)) ?
             $params['goal'] : 'weight';
-        $params['start'] =  (array_key_exists('start', $params)) ? 
+        $params['start'] =  (array_key_exists('start', $params)) ?
             $params['start'] : date("Y-m-d", strtotime("-2 months"));
-        $params['end'] =  (array_key_exists('end', $params)) ? 
+        $params['end'] =  (array_key_exists('end', $params)) ?
             $params['end'] : date('Y-m-d');
         $logEntry = $this->_ORM->getByDateRange($params);
         $returnObj = new stdClass();
         $returnObj->data = $logEntry;
+        $returnObj->params = $params;
+        $response->getBody()->write(
+            json_encode(
+                $returnObj
+            )
+        );
+        $response->withHeader('Content-Type', 'application/json');
+        return $response;
+    }
+
+    /**
+     * Aggregate Metrics
+     * 
+     * @param $request  Request data
+     * @param $response Response data
+     * @param $args     Array
+     *
+     * @return Response
+     */
+    public function aggregate(Request $request, Response $response, $args)
+    {
+
+        $params = $request->getQueryParams();
+        $params['by'] =  (array_key_exists('by', $params)) ?
+            $params['by'] : 'month';
+
+        $params['goal'] = 'weight';
+        $params['start'] = (array_key_exists('start', $params))
+            ? $params['start']
+            : MIN_YEAR;
+        $params['end'] = (array_key_exists('end', $params))
+            ? $params['end']
+            : "2020-09-08";
+        // : date_create()['format']('Y-m-d');
+
+
+        if ($params['by'] == 'month') {
+            $points = $this->_ORM->getMonthTrend($params);
+        } else {
+            $points = $this->_ORM->getYearTrend($params);
+        }
+
+        $returnObj = new stdClass();
+        $returnObj->data = $points;
         $returnObj->params = $params;
         $response->getBody()->write(
             json_encode(

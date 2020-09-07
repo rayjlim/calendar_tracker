@@ -23,6 +23,9 @@ $app->delete(PREFIX . 'record/{id}', 'Tracker\RecordHandler:delete')->setName('r
 $app->get(PREFIX    . 'record/{id}', 'Tracker\RecordHandler:get')->setName('record-get-one');
 $app->get(PREFIX    . 'record/', 'Tracker\RecordHandler:list')->setName('record-list');
 
+
+$app->get(PREFIX    . 'aggregate/', 'Tracker\RecordHandler:aggregate')->setName('aggregate');
+
 $app->get(PREFIX, function (Request $request, Response $response, $args) {
     $response->getBody()->write("lilplaytime/Tracks");
     return $response;
