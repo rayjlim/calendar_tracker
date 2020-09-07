@@ -1,11 +1,11 @@
 import React, { Fragment } from "react";
-import { AppRegistry, StyleSheet, View, ActivityIndicator } from "react-native";
+import { AppRegistry, StyleSheet, View, ActivityIndicator, Text, Switch } from "react-native";
 import Home from "./home";
 import Header from "./header";
 import Chart from "./components/LineChart";
 import Metrics from "./components/Metrics";
+import RecordList from "./components/RecordList";
 import moment from "moment";
-
 import Constants from "./constants";
 
 class App extends React.Component {
@@ -16,6 +16,7 @@ class App extends React.Component {
       chartData: [],
       trendData: [],
       metrics: {},
+      showAllLogs: false
     };
   }
   componentDidMount() {
@@ -45,6 +46,7 @@ class App extends React.Component {
         const records = results.data.map((record) => ({
           x: record.date,
           y: record.count,
+          label: record.comment
         }));
         const metrics = this.calculateMetrics(records);
 
@@ -135,6 +137,13 @@ class App extends React.Component {
     return (sum / group.length).toFixed(3);
   }
 
+  toggleSwitch = (value) => {
+    //onValueChange of the switch this function will be called
+    this.setState({showAllLogs: value})
+    //state changes according to switch
+    //which will result in re-render the text
+ }
+
   render() {
     return (
       <View style={styles.appContainer}>
@@ -149,11 +158,19 @@ class App extends React.Component {
           />
         ) : (
           <Fragment>
+            <View>
+              <Text>Show All</Text>
+              <Switch
+                onValueChange = {this.toggleSwitch}
+                value = {this.state.showAllLogs}/>
+            </View>
+            <RecordList records={this.state.chartData} showAll={this.state.showAllLogs}/ >
             <Metrics data={this.state.metrics} />
             <Chart
               chartData={this.state.chartData}
               trendData={this.state.trendData}
             />
+
           </Fragment>
         )}
       </View>

@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  Text,
-  View,
-  StyleSheet,
-} from "react-native";
+import { Text, View, StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   actionsContainer: {
@@ -22,8 +18,12 @@ const Metrics = ({ data }) => {
       <Text>Previous Week Avg: {data.pastCurrentWeekAvg}</Text>
       <Text>Rest Of Month Avg: {data.restOfMonthAvg}</Text>
       <Text>Overall Avg: {data.overallAvg}</Text>
-      <Text>Highest: {data.highest.y} on {data.highest.x}</Text>
-        <Text>Lowest: {data.lowest.y} on {data.lowest.x}</Text>
+      <Text>
+        Highest: {data.highest.y} on {data.highest.x}
+      </Text>
+      <Text>
+        Lowest: {data.lowest.y} on {data.lowest.x}
+      </Text>
     </View>
   );
 };

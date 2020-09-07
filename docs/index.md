@@ -2,14 +2,12 @@
 
 ## Tasks / On Deck
 
-- view of records for current day
-- view of records for graph
-- can change date range of graph
 - other graphs: weekly average
 - other graphs: monthly average
 - other graphs: yearly average
-- swipeable rows (need use case)[https://github.com/jemise111/react-native-swipe-list-view]
-- 
+- can change date range of graph
+- swipeable rows [need use case](https://github.com/jemise111/react-native-swipe-list-view), like in strides (left to delete), right to edit
+
 ## Bugs
 
 ## Features
@@ -39,6 +37,8 @@ reports: refer to strides
 Api for all data
 
 New feature: spiritual, mental, physical scale tracker
+
+habit tracker - put total and % at end of month
 
 ## Known fixes
 
