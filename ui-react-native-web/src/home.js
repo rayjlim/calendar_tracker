@@ -7,28 +7,14 @@ class Home extends React.Component {
   state = {
     users: [],
     loading: true,
-    status: 'up'
+    status: "up",
   };
-  componentDidMount() {
-
-  }
-
-
+  componentDidMount() {}
 
   render() {
     return (
       <ScrollView noSpacer={true} noScroll={true} style={styles.container}>
         <RecordForm />
-{/* 
-        {this.state.loading ? (
-          <ActivityIndicator
-            style={[styles.centering]}
-            color="#ff8179"
-            size="large"
-          />
-        ) : (
-          <UserList users={this.state.users} />
-        )} */}
       </ScrollView>
     );
   }
@@ -36,14 +22,8 @@ class Home extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "whitesmoke"
+    backgroundColor: "whitesmoke",
   },
-  centering: {
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 8,
-    height: "100vh"
-  }
 });
 
 export default Home;

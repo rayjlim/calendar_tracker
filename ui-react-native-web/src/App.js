@@ -1,5 +1,12 @@
 import React, { Fragment } from "react";
-import { AppRegistry, StyleSheet, View, ActivityIndicator, Text, Switch } from "react-native";
+import {
+  AppRegistry,
+  StyleSheet,
+  View,
+  ActivityIndicator,
+  Text,
+  Switch,
+} from "react-native";
 import Home from "./home";
 import Header from "./header";
 import Chart from "./components/LineChart";
@@ -16,7 +23,7 @@ class App extends React.Component {
       chartData: [],
       trendData: [],
       metrics: {},
-      showAllLogs: false
+      showAllLogs: false,
     };
   }
   componentDidMount() {
@@ -46,7 +53,7 @@ class App extends React.Component {
         const records = results.data.map((record) => ({
           x: record.date,
           y: record.count,
-          label: record.comment
+          label: record.comment,
         }));
         const metrics = this.calculateMetrics(records);
 
@@ -54,7 +61,7 @@ class App extends React.Component {
         let movingAverageSize = 10;
         let trendData = [];
         for (let i = 0; i < records.length; i++) {
-          let currentSet = records.slice(i - movingAverageSize+1, i+1);
+          let currentSet = records.slice(i - movingAverageSize + 1, i + 1);
           let currentSetAverage =
             i <= movingAverageSize
               ? metrics.overallAvg
@@ -139,10 +146,10 @@ class App extends React.Component {
 
   toggleSwitch = (value) => {
     //onValueChange of the switch this function will be called
-    this.setState({showAllLogs: value})
+    this.setState({ showAllLogs: value });
     //state changes according to switch
     //which will result in re-render the text
- }
+  };
 
   render() {
     return (
@@ -161,16 +168,19 @@ class App extends React.Component {
             <View>
               <Text>Show All</Text>
               <Switch
-                onValueChange = {this.toggleSwitch}
-                value = {this.state.showAllLogs}/>
+                onValueChange={this.toggleSwitch}
+                value={this.state.showAllLogs}
+              />
             </View>
-            <RecordList records={this.state.chartData} showAll={this.state.showAllLogs}/ >
+            <RecordList
+              records={this.state.chartData}
+              showAll={this.state.showAllLogs}
+            />
             <Metrics data={this.state.metrics} />
             <Chart
               chartData={this.state.chartData}
               trendData={this.state.trendData}
             />
-
           </Fragment>
         )}
       </View>

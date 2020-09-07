@@ -36,6 +36,25 @@ const styles = StyleSheet.create({
   actionButtonText: {
     textAlign: "center",
   },
+  countInput: {
+    width: "7em",
+    backgroundColor: "#FFF",
+    border: "1px solid #EEE",
+  },
+  dateInput: {
+    width: "7em",
+    backgroundColor: "#FFF",
+    border: "1px solid #EEE",
+  },
+  centering: {
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 8,
+    // height: "100vh",
+    // flexDirection: "row",
+    // flex: 1,
+    // order: 2,
+  },
 });
 
 const RecordForm = ({ users }) => {
@@ -90,7 +109,7 @@ const RecordForm = ({ users }) => {
   }
 
   return (
-    <View>
+    <View style={styles.centering}>
       <TouchableHighlight
         style={[
           styles.actionButton,
@@ -160,9 +179,10 @@ const RecordForm = ({ users }) => {
         </select>
       </View>
       <View style={styles.actionsContainer}>
-        <Text style={styles.actionButtonText}>Count</Text>
+        <Text style={styles.actionButtonText}>Count: </Text>
 
         <TextInput
+          style={styles.countInput}
           type="text"
           keyboardType="numeric"
           value={state.count}
@@ -172,16 +192,17 @@ const RecordForm = ({ users }) => {
       </View>
 
       <View style={styles.actionsContainer}>
-        <Text style={styles.actionButtonText}>Date</Text>
+        <Text style={styles.actionButtonText}>Date: </Text>
 
         <TextInput
+          style={styles.dateInput}
           type="text"
           value={state.recordDate}
           onChangeText={onTextChange("recordDate")}
           placeholder="yyyy-mm-dd"
         />
       </View>
-      <View style={styles.actionsContainer}>
+      <View>
         <Text style={styles.actionButtonText}>Comment</Text>
         <TextInput
           type="text"
