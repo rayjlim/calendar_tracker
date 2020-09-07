@@ -1,4 +1,4 @@
-import React, {Fragment} from "react";
+import React, { Fragment } from "react";
 import { AppRegistry, StyleSheet, View, ActivityIndicator } from "react-native";
 import Home from "./home";
 import Header from "./header";
@@ -15,7 +15,7 @@ class App extends React.Component {
       loading: true,
       chartData: [],
       trendData: [],
-      metrics: {}
+      metrics: {},
     };
   }
   componentDidMount() {
@@ -48,18 +48,22 @@ class App extends React.Component {
         }));
         const metrics = this.calculateMetrics(records);
 
-          //moving average
-          let movingAverageSize = 10;
-          let trendData = [];
-          for (let i = movingAverageSize; i <= records.length; i++) {
-            let currentSet = records.slice(i - movingAverageSize, i);
-            let currentSetAverage = this.average(currentSet.map(record => parseFloat(record.y)));
-            trendData.push({
-              y: currentSetAverage,
-              x: currentSet[currentSet.length - 1].x
-            });
-          }
-          
+        //moving average
+        let movingAverageSize = 10;
+        let trendData = [];
+        for (let i = 0; i < records.length; i++) {
+          let currentSet = records.slice(i - movingAverageSize+1, i+1);
+          let currentSetAverage =
+            i <= movingAverageSize
+              ? metrics.overallAvg
+              : this.average(currentSet.map((record) => parseFloat(record.y)));
+          console.log(currentSet, records[i].x);
+          trendData.push({
+            y: currentSetAverage,
+            x: records[i].x,
+          });
+        }
+
         this.setState({
           chartData: records,
           trendData,
@@ -80,7 +84,7 @@ class App extends React.Component {
     let twoWeekAgo = moment().subtract(14, "days");
     let oneMonthAgo = moment().subtract(1, "month");
 
-    var currentWeek = records.filter(item => {
+    var currentWeek = records.filter((item) => {
       let curr = moment(item.x);
       return curr >= oneWeekAgo && curr <= today;
     });
@@ -94,10 +98,18 @@ class App extends React.Component {
       let curr = moment(item.x);
       return curr >= oneMonthAgo && curr <= twoWeekAgo;
     });
-    let overallAvg = this.average(records.map((record) => parseFloat(record.y)));
-    let currentWeekAvg = this.average(currentWeek.map((record) => parseFloat(record.y)));
-    let pastCurrentWeekAvg = this.average(pastWeek.map((record) => parseFloat(record.y)));
-    let restOfMonthAvg = this.average(restOfMonth.map((record) => parseFloat(record.y)));
+    let overallAvg = this.average(
+      records.map((record) => parseFloat(record.y))
+    );
+    let currentWeekAvg = this.average(
+      currentWeek.map((record) => parseFloat(record.y))
+    );
+    let pastCurrentWeekAvg = this.average(
+      pastWeek.map((record) => parseFloat(record.y))
+    );
+    let restOfMonthAvg = this.average(
+      restOfMonth.map((record) => parseFloat(record.y))
+    );
 
     let highest = records.reduce((agg, record) => {
       return agg === null || record.y > agg.y ? record : agg;
@@ -112,11 +124,13 @@ class App extends React.Component {
       pastCurrentWeekAvg,
       restOfMonthAvg,
       highest,
-      lowest
+      lowest,
     };
   }
-   average(group) {
-    if (!group) { return null; }
+  average(group) {
+    if (!group) {
+      return null;
+    }
     let sum = group.reduce((a, b) => a + b, 0);
     return (sum / group.length).toFixed(3);
   }
@@ -135,8 +149,11 @@ class App extends React.Component {
           />
         ) : (
           <Fragment>
-            <Metrics data={this.state.metrics}/>
-            <Chart chartData={this.state.chartData} trendData={this.state.trendData}/>
+            <Metrics data={this.state.metrics} />
+            <Chart
+              chartData={this.state.chartData}
+              trendData={this.state.trendData}
+            />
           </Fragment>
         )}
       </View>
