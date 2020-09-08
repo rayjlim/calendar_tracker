@@ -4,8 +4,7 @@ import {
   StyleSheet,
   View,
   ActivityIndicator,
-  Text,
-  Switch,
+  Button,
 } from "react-native";
 
 import RecordForm from "./record-form";
@@ -26,8 +25,7 @@ class App extends React.Component {
       loading: true,
       chartData: [],
       trendData: [],
-      metrics: {},
-      showAllLogs: false,
+      metrics: {}
     };
   }
 
@@ -57,6 +55,7 @@ class App extends React.Component {
         console.log(results);
         //map the data
         const records = results.data.map((record) => ({
+          id: record.id,
           x: record.date,
           y: record.count,
           label: record.comment,
@@ -77,7 +76,6 @@ class App extends React.Component {
             x: records[i].x,
           });
         }
-
         this.setState({
           chartData: records,
           trendData,
@@ -154,7 +152,9 @@ class App extends React.Component {
       <View style={styles.appContainer}>
         <Header title="Tracker 3 app" />
         <RecordForm />
-
+        {/* <Button title="Refresh" 
+          onPress={()=>this.getChartData()}
+      /> */}
         {this.state.loading ? (
           <ActivityIndicator
             style={[styles.centering]}
@@ -163,19 +163,8 @@ class App extends React.Component {
           />
         ) : (
           <Fragment>
-            <View>
-              <Text>Show All</Text>
-              <Switch
-                onValueChange={(value) => {
-                  this.setState({ showAllLogs: value });
-                }}
-                value={this.state.showAllLogs}
-              />
-            </View>
-            <RecordList
-              records={this.state.chartData}
-              showAll={this.state.showAllLogs}
-            />
+
+            <RecordList records={this.state.chartData}/>
             <Metrics data={this.state.metrics} />
             <Chart
               chartData={this.state.chartData}
