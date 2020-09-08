@@ -76,6 +76,10 @@ const RecordForm = ({ users }) => {
     console.log("sendRecord");
     console.log("state", state);
 
+    if (state.count > 200 || state.count < 100){
+      alert('Invalid number');
+      return;
+    }
     const data = {
       date: state.recordDate,
       count: state.count,

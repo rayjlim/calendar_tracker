@@ -2,8 +2,12 @@
 
 ## Tasks / On Deck
 
-- editable log entries
-- can delete log entries
+- delete entry, needs refresh
+- calendar view like strides (show dates with entries)
+- habit tracking
+  - list habits
+  - crud log entry
+  - show calendar with days entered highlighted
 - can change date range of graph
 - swipeable rows [need use case](https://github.com/jemise111/react-native-swipe-list-view), like in strides (left to delete), right to edit
 - record form: datepicker
