@@ -1,7 +1,7 @@
 {
     "name": "lilplaytime/calendar-tracker",
     "description": "Calendar Tracker",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "license": "proprietary",
     "require": {
         "php": "7.3.*",
@@ -17,13 +17,13 @@
         "squizlabs/php_codesniffer": "3.*"
     },
     "scripts": {
-        "start:dev":  "php -S localhost:8080 -t public public/index.php",
-        "kill":       "ps x | grep localhost:8080 | grep -v grep | awk '{ print $1}' | xargs kill -9",
-        "lint":       "vendor/bin/phpcs --standard=cs-ruleset.xml src",
-        "analyze":    "vendor/bin/phpstan analyse --level 8 src tests",
-        "test":       "vendor/bin/codecept run unit",
+        "start:dev": "php -S localhost:8080 -t public public/index.php",
+        "kill": "ps x | grep localhost:8080 | grep -v grep | awk '{ print $1}' | xargs kill -9",
+        "lint": "vendor/bin/phpcs --standard=cs-ruleset.xml src",
+        "analyze": "vendor/bin/phpstan analyse --level 8 src tests",
+        "test": "vendor/bin/codecept run unit",
         "test:watch": "vendor/bin/phpunit-watcher watch",
-        "release":    "npx standard-version"
+        "release": "npx standard-version"
     },
     "autoload": {
         "psr-4": {
