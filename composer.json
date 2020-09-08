@@ -22,7 +22,8 @@
         "lint":       "vendor/bin/phpcs --standard=cs-ruleset.xml src",
         "analyze":    "vendor/bin/phpstan analyse --level 8 src tests",
         "test":       "vendor/bin/codecept run unit",
-        "test:watch": "vendor/bin/phpunit-watcher watch"
+        "test:watch": "vendor/bin/phpunit-watcher watch",
+        "release":    "npx standard-version"
     },
     "autoload": {
         "psr-4": {
