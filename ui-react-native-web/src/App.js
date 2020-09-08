@@ -7,9 +7,12 @@ import {
   Text,
   Switch,
 } from "react-native";
-import Home from "./home";
+
+import RecordForm from "./record-form";
 import Header from "./header";
 import Chart from "./components/LineChart";
+import DayOfWeekChart from "./components/DayOfWeekChart";
+
 import Metrics from "./components/Metrics";
 import RecordList from "./components/RecordList";
 import AggregateSection from "./AggregateSection";
@@ -150,7 +153,7 @@ class App extends React.Component {
     return (
       <View style={styles.appContainer}>
         <Header title="Tracker 3 app" />
-        <Home />
+        <RecordForm />
 
         {this.state.loading ? (
           <ActivityIndicator
@@ -178,6 +181,7 @@ class App extends React.Component {
               chartData={this.state.chartData}
               trendData={this.state.trendData}
             />
+            <DayOfWeekChart data={this.state.chartData} />
             <AggregateSection />
           </Fragment>
         )}

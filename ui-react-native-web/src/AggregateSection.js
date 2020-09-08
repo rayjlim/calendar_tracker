@@ -3,7 +3,6 @@ import {
   AppRegistry,
   StyleSheet,
   View,
-  ActivityIndicator,
   Text,
   Switch,
 } from 'react-native';
@@ -14,7 +13,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      showMonthly: true,
+      showMonthly: false,
       showYearly: false,
       yearForMonthly: 'all',
     };
