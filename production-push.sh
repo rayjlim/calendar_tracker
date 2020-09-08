@@ -23,9 +23,7 @@ done
 if [ -z $BUILD ]; then
   rsync -ravz --exclude-from 'production-exclude.txt' --delete . $PREP_DIR
   rsync -avz  _config/bluehost/SERVER_CONFIG.php $PREP_DIR/backend/SERVER_CONFIG.php
-  rsync -avz  _config/bluehost/.htaccess $PREP_DIR/public/.htaccess
-  rsync -avz  _config/.htaccess $PREP_DIR/public
-
+  rsync -avz  _config/.htaccess $PREP_DIR/public/.htaccess
 
   if [ -z "$NOBUILDSPA" ]; then
     cd ui-react-native-web

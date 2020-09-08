@@ -1,10 +1,21 @@
 import React, { Fragment } from "react";
-import { AppRegistry, StyleSheet, View, ActivityIndicator, Text, Switch } from "react-native";
-import Home from "./home";
+import {
+  AppRegistry,
+  StyleSheet,
+  View,
+  ActivityIndicator,
+  Text,
+  Switch,
+} from "react-native";
+
+import RecordForm from "./record-form";
 import Header from "./header";
 import Chart from "./components/LineChart";
+import DayOfWeekChart from "./components/DayOfWeekChart";
+
 import Metrics from "./components/Metrics";
 import RecordList from "./components/RecordList";
+import AggregateSection from "./AggregateSection";
 import moment from "moment";
 import Constants from "./constants";
 
@@ -16,12 +27,14 @@ class App extends React.Component {
       chartData: [],
       trendData: [],
       metrics: {},
-      showAllLogs: false
+      showAllLogs: false,
     };
   }
+
   componentDidMount() {
     this.getChartData();
   }
+
   async getChartData() {
     // Ajax calls here
     console.log("getChartData");
@@ -46,7 +59,7 @@ class App extends React.Component {
         const records = results.data.map((record) => ({
           x: record.date,
           y: record.count,
-          label: record.comment
+          label: record.comment,
         }));
         const metrics = this.calculateMetrics(records);
 
@@ -54,12 +67,11 @@ class App extends React.Component {
         let movingAverageSize = 10;
         let trendData = [];
         for (let i = 0; i < records.length; i++) {
-          let currentSet = records.slice(i - movingAverageSize+1, i+1);
+          let currentSet = records.slice(i - movingAverageSize + 1, i + 1);
           let currentSetAverage =
             i <= movingAverageSize
               ? metrics.overallAvg
               : this.average(currentSet.map((record) => parseFloat(record.y)));
-          console.log(currentSet, records[i].x);
           trendData.push({
             y: currentSetAverage,
             x: records[i].x,
@@ -137,18 +149,11 @@ class App extends React.Component {
     return (sum / group.length).toFixed(3);
   }
 
-  toggleSwitch = (value) => {
-    //onValueChange of the switch this function will be called
-    this.setState({showAllLogs: value})
-    //state changes according to switch
-    //which will result in re-render the text
- }
-
   render() {
     return (
       <View style={styles.appContainer}>
         <Header title="Tracker 3 app" />
-        <Home />
+        <RecordForm />
 
         {this.state.loading ? (
           <ActivityIndicator
@@ -161,16 +166,23 @@ class App extends React.Component {
             <View>
               <Text>Show All</Text>
               <Switch
-                onValueChange = {this.toggleSwitch}
-                value = {this.state.showAllLogs}/>
+                onValueChange={(value) => {
+                  this.setState({ showAllLogs: value });
+                }}
+                value={this.state.showAllLogs}
+              />
             </View>
-            <RecordList records={this.state.chartData} showAll={this.state.showAllLogs}/ >
+            <RecordList
+              records={this.state.chartData}
+              showAll={this.state.showAllLogs}
+            />
             <Metrics data={this.state.metrics} />
             <Chart
               chartData={this.state.chartData}
               trendData={this.state.trendData}
             />
-
+            <DayOfWeekChart data={this.state.chartData} />
+            <AggregateSection />
           </Fragment>
         )}
       </View>
