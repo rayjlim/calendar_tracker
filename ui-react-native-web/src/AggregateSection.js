@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment } from 'react';
 import {
   AppRegistry,
   StyleSheet,
@@ -6,33 +6,60 @@ import {
   ActivityIndicator,
   Text,
   Switch,
-} from "react-native";
+} from 'react-native';
 
-import AggregateChart from "./components/AggregateChart";
+import AggregateChart from './components/AggregateChart';
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      showMontly: false,
+      showMonthly: true,
       showYearly: false,
+      yearForMonthly: 'all',
     };
   }
   componentDidMount() {}
 
   render() {
+    const yearsForMonthAgg = [
+      'all',
+      2021,
+      2020,
+      2019,
+      2018,
+      2017,
+      2016,
+      2015,
+      2014,
+      2013,
+      2012,
+      2011,
+    ];
     return (
       <View style={styles.appContainer}>
         <View>
           <Text>Show Monthly</Text>
           <Switch
-            onValueChange={(value) => {
+            onValueChange={value => {
               this.setState({ showMonthly: value });
             }}
             value={this.state.showMonthly}
           />
           {this.state.showMonthly ? (
-             <AggregateChart type="month" />
+            <Fragment>
+              <select
+                onChange={e => {
+                  console.log(e.target.value);
+                  this.setState({ yearForMonthly: e.target.value });
+                }}
+              >
+                {yearsForMonthAgg.map(year => (
+                  <option value={year}> {year}</option>
+                ))}
+              </select>
+              <AggregateChart type="month" year={this.state.yearForMonthly} />
+            </Fragment>
           ) : (
             <Fragment />
           )}
@@ -40,13 +67,13 @@ class App extends React.Component {
         <View>
           <Text>Show Yearly</Text>
           <Switch
-            onValueChange={(value) => {
+            onValueChange={value => {
               this.setState({ showYearly: value });
             }}
             value={this.state.showYearly}
           />
           {this.state.showYearly ? (
-             <AggregateChart type="year" />
+            <AggregateChart type="year" />
           ) : (
             <Fragment />
           )}
@@ -62,6 +89,6 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent("App", () => App);
+AppRegistry.registerComponent('App', () => App);
 
 export default App;

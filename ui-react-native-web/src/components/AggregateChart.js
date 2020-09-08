@@ -23,6 +23,7 @@ class AggregateChart extends Component {
     super(props);
     this.state = {
       type: props.type,
+      year: props.year,
       loading: true,
       chartData: [],
     };
@@ -30,15 +31,25 @@ class AggregateChart extends Component {
 
   static defaultProps = {
     type: 'month',
+    year: 'all',
   };
 
   componentDidMount() {
     this.getChartData();
   }
-  async getChartData() {
-    // Ajax calls here
-    console.log('getChartData');
-    const url = `${Constants.REST_ENDPOINT}aggregate/?by=${this.state.type}`;
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.year !== this.props.year) {
+      console.log('redraw');
+      this.getChartData(this.props.year);
+    }
+  }
+
+  async getChartData(year = this.state.year) {
+    const yearFilter =
+      year !== 'all' ? `&start=${year}-01-01&end=${year}-12-31` : '';
+
+    const url = `${Constants.REST_ENDPOINT}aggregate/?by=${this.state.type}${yearFilter}`;
     try {
       const response = await fetch(url, {
         method: 'GET', // *GET, POST, PUT, DELETE, etc.
