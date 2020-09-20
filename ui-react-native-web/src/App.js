@@ -1,10 +1,5 @@
 import React, { Fragment } from 'react';
-import {
-  AppRegistry,
-  StyleSheet,
-  View,
-  ActivityIndicator,
-} from 'react-native';
+import { AppRegistry, StyleSheet, View, ActivityIndicator } from 'react-native';
 
 import RecordForm from './components/record-form';
 import Header from './header';
@@ -14,7 +9,9 @@ import DayOfWeekChart from './components/DayOfWeekChart';
 import Metrics from './components/Metrics';
 import RecordList from './components/RecordList';
 import AggregateSection from './AggregateSection';
-import moment from 'moment';
+import sub from 'date-fns/sub';
+import parse from 'date-fns/parse';
+import format from 'date-fns/format';
 import Constants from './constants';
 
 class App extends React.Component {
@@ -92,8 +89,8 @@ class App extends React.Component {
   render() {
     return (
       <View style={styles.appContainer}>
-        <Header title="Tracker 3 app v2.0.1" />
-        <RecordForm onUpdate={this.getChartData.bind(this)}/>
+        <Header title="Tracker 3 app v2.1.1" />
+        <RecordForm onUpdate={this.getChartData.bind(this)} />
         {this.state.loading ? (
           <ActivityIndicator
             style={[styles.centering]}
@@ -121,24 +118,25 @@ class App extends React.Component {
 }
 
 const calculateMetrics = records => {
-  let today = moment();
-  let oneWeekAgo = moment().subtract(7, 'days');
-  let twoWeekAgo = moment().subtract(14, 'days');
-  let oneMonthAgo = moment().subtract(1, 'month');
+  let today = new Date();
+
+  let oneWeekAgo = sub(today, { days: 7 });
+  let twoWeekAgo = sub(today, { days: 14 });
+  let oneMonthAgo = sub(today, { months: 1 });
 
   var currentWeek = records.filter(item => {
-    let curr = moment(item.x);
-    return curr >= oneWeekAgo && curr <= today;
+    let curr = parse(item.x, 'yyyy-MM-dd', new Date());
+    return oneWeekAgo <= curr && curr <= today;
   });
 
   var pastWeek = records.filter(item => {
-    let curr = moment(item.x);
-    return curr >= twoWeekAgo && curr <= oneWeekAgo;
+    let curr = parse(item.x, 'yyyy-MM-dd', new Date());
+    return twoWeekAgo <= curr && curr <= oneWeekAgo;
   });
 
   var restOfMonth = records.filter(item => {
-    let curr = moment(item.x);
-    return curr >= oneMonthAgo && curr <= twoWeekAgo;
+    let curr = parse(item.x, 'yyyy-MM-dd', new Date());
+    return oneMonthAgo <= curr && curr <= twoWeekAgo;
   });
   let overallAvg = average(records.map(record => parseFloat(record.y)));
   let currentWeekAvg = average(currentWeek.map(record => parseFloat(record.y)));

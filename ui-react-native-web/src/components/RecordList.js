@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import { Text, View, StyleSheet, Switch, FlatList, Button } from 'react-native';
-import moment from 'moment';
+import parse from 'date-fns/parse'
+import format from 'date-fns/format';
 import Constants from '../constants';
 
 const styles = StyleSheet.create({
@@ -16,13 +17,16 @@ const styles = StyleSheet.create({
 const RecordList = ({ records, onUpdate }) => {
   const [showAll, setShowAll] = useState(false);
 
+  const today = format(new Date(), 'yyyy-MM-dd')
+
   const displayRecords = showAll
     ? records.reverse()
-    : records.filter(record => record.x === moment().format('YYYY-MM-DD'));
+    : records.filter(record => record.x === today);
 
   const DATA = displayRecords.map(record => ({
     id: record.id,
-    title: `${moment(record.x).format('YYYY-MM-DD (ddd)')}, ${record.y}, ${
+    title: `${
+      format(parse(record.x, 'yyyy-MM-dd', new Date()), 'yyyy-MM-dd (EEE)')}, ${record.y}, ${
       record.label
     }`,
   }));

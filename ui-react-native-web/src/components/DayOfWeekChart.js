@@ -1,6 +1,7 @@
 import React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
-import moment from 'moment';
+import { View, StyleSheet } from 'react-native';
+import parse from 'date-fns/parse';
+import format from 'date-fns/format';
 import { Bar } from 'react-chartjs-2';
 
 const styles = StyleSheet.create({
@@ -16,7 +17,9 @@ const styles = StyleSheet.create({
 const DayOfWeekChart = ({ data }) => {
   const daysOfTheWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   const weekDayMapping = data.reduce((acc, item) => {
-    const day = moment(item.x).format('ddd');
+    console.log(item.x);
+    const day = format(parse(item.x, 'yyyy-MM-dd', new Date()), 'EEE');
+
     if (acc.hasOwnProperty(day)) {
       acc[day].push(item.y);
     } else {
