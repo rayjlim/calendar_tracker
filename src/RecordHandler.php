@@ -175,12 +175,9 @@ class RecordHandler
      */
     public function aggregate(Request $request, Response $response, $args)
     {
-
-
         $params = $request->getQueryParams();
         $params['by'] =  (array_key_exists('by', $params)) ?
             $params['by'] : 'month';
-
 
         $params['goal'] = 'weight';
 
@@ -191,11 +188,11 @@ class RecordHandler
         }
         $params['start'] = (array_key_exists('start', $params))
             ? $params['start']
-            : $MIN_YEAR."-01-01";
+            : $MIN_YEAR . "-01-01";
         $params['end'] = (array_key_exists('end', $params))
             ? $params['end']
             : date('Y-m-d');
- 
+
         if ($params['by'] == 'month') {
             $points = $this->_ORM->getMonthTrend($params);
         } else {

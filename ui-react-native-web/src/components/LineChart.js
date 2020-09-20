@@ -2,13 +2,6 @@ import React, { Component } from "react";
 import { Line } from "react-chartjs-2";
 
 class Chart extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      chartData: props.chartData,
-      trendData: props.trendData,
-    };
-  }
 
   static defaultProps = {
     displayTitle: true,
@@ -18,19 +11,19 @@ class Chart extends Component {
   };
 
   render() {
-    console.log(this.state.chartData);
+    console.log(this.props.chartData);
     var s1 = {
       label: "Weight",
       borderColor: "blue",
       pointRadius: 2,
-      data: this.state.chartData,
+      data: this.props.chartData,
     };
 
     var s2 = {
       label: "Trend",
       borderColor: "red",
       fill: "none",
-      data: this.state.trendData,
+      data: this.props.trendData,
     };
 
     return (

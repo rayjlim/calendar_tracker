@@ -8,7 +8,7 @@ import {
   TouchableHighlight,
   StyleSheet,
 } from "react-native";
-import Constants from "./constants";
+import Constants from "../constants";
 
 const styles = StyleSheet.create({
   actionsContainer: {
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const RecordForm = ({ users }) => {
+const RecordForm = ({onUpdate}) => {
   const [state, setState] = useState({
     recordDate: moment().format("YYYY-MM-DD"),
     count: 140.0,
@@ -76,7 +76,7 @@ const RecordForm = ({ users }) => {
     console.log("sendRecord");
     console.log("state", state);
 
-    if (state.count > 200 || state.count < 100){
+    if (state.count > 175 || state.count < 115){ //magic numbers
       alert('Invalid number');
       return;
     }
@@ -104,6 +104,7 @@ const RecordForm = ({ users }) => {
       console.log(response);
       if (response.ok) {
         alert("Save Complete");
+        await onUpdate();
       } else {
         console.log("Network response was not ok.");
       }

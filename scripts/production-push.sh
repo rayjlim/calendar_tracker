@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. ./env_vars.sh
+. ./scripts/env_vars.sh
 
 if [ -z "$FTP_HOST" ]; then
     echo "Missing env_vars"
@@ -21,7 +21,8 @@ while getopts rsn option; do
 done
 
 if [ -z $BUILD ]; then
-  rsync -ravz --exclude-from 'production-exclude.txt' --delete . $PREP_DIR
+  rsync -ravz --exclude-from 'scripts/production-exclude.txt' --delete . $PREP_DIR
+  rsync -avz  scripts/production-exclude-push.txt $PREP_DIR/production-exclude-push.txt
   rsync -avz  _config/bluehost/SERVER_CONFIG.php $PREP_DIR/backend/SERVER_CONFIG.php
   rsync -avz  _config/.htaccess $PREP_DIR/public/.htaccess
 
