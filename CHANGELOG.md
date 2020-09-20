@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.1.1](https://github.com/rayjlim/calendar_tracker/compare/v2.1.0...v2.1.1) (2020-09-20)
+
+
+### Bug Fixes
+
+* 🐛 anti-pattern of assigning props to state ([9a1f0be](https://github.com/rayjlim/calendar_tracker/commit/9a1f0bef46ed2e88aca0740faca5471f6ab894fe))
+* 🐛 bad pattern of set props to state; moved record-form to components ([ea84b9b](https://github.com/rayjlim/calendar_tracker/commit/ea84b9bff21258da2ffdeeaf01313985659fa989))
+
 ## [2.1.0](https://github.com/rayjlim/calendar_tracker/compare/v2.0.0...v2.1.0) (2020-09-08)
 
 

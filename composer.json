@@ -1,7 +1,7 @@
 {
     "name": "lilplaytime/calendar-tracker",
     "description": "Calendar Tracker",
-    "version": "2.1.0",
+    "version": "2.1.1",
     "license": "proprietary",
     "require": {
         "php": "7.3.*",
@@ -20,7 +20,7 @@
         "start:dev": "php -S localhost:8080 -t public public/index.php",
         "kill": "ps x | grep localhost:8080 | grep -v grep | awk '{ print $1}' | xargs kill -9",
         "lint": "vendor/bin/phpcs --standard=cs-ruleset.xml src",
-        "lint:second-ver": "vendor/bin/phpcs --config-set default_standard PSR2",      
+        "lint:second-ver": "vendor/bin/phpcs --config-set default_standard PSR2",
         "analyze": "vendor/bin/phpstan analyse --level 8 src tests",
         "test": "vendor/bin/codecept run unit",
         "test:watch": "vendor/bin/phpunit-watcher watch",
