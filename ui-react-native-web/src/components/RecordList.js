@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import { Text, View, StyleSheet, Switch, FlatList, Button } from 'react-native';
 import moment from 'moment';
-import Constants from "../constants";
+import Constants from '../constants';
 
 const styles = StyleSheet.create({
   item: {
@@ -27,44 +27,43 @@ const RecordList = ({ records, onUpdate }) => {
     }`,
   }));
 
-  const Item = ({ title, id }) => (
-    <View style={styles.item}>
-      <Text style={styles.title}>{title}</Text>
-      {showAll ? <Button title="Delete" 
-          onPress={()=>deleteRecord(id)}
-      /> : <Fragment />}
-    </View>
-  );
-  const renderItem = ({ item }) => {
-   return (<Item title={item.title} id={item.id} />);
-  };
-
-  const deleteRecord = async (id)=>{
-    if (!window.confirm("You sure?")) {
+  const deleteRecord = async id => {
+    if (!window.confirm('You sure?')) {
       return;
     }
     console.log('delete ', id);
     const url = `${Constants.REST_ENDPOINT}record/${id}`;
     try {
       const response = await fetch(url, {
-        method: "DELETE", 
-        mode: "cors", 
-        cache: "no-cache", 
-        credentials: "same-origin",
-        redirect: "follow", 
-        referrerPolicy: "no-referrer", 
+        method: 'DELETE',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer',
       });
 
       if (response.ok) {
         alert('Deleted ', id);
         await onUpdate();
       } else {
-        console.log("Network response was not ok.");
+        console.log('Network response was not ok.');
       }
     } catch (error) {
-      alert("Error: " + error);
+      alert('Error: ' + error);
     }
-  }
+  };
+
+  const Item = ({ title, id }) => (
+    <View style={styles.item}>
+      <Text style={styles.title}>{title}</Text>
+      {showAll ? (
+        <Button title="Delete" onPress={() => deleteRecord(id)} />
+      ) : (
+        <Fragment />
+      )}
+    </View>
+  );
 
   return (
     <Fragment>
@@ -80,7 +79,7 @@ const RecordList = ({ records, onUpdate }) => {
       <View>
         <FlatList
           data={DATA}
-          renderItem={renderItem}
+          renderItem={({ item }) => <Item title={item.title} id={item.id} />}
           keyExtractor={item => item.id}
         />
       </View>
