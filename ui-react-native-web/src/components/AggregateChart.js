@@ -22,6 +22,7 @@ class AggregateChart extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      
       type: props.type,
       year: props.year,
       loading: true,

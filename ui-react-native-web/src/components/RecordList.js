@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const RecordList = ({ records }) => {
+const RecordList = ({ records, onUpdate }) => {
   const [showAll, setShowAll] = useState(false);
 
   const displayRecords = showAll
@@ -40,6 +40,9 @@ const RecordList = ({ records }) => {
   };
 
   const deleteRecord = async (id)=>{
+    if (!window.confirm("You sure?")) {
+      return;
+    }
     console.log('delete ', id);
     const url = `${Constants.REST_ENDPOINT}record/${id}`;
     try {
@@ -53,7 +56,8 @@ const RecordList = ({ records }) => {
       });
 
       if (response.ok) {
-        alert('Deleted ', id)
+        alert('Deleted ', id);
+        await onUpdate();
       } else {
         console.log("Network response was not ok.");
       }
