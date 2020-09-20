@@ -22,9 +22,6 @@ class AggregateChart extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      
-      type: props.type,
-      year: props.year,
       loading: true,
       chartData: [],
     };
@@ -42,15 +39,15 @@ class AggregateChart extends Component {
   componentDidUpdate(prevProps) {
     if (prevProps.year !== this.props.year) {
       console.log('redraw');
-      this.getChartData(this.props.year);
+      this.getChartData();
     }
   }
 
-  async getChartData(year = this.state.year) {
+  async getChartData() {
     const yearFilter =
-      year !== 'all' ? `&start=${year}-01-01&end=${year}-12-31` : '';
+    this.props.year !== 'all' ? `&start=${this.props.year}-01-01&end=${this.props.year}-12-31` : '';
 
-    const url = `${Constants.REST_ENDPOINT}aggregate/?by=${this.state.type}${yearFilter}`;
+    const url = `${Constants.REST_ENDPOINT}aggregate/?by=${this.props.type}${yearFilter}`;
     try {
       const response = await fetch(url, {
         method: 'GET', // *GET, POST, PUT, DELETE, etc.
@@ -71,7 +68,7 @@ class AggregateChart extends Component {
 
         const records = results.data.map(record => ({
           x:
-            this.state.type === 'month'
+            this.props.type === 'month'
               ? monthNames[record.month - 1]
               : record.year,
           y: parseFloat(record.average).toFixed(3),
@@ -92,7 +89,7 @@ class AggregateChart extends Component {
   render() {
     console.log(this.state.chartData);
     var set1 = {
-      label: this.state.type,
+      label: this.props.type,
       backgroundColor: 'red',
       borderColor: 'pink',
       data: this.state.chartData,
