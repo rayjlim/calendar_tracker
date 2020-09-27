@@ -11,7 +11,6 @@ import RecordList from './components/RecordList';
 import AggregateSection from './AggregateSection';
 import sub from 'date-fns/sub';
 import parse from 'date-fns/parse';
-import format from 'date-fns/format';
 import Constants from './constants';
 
 class App extends React.Component {

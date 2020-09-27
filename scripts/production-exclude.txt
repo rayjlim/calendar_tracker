@@ -19,3 +19,4 @@ codeception.yml
 .phpunit-watcher.yml
 cs-ruleset.xml
 phpcs.xml
+.versionrc
