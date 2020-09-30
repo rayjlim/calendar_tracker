@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.1.2](https://github.com/rayjlim/calendar_tracker/compare/v2.1.1...v2.1.2) (2020-09-30)
+
+
+### Bug Fixes
+
+* ♻️ migrate to date-fns; from moment ([6b82db5](https://github.com/rayjlim/calendar_tracker/commit/6b82db5a6d85bbd67e552e1f9bdc93f0e21994d8))
+
 ### [2.1.1](https://github.com/rayjlim/calendar_tracker/compare/v2.1.0...v2.1.1) (2020-09-20)
 
 
