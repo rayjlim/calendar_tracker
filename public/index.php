@@ -16,13 +16,11 @@ $app = AppFactory::create();
 $app->addBodyParsingMiddleware();
 $app->addErrorMiddleware(true, true, true);
 
-
 $app->post(PREFIX   . 'record/', 'Tracker\RecordHandler:store')->setName('record-post');
 $app->put(PREFIX    . 'record/{id}', 'Tracker\RecordHandler:update')->setName('record-put');
 $app->delete(PREFIX . 'record/{id}', 'Tracker\RecordHandler:delete')->setName('record-delete');
 $app->get(PREFIX    . 'record/{id}', 'Tracker\RecordHandler:get')->setName('record-get-one');
 $app->get(PREFIX    . 'record/', 'Tracker\RecordHandler:list')->setName('record-list');
-
 
 $app->get(PREFIX    . 'aggregate/', 'Tracker\RecordHandler:aggregate')->setName('aggregate');
 

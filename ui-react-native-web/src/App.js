@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { AppRegistry, StyleSheet, View, ActivityIndicator } from 'react-native';
 
-import RecordForm from './components/record-form';
+import RecordForm from './components/RecordForm';
 import Header from './header';
 import Chart from './components/LineChart';
 import DayOfWeekChart from './components/DayOfWeekChart';

@@ -12,5 +12,4 @@ module.exports = {
   REST_ENDPOINT: isLocalhost
     ? "/"
     : "https://tracks.lilplaytime.com/",
-  PROJECT_ROOT: isLocalhost ? "http://localhost/projects/tracker/" : "/",
 };
