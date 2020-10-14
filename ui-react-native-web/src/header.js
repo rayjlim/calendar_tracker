@@ -1,5 +1,5 @@
 import React from 'react';
-import {SafeAreaView, View, Text, StyleSheet, Button} from 'react-native';
+import {SafeAreaView, View, Text, StyleSheet} from 'react-native';
 
 const Header = ({ onBack, title }) => (
   <SafeAreaView style={styles.headerContainer}>

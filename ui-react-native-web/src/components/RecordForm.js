@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import moment from "moment";
+import format from 'date-fns/format';
 import {
   Text,
   TextInput,
@@ -59,10 +59,9 @@ const styles = StyleSheet.create({
 
 const RecordForm = ({onUpdate}) => {
   const [state, setState] = useState({
-    recordDate: moment().format("YYYY-MM-DD"),
+    recordDate: format(new Date(), 'yyyy-MM-dd'),
     count: 140.0,
-    comment: "",
-    refForm: React.createRef(),
+    comment: ""
   });
 
   const onTextChange = (name) => (value) => {
@@ -105,6 +104,11 @@ const RecordForm = ({onUpdate}) => {
       if (response.ok) {
         alert("Save Complete");
         await onUpdate();
+        setState({ ...state,
+          recordDate: format(new Date(), 'yyyy-MM-dd'),
+          count: 140.0,
+          comment: ""
+        });
       } else {
         console.log("Network response was not ok.");
       }

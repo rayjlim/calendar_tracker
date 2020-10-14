@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import {
   AppRegistry,
   StyleSheet,
@@ -9,18 +9,14 @@ import {
 
 import AggregateChart from './components/AggregateChart';
 
-class App extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      showMonthly: false,
-      showYearly: false,
-      yearForMonthly: 'all',
-    };
-  }
-  componentDidMount() {}
+const AggregateSection = ()=> {
 
-  render() {
+  const [view, setView] = useState({
+    showMonthly: false,
+    showYearly: false,
+    yearForMonthly: 'all',
+  });
+
     const yearsForMonthAgg = [
       'all',
       2021,
@@ -41,23 +37,23 @@ class App extends React.Component {
           <Text>Show Monthly</Text>
           <Switch
             onValueChange={value => {
-              this.setState({ showMonthly: value });
+              setView({ ...view, showMonthly: value });
             }}
-            value={this.state.showMonthly}
+            value={view.showMonthly}
           />
-          {this.state.showMonthly ? (
+          {view.showMonthly ? (
             <Fragment>
               <select
                 onChange={e => {
                   console.log(e.target.value);
-                  this.setState({ yearForMonthly: e.target.value });
+                  setView({ ...view, yearForMonthly: e.target.value });
                 }}
               >
                 {yearsForMonthAgg.map(year => (
-                  <option value={year}> {year}</option>
+                  <option value={year} key={year}> {year}</option>
                 ))}
               </select>
-              <AggregateChart type="month" year={this.state.yearForMonthly} />
+              <AggregateChart type="month" year={view.yearForMonthly} />
             </Fragment>
           ) : (
             <Fragment />
@@ -67,11 +63,11 @@ class App extends React.Component {
           <Text>Show Yearly</Text>
           <Switch
             onValueChange={value => {
-              this.setState({ showYearly: value });
+              setView({ ...view, showYearly: value });
             }}
-            value={this.state.showYearly}
+            value={view.showYearly}
           />
-          {this.state.showYearly ? (
+          {view.showYearly ? (
             <AggregateChart type="year" />
           ) : (
             <Fragment />
@@ -79,8 +75,7 @@ class App extends React.Component {
         </View>
       </View>
     );
-  }
-}
+};
 
 const styles = StyleSheet.create({
   appContainer: {
@@ -88,6 +83,6 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('App', () => App);
+AppRegistry.registerComponent('App', () => AggregateSection);
 
-export default App;
+export default AggregateSection;
