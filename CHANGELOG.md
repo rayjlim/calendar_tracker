@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.1.3](https://github.com/rayjlim/calendar_tracker/compare/v2.1.2...v2.1.3) (2020-10-14)
+
+
+### Bug Fixes
+
+* 🎨 code clean up ([3ddb6e3](https://github.com/rayjlim/calendar_tracker/commit/3ddb6e34bc14759f925d5e80f33c2ea148d56ce1))
+
 ### [2.1.2](https://github.com/rayjlim/calendar_tracker/compare/v2.1.1...v2.1.2) (2020-09-30)
 
 
