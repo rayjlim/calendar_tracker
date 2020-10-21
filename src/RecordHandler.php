@@ -210,4 +210,67 @@ class RecordHandler
         $response->withHeader('Content-Type', 'application/json');
         return $response;
     }
+
+    /**
+     * Cron Report
+     * 
+     * @param $request  Request data
+     * @param $response Response data
+     * @param $args     Array
+     *
+     * @return Response
+     */
+    public function cron(Request $request, Response $response, $args)
+    {
+        $params = $request->getQueryParams();
+
+        $month = (array_key_exists('month', $params))
+            ? $params['month'] : date('m');
+        $day = (array_key_exists('day', $params))
+            ? $params['day'] : date('d');
+
+        $entries = $this->_ORM->getSameDayEntries($month, $day);
+
+        $params['goal'] = 'weight';
+
+        $params['start'] = date_create()->format('Y');
+        $params['end'] = date_create()->format('Y-m-d');
+
+        $logs = $this->_ORM->getYearTrend($params);
+        $yearAvg = $logs[0];
+        $printedNonWeight = array_reduce(
+            $entries, function ($carry, $item) {
+                $entryDay = new \DateTime($item['date']);
+                $message =  "<li>" . $entryDay->format('Y-D') 
+                . ': ' . $item['count'] 
+                . ': ' . $item['comment'] . "</li>";
+                return $carry .= $message;
+            }
+        );
+
+        $message = "<HTML><BODY>" .
+            "<h1>Weight Trends</h1>" .
+            "<a href=\"https://tracks.lilplaytime.com/\">Log Entry</a>" .
+            "<h2>" . $yearAvg['year'] . "Year to date, Average: " .
+            number_format($yearAvg['average'], 2) . "</h2>" .
+            "<ul>" .
+            $printedNonWeight .
+            "</ul></BODY></HTML>";
+
+        $subject = "On this day " . date('M d');
+        $to = REPORT_TO;
+
+        $headers = "From: tracks@lilplaytime.com\r\n";
+        $headers .= "Reply-To: " . REPORT_TO . "\r\n";
+        $headers .= "X-Mailer: PHP/" . phpversion();
+        $headers .= "MIME-Version: 1.0\r\n";
+        $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+        echo $to;
+        echo $subject;
+        echo $message;
+
+        mail($to, $subject, $message, $headers);
+        echo "mail is sent";
+        return $response;
+    }
 }

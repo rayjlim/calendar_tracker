@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import pkg from '../package.json';
 import { AppRegistry, StyleSheet, View, ActivityIndicator } from 'react-native';
 
 import RecordForm from './components/RecordForm';
@@ -88,7 +89,7 @@ class App extends React.Component {
   render() {
     return (
       <View style={styles.appContainer}>
-        <Header title="Tracker 3 app v2.1.1" />
+        <Header title={`Tracker 3 app v${pkg.version}`} />
         <RecordForm onUpdate={this.getChartData.bind(this)} />
         {this.state.loading ? (
           <ActivityIndicator

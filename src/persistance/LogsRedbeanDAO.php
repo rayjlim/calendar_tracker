@@ -165,6 +165,26 @@ class LogsRedbeanDAO implements ILogsDAO
 
         return $logs;
     }
+    /**
+     * Get Metrics for Same Day each year
+     * 
+     * @param $month number month of the year
+     * @param $day   number day of the month
+     *
+     * @return Array Year / Average by each Year
+     */
+    public function getSameDayEntries($month, $day)
+    {
+        $sql = ' 
+        SELECT * 
+        FROM `cpc_logs`
+        WHERE goal = ?  
+        AND  MONTH(date) = ? 
+        AND Day(date) = ?
+        ORDER by YEAR(date) desc';
+        $logs = \R::getAll($sql, ["weight", $month, $day]);
+        return $logs;
+    }
 
     // public function queryAllOrderBy($orderColumn)
     // {
@@ -181,20 +201,6 @@ class LogsRedbeanDAO implements ILogsDAO
     //     $log->is_disabled = !$log->is_disabled;
     //     R::store($log);
     //     return;
-    // }
-
-
-    // public function getSameDayEntries($month, $day)
-    // {
-    //     $sql = ' 
-    //     SELECT * 
-    //     FROM `cpc_logs`
-    //     WHERE goal = ?  
-    //     AND  MONTH(date) = ' . $month . ' 
-    //     AND Day(date) = ' . $day . '
-    //     ORDER by YEAR(date) desc';
-    //     $logs = \R::getAll($sql, ["weight"]);
-    //     return $logs;
     // }
 
     // function getWeightAYearAgo($userId, $date) {

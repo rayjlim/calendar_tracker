@@ -24,6 +24,9 @@ $app->get(PREFIX    . 'record/', 'Tracker\RecordHandler:list')->setName('record-
 
 $app->get(PREFIX    . 'aggregate/', 'Tracker\RecordHandler:aggregate')->setName('aggregate');
 
+$app->get(PREFIX    . 'cron/', 'Tracker\RecordHandler:cron')->setName('cron');
+
+
 $app->get(PREFIX, function (Request $request, Response $response, $args) {
     $response->getBody()->write("lilplaytime/Tracks");
     return $response;
