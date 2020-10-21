@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.1.4](https://github.com/rayjlim/calendar_tracker/compare/v2.1.3...v2.1.4) (2020-10-21)
+
+
+### Bug Fixes
+
+* 🐛 Cron report working again ([aa4a6e0](https://github.com/rayjlim/calendar_tracker/commit/aa4a6e0040ecd62ce7343c4477fb9bef066390d0))
+
 ### [2.1.3](https://github.com/rayjlim/calendar_tracker/compare/v2.1.2...v2.1.3) (2020-10-14)
 
 
