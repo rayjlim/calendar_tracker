@@ -3,6 +3,10 @@
     {
       "filename": "composer.json",
       "type": "json"
+    },
+    {
+      "filename": "ui-react-native-web/package.json",
+      "type": "json"
     }
   ]
 }
