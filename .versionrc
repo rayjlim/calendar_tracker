@@ -1,11 +1,11 @@
 {
   "bumpFiles": [
     {
-      "filename": "composer.json",
+      "filename": "backend/composer.json",
       "type": "json"
     },
     {
-      "filename": "ui-react-native-web/package.json",
+      "filename": "frontend/package.json",
       "type": "json"
     }
   ]

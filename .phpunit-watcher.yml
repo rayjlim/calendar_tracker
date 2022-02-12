@@ -1,3 +1,0 @@
-phpunit:
-  binaryPath: ./vendor/bin/codecept
-  arguments: 'run unit'
