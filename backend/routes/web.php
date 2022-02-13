@@ -21,10 +21,16 @@ $router->get('/record/', 'RecordController@list');
 $router->post('/record/', 'RecordController@add');
 $router->delete('/record/{id}', 'RecordController@remove');
 
-$router->options('/record[/{id}]', function () use ($router) {
+$router->options('/[record/{id}]', function () use ($router) {
     return $router->app->version();
 });
-// $app->get( '/aggregate/', 'Tracker\RecordHandler:aggregate')->setName('aggregate');
+
+$router->get('/aggregate', 'MetricsController@get');
+
+$router->options('/aggregate', function () use ($router) {
+    return $router->app->version();
+});
+
 // $app->get( '/cron/', 'Tracker\RecordHandler:cron')->setName('cron');
 
 
