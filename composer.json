@@ -1,7 +1,7 @@
 {
     "name": "lilplaytime/calendar-tracker",
     "description": "Calendar Tracker",
-    "version": "2.1.4",
+    "version": "2.1.5",
     "license": "proprietary",
     "require": {
         "php": "7.3.*",
