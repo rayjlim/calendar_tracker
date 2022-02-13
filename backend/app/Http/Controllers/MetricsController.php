@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Record;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class MetricsController extends Controller
@@ -17,7 +17,7 @@ class MetricsController extends Controller
         //
     }
 
-/**
+    /**
      * Aggregate Metrics
      *
      * @param $request  Request data
@@ -28,7 +28,6 @@ class MetricsController extends Controller
      */
     public function get(Request $request)
     {
-
         $params = $request->all();
 
         $params['by'] =  (array_key_exists('by', $params)) ?
@@ -49,26 +48,29 @@ class MetricsController extends Controller
             : date('Y-m-d');
 
         if ($params['by'] == 'month') {
-            $points = [];
-            // $points = $this->_ORM->getMonthTrend($params);
-            // SELECT AVG( count ) AS average, month(DATE) as month
-            // FROM  cpc_logs
-            // WHERE goal like ?
-            //      AND year(date) BETWEEN ? AND ?
-            // GROUP by month(date)
-            // ORDER by month(date) ',
-            //     [$params['goal'], $params['start'], $params['end']]
+            $points = DB::select('
+            select AVG( count ) AS average, month(DATE) as month
+
+
+            FROM  cpc_logs
+            WHERE goal like ?
+                 AND year(date) BETWEEN ? AND ?
+            GROUP by month(date)
+            ORDER by month(date) ',
+                [$params['goal'], $params['start'], $params['end']]
+            );
+
 
         } else {
-            $points = [];
-            // $points = $this->_ORM->getYearTrend($params);
-            // SELECT year(date) as year, avg(count) as average
-            // FROM `cpc_logs`
-            // WHERE goal = ?
-            // AND year(date) between ? AND ?
-            // GROUP by YEAR(date)
-            // ORDER by YEAR(date) ',
-            //     [$params['goal'], $params['start'], $params['end']]
+            $points = DB::select('
+            SELECT year(date) as year, avg(count) as average
+            FROM `cpc_logs`
+            WHERE goal = ?
+            AND year(date) between ? AND ?
+            GROUP by YEAR(date)
+            ORDER by YEAR(date) ',
+                [$params['goal'], $params['start'], $params['end']]
+            );
         }
 
         $returnObj = new \stdClass();
@@ -77,6 +79,5 @@ class MetricsController extends Controller
 
         header('Content-Type', 'application/json');
         echo json_encode($returnObj);
-
     }
 }
