@@ -14,26 +14,24 @@ usage() {
   echo ""
   echo "Usage: "$0" [-s] [-r]"
   echo ""
-  echo "  -s to Skip Backend Build Step"
-  echo "  -n to Skip Frontend Build Step"
+  echo "  -b to Skip Backend"
+  echo "  -f to Skip Frontend "
   echo "  -r to reset SSH connection"
-  echo "  -p to Skip Publish"
   echo ""
 }
 
-while getopts rsnp option
+while getopts rbf option
 do
     case "${option}" in
     r) RESETSSH=true;;
-    s) BUILD=true;;
-    n) NOBUILDREACT=true;;
-    p) NOPUBLISH=true;;
+    b) NOBACKENDBUILD=true;;
+    f) NOFRONTENDBUILD=true;;
     [?])  usage
         exit 1;;
     esac
 done
 
-if [ -z "$BUILD" ]; then
+if [ -z "$NOBACKENDBUILD" ]; then
   cd ../backend
   mkdir -p ./build/
   rsync -ravz --exclude-from '../scripts/exclude-from-prep.txt' --delete . ./build/
@@ -54,13 +52,13 @@ fi
 
 echo "start frontend build"
 pwd
-if [ -z "$NOBUILDREACT" ]; then
+if [ -z "$NOFRONTENDBUILD" ]; then
 
   cd ./frontend
   npm run build
   buildresult=$?
   if [ $buildresult != 0 ]; then
-    echo "REACT Build Fail"
+    echo "Frontend Build Fail"
     exit 1
   fi
 
@@ -78,7 +76,7 @@ else
     echo "Skip SSH Reset"
 fi
 
-if [ -z "$NOPUBLISH" ]; then
+if [ -z "$NOBACKENDBUILD" ]; then
   echo "start upload API"
   cd ./backend/build/
   pwd
@@ -88,8 +86,10 @@ if [ -z "$NOPUBLISH" ]; then
     --delete . $FTP_USER@$FTP_HOST:$FTP_TARGETFOLDER_API/
 
   ssh  $FTP_USER@$FTP_HOST "chmod -R 755 $FTP_TARGETFOLDER_API/"
-  cd ..
+  cd ../..
+fi
 
+if [ -z "$NOFRONTENDBUILD" ]; then
   echo "start upload UI"
   cd ./frontend/build/
   pwd

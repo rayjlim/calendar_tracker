@@ -1,4 +1,4 @@
-
+build/
 vendor/
 tests/
 
@@ -9,8 +9,7 @@ tests/
 
 *.example
 
-build/
-
 .gitignore
 .editorconfig
 .styleci.yml
+.phpunit.result.cache
