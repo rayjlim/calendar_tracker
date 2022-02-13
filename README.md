@@ -2,6 +2,8 @@
 
 A personal project for tracking goals with inspiration from the Strides app
 
+For the frontend, it uses React Native Web and Chart.js
+
 ## Setup
 
 ### Backend
@@ -25,7 +27,6 @@ Go in to the `ui-react-native-web` folder
 See [Additional Docs](docs/index.md)
 
 [github](https://github.com/rayjlim/calendar_tracker)  
-
 
 ## Deployment Error
 

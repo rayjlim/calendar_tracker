@@ -1,0 +1,15 @@
+build/
+vendor/
+tests/
+
+*.xml
+*.md
+.env
+.env.production
+
+*.example
+
+.gitignore
+.editorconfig
+.styleci.yml
+.phpunit.result.cache
