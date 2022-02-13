@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
@@ -7,16 +6,6 @@ use Illuminate\Http\Request;
 
 class MetricsController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
-
     /**
      * Aggregate Metrics
      *
@@ -32,6 +21,7 @@ class MetricsController extends Controller
 
         $params['by'] =  (array_key_exists('by', $params)) ?
             $params['by'] : 'month';
+
         $params['goal'] =  (array_key_exists('goal', $params)) ?
             $params['goal'] : 'weight';
 
@@ -48,10 +38,10 @@ class MetricsController extends Controller
             : date('Y-m-d');
 
         if ($params['by'] == 'month') {
+
+            // $points = [];
             $points = DB::select('
             select AVG( count ) AS average, month(DATE) as month
-
-
             FROM  cpc_logs
             WHERE goal like ?
                  AND year(date) BETWEEN ? AND ?
@@ -59,8 +49,6 @@ class MetricsController extends Controller
             ORDER by month(date) ',
                 [$params['goal'], $params['start'], $params['end']]
             );
-
-
         } else {
             $points = DB::select('
             SELECT year(date) as year, avg(count) as average
@@ -74,10 +62,10 @@ class MetricsController extends Controller
         }
 
         $returnObj = new \stdClass();
-        $returnObj->data = $points;
         $returnObj->params = $params;
+        $returnObj->data = $points;
 
-        header('Content-Type', 'application/json');
+
         echo json_encode($returnObj);
     }
 }

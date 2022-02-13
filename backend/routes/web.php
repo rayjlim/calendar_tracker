@@ -21,13 +21,13 @@ $router->get('/record/', 'RecordController@list');
 $router->post('/record/', 'RecordController@add');
 $router->delete('/record/{id}', 'RecordController@remove');
 
-$router->options('/[record/{id}]', function () use ($router) {
+$router->options('/record[/{id}]', function () use ($router) {
     return $router->app->version();
 });
 
-$router->get('/aggregate', 'MetricsController@get');
+$router->get('/aggregate/', 'MetricsController@get');
 
-$router->options('/aggregate', function () use ($router) {
+$router->options('/aggregate/', function () use ($router) {
     return $router->app->version();
 });
 
