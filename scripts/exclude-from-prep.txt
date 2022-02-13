@@ -1,0 +1,16 @@
+
+vendor/
+tests/
+
+*.xml
+*.md
+.env
+.env.production
+
+*.example
+
+build/
+
+.gitignore
+.editorconfig
+.styleci.yml
