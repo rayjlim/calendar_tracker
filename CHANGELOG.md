@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0](https://github.com/rayjlim/calendar_tracker/compare/v2.1.5...v3.0.0) (2022-02-13)
+
+
+### ⚠ BREAKING CHANGES
+
+* 🏗️ upgrade slim4 - lumen, folder structure
+
+### Features
+
+* ♻️ completed scripts upgrade for folders ([10f4cd2](https://github.com/rayjlim/calendar_tracker/commit/10f4cd22f77b338d5bf61a893c31755b3ad117bf))
+* ➕  change slim4 for lumen ([e70d436](https://github.com/rayjlim/calendar_tracker/commit/e70d4366134b7b118ab921842ed9485d4bc1a5ae))
+* 🎉 folder restructure ([f9251dc](https://github.com/rayjlim/calendar_tracker/commit/f9251dcc7576b0bdb973c8d85be7265d13060362))
+* 🏗️ upgrade slim4 - lumen, folder structure ([6dfa38d](https://github.com/rayjlim/calendar_tracker/commit/6dfa38db367633aceffd65b00a2abc28dcc6c2b3))
+* 🔥 clean up root files ([662ed7b](https://github.com/rayjlim/calendar_tracker/commit/662ed7ba1cefd5ae43572fb4f8d337f835cebfa5))
+
+
+### Bug Fixes
+
+* 🐛 routing for metrics controller CORS issue ([5532233](https://github.com/rayjlim/calendar_tracker/commit/5532233cfc5d41516d84631ce0b05113bc9e78f6))
+* 🚀 deploy scripts remove unneccesary ([0d745c9](https://github.com/rayjlim/calendar_tracker/commit/0d745c92b52ffb4886a47002373a513c73c2ca5a))
+* 🚨 implement add/delete in lumen ([5c8181b](https://github.com/rayjlim/calendar_tracker/commit/5c8181b3677a608c6ae2af073a319fc07140f96e))
+
 ### [2.1.5](https://github.com/rayjlim/calendar_tracker/compare/v2.1.4...v2.1.5) (2022-02-13)
 
 ### [2.1.4](https://github.com/rayjlim/calendar_tracker/compare/v2.1.3...v2.1.4) (2020-10-21)
