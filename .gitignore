@@ -1,10 +1,12 @@
-/node_modules/
-/vendor
-backend/SERVER_CONFIG.php
-_config/*
+backend/.env
+backend/.env.production
+backend/build/*
+backend/vendor/*
 
-env_vars.sh
+frontend/env_vars.sh
+frontent/build/*
+frontend/node_modules/**
 
-_config/bluehost/SERVER_CONFIG.php
-**/ui-react-native-web/build/**
-**/ui-react-native-web/node_modules/**
+frontend/.env
+
+scripts/.env
