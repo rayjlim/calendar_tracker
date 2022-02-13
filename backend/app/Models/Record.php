@@ -10,6 +10,7 @@ class Record extends Model
     use  HasFactory;
 
     public $table = "cpc_logs";
+    public $timestamps = false;
 
     /**
      * The attributes that are mass assignable.

@@ -83,7 +83,7 @@ const RecordForm = ({onUpdate}) => {
       date: state.recordDate,
       count: state.count,
       comment: state.comment,
-      goalId: "weight",
+      goal: "weight",
     };
     const url = `${Constants.REST_ENDPOINT}record/`;
     try {

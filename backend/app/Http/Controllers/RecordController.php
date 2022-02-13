@@ -48,7 +48,7 @@ class RecordController extends Controller
         echo json_encode($returnObj);
     }
 
- /**
+    /**
      * Add record.
      *
      * @param  Request  $request
@@ -56,23 +56,32 @@ class RecordController extends Controller
      */
     public function add(Request $request)
     {
-        $params = $request->all();
-        echo json_encode($params);
-    // echo "post";
-        // $params = $request->all();
+        $record = new Record;
+        $record->goal = $request->goal;
+        $record->date = $request->date;
+        $record->count = $request->count;
+        $record->comment = $request->comment;
+        // $record->updated_at = date("Y/m/d");
 
+        $record->save();
 
-
-        // $records = Record::where('goal', 'like', $params['goal'])
-        //     ->where('date', '>=', $params['start'])
-        //     ->where('date', '<=',  $params['end'])
-        //     ->orderBy('date')
-        //     ->get();
-
-        // $returnObj = new \stdClass();
-        // $returnObj->data = $records;
-        // $returnObj->params = $params;
-        // echo json_encode($returnObj);
+        echo json_encode([
+            'success' => true,
+            'record' => $record
+        ]);
     }
+    /**
+     * Delete record.
+     *
+     * @param  Request  $request
+     * @return Response
+     */
+    public function remove($id)
+    {
+        Record::findOrFail($id)->delete();
 
+        echo json_encode([
+            'success' => true
+        ]);
+    }
 }

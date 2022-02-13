@@ -19,16 +19,14 @@ $router->get('/', function () use ($router) {
 
 $router->get('/record/', 'RecordController@list');
 $router->post('/record/', 'RecordController@add');
-$router->options('/record/', function () use ($router) {
+$router->delete('/record/{id}', 'RecordController@remove');
+
+$router->options('/record[/{id}]', function () use ($router) {
     return $router->app->version();
 });
-
-// $app->post( '/record/', 'Tracker\RecordHandler:store')->setName('record-post');
-// $app->put( '/record/{id}', 'Tracker\RecordHandler:update')->setName('record-put');
-// $app->delete(PREFIX . '/record/{id}', 'Tracker\RecordHandler:delete')->setName('record-delete');
-// $app->get( '/record/{id}', 'Tracker\RecordHandler:get')->setName('record-get-one');
-
-
 // $app->get( '/aggregate/', 'Tracker\RecordHandler:aggregate')->setName('aggregate');
-
 // $app->get( '/cron/', 'Tracker\RecordHandler:cron')->setName('cron');
+
+
+// $app->put( '/record/{id}', 'Tracker\RecordHandler:update')->setName('record-put');
+// $app->get( '/record/{id}', 'Tracker\RecordHandler:get')->setName('record-get-one');
