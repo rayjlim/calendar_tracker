@@ -8,17 +8,17 @@ For the frontend, it uses React Native Web and Chart.js
 
 ### Backend
 
-Requires `composer`  
+Go to `backend` folder
+Requires `composer`
 Run `composer install`  
 Create the DB using `config\base.sql`  
-Use `config/SERVER_CONFIG.php.example` as template and edit accordingly.  
-Place it at `backend/SERVER_CONFIG.php` .  
+Use `.env.example` as template and edit accordingly.  
 
 That sets up the API.
 
 ### Frontend
 
-Go in to the `ui-react-native-web` folder
+Go in to the `frontend` folder
 
 `npm run start`
 
