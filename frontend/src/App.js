@@ -89,7 +89,7 @@ class App extends React.Component {
   render() {
     return (
       <View style={styles.appContainer}>
-        <Header title={`Tracker 3 app v${pkg.version}`} />
+        <Header title={`Tracker App v${pkg.version}`} />
         <RecordForm onUpdate={this.getChartData.bind(this)} />
         {this.state.loading ? (
           <ActivityIndicator
