@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.0.1](https://github.com/rayjlim/calendar_tracker/compare/v3.0.0...v3.0.1) (2022-02-15)
+
+
+### Bug Fixes
+
+* 🎨 gitignore for htaccess, del localhost ref ([7d28aaa](https://github.com/rayjlim/calendar_tracker/commit/7d28aaa6a83e00ac3138322ca528b2f7345ba0d6))
+
 ## [3.0.0](https://github.com/rayjlim/calendar_tracker/compare/v2.1.5...v3.0.0) (2022-02-13)
 
 
