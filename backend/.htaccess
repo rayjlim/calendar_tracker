@@ -3,4 +3,4 @@ RewriteEngine On
 # RewriteBase /
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^(.*)$ https://www.lilplaytime.com/tracks-api/public/$1 [R,L]
+RewriteRule ^ public/index.php [QSA,L]

@@ -3,11 +3,9 @@ backend/.env.production
 backend/build/*
 backend/vendor/*
 
-frontend/env_vars.sh
+frontend/.env
 frontent/build/*
 frontend/node_modules/**
-
-frontend/.env
 
 scripts/.env
 backend/.htaccess.production

@@ -2,3 +2,6 @@
 ./frontend/.env
 ./backend/.env
 ./backend/.env.production
+
+./backend/.htaccess.production
+./backend/public/.htaccess.production
