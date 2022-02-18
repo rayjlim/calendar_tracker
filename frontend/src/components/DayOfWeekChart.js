@@ -17,7 +17,6 @@ const styles = StyleSheet.create({
 const DayOfWeekChart = ({ data }) => {
   const daysOfTheWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   const weekDayMapping = data.reduce((acc, item) => {
-    console.log(item.x);
     const day = format(parse(item.x, 'yyyy-MM-dd', new Date()), 'EEE');
 
     if (acc.hasOwnProperty(day)) {
