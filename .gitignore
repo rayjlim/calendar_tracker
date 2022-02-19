@@ -1,12 +1,13 @@
-backend/.env
-backend/.env.production
 backend/build/*
 backend/vendor/*
 
-frontend/.env
 frontent/build/*
 frontend/node_modules/**
 
 scripts/.env
+backend/.env
+backend/.env.production
 backend/.htaccess.production
 backend/public/.htaccess.production
+frontend/.env
+frontend/.htaccess.production

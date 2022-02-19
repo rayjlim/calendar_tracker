@@ -4,8 +4,8 @@ tests/
 
 *.xml
 *.md
-.env
-.env.production
+.env*
+.htaccess*
 
 *.example
 

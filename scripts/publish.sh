@@ -97,7 +97,11 @@ if [ -z "$NOFRONTENDBUILD" ]; then
   echo $FTP_TARGETFOLDER_UI
   rsync -rave  'ssh -oHostKeyAlgorithms=+ssh-dss' \
     --delete . $FTP_USER@$FTP_HOST:$FTP_TARGETFOLDER_UI/
+  
+  cd ..
+  rsync -rave  'ssh -oHostKeyAlgorithms=+ssh-dss' \
+    .htaccess.production $FTP_USER@$FTP_HOST:$FTP_TARGETFOLDER_UI/.htaccess
 
   ssh  $FTP_USER@$FTP_HOST "chmod -R 755 $FTP_TARGETFOLDER_UI/"
-  cd ../..
+  cd ..
 fi
