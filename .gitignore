@@ -11,3 +11,4 @@ backend/.htaccess.production
 backend/public/.htaccess.production
 frontend/.env
 frontend/.htaccess.production
+backend/tracks_cron_script.php
