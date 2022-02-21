@@ -12,7 +12,7 @@ Go to `backend` folder
 Requires `composer`
 Run `composer install`  
 Create the DB using `config\base.sql`  
-Use `.env.example` as template and edit accordingly.  
+Use `.env.example` as template for `.env` and `.env.production`; edit accordingly.  
 
 That sets up the API.
 
