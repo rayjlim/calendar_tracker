@@ -31,7 +31,7 @@ $router->options('/aggregate/', function () use ($router) {
     return $router->app->version();
 });
 
-// $app->get( '/cron/', 'Tracker\RecordHandler:cron')->setName('cron');
+$router->get('/cron/', 'MetricsController@emailReport');
 
 
 // $app->put( '/record/{id}', 'Tracker\RecordHandler:update')->setName('record-put');
