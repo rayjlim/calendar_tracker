@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.1.0](https://github.com/rayjlim/calendar_tracker/compare/v3.0.1...v3.1.0) (2022-02-22)
+
+
+### Features
+
+* ✨ [#32](https://github.com/rayjlim/calendar_tracker/issues/32) date picker for input, improve state mgmt ([65bb1aa](https://github.com/rayjlim/calendar_tracker/commit/65bb1aae8d621477581066211c7f2f93ed4bd7d8))
+* 🔒️ basic service worker to get PWA setup [#56](https://github.com/rayjlim/calendar_tracker/issues/56) ([0e7852b](https://github.com/rayjlim/calendar_tracker/commit/0e7852b78f12bd0801934ae3a71f4a21343ccff2))
+
+
+### Bug Fixes
+
+* ♻️ make year list dynamic, optimize state usage in Aggregate Section ([aef1a9e](https://github.com/rayjlim/calendar_tracker/commit/aef1a9ed9ffd37dd9708f935d9c679f6a88c1cdd))
+* 📝 update readme ([e3bb888](https://github.com/rayjlim/calendar_tracker/commit/e3bb88818700cbbf0cdd344863779dd6dc4c2dc7))
+* 🔧 add htaccess to redirect to tracks.lilplaytime.com ([ff2625f](https://github.com/rayjlim/calendar_tracker/commit/ff2625f67aab67cf4329a80831bfbfe1424f5bdb))
+* 🔧 backup scripts and .htaccess ([25a8712](https://github.com/rayjlim/calendar_tracker/commit/25a87129cc7106c922fba05f41bc421f9217be43))
+* 🚑  migrate over cron email report ([05a545a](https://github.com/rayjlim/calendar_tracker/commit/05a545ab4e2cf42f3ed3bbe6463381c4e4f3a587))
+* 🚧 SERVER check for HTTP_ORIGIN issue ([c804b95](https://github.com/rayjlim/calendar_tracker/commit/c804b95d0b82ac5efb497a6a9877160c96bef905))
+
 ### [3.0.1](https://github.com/rayjlim/calendar_tracker/compare/v3.0.0...v3.0.1) (2022-02-15)
 
 
