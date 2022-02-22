@@ -23,6 +23,7 @@ class App extends React.Component {
       loading: true,
       chartData: [],
       trendData: [],
+      params: {},
       metrics: {},
     };
   }
@@ -35,8 +36,16 @@ class App extends React.Component {
     // Ajax calls here
     console.log('getChartData');
     const url = `${Constants.REST_ENDPOINT}record/`;
+    let response = null;
+    this.setState(
+      
+      {
+        loading: true,
+      }
+    );
+
     try {
-      const response = await fetch(url, {
+      response = await fetch(url, {
         method: 'GET', // *GET, POST, PUT, DELETE, etc.
         mode: 'cors', // no-cors, *cors, same-origin
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -47,47 +56,60 @@ class App extends React.Component {
         redirect: 'follow', // manual, *follow, error
         referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
       });
-
-      if (response.ok) {
-        
-        const results = await response.json();
-        
-        console.log(results);
-      
-        //map the data
-        const records = results.data.map(record => ({
-          id: record.id,
-          x: record.date,
-          y: record.count,
-          label: record.comment,
-        }));
-        const metrics = calculateMetrics(records);
-        //moving average
-        let movingAverageSize = 10;
-        let trendData = [];
-        for (let i = 0; i < records.length; i++) {
-          let currentSet = records.slice(i - movingAverageSize + 1, i + 1);
-          let currentSetAverage =
-            i <= movingAverageSize
-              ? metrics.overallAvg
-              : average(currentSet.map(record => parseFloat(record.y)));
-          trendData.push({
-            y: currentSetAverage,
-            x: records[i].x,
-          });
-        }
-        this.setState({
-          chartData: records,
-          trendData,
-          metrics,
-          loading: false,
-        });
-      } else {
-        alert('Network response was not OK')
-        console.log('Network response was not OK');
-      }
     } catch (error) {
       alert('Error: ' + error);
+      return;
+    }
+    if (response.ok) {
+      let results;
+      try {
+        results = await response.json();
+      } catch (error) {
+        alert('Error: JSON conversion error ' + error);
+        // results = {
+        //   params: {},
+        //   data: [],
+        // };
+        return;
+      }
+      // alert('response as json')
+      console.log(results);
+
+      //map the data
+      const records = results.data.map(record => ({
+        id: record.id,
+        x: record.date,
+        y: record.count,
+        label: record.comment,
+      }));
+      // alert('records mapped')
+      const metrics = calculateMetrics(records);
+      // alert('records calculated')
+      //moving average
+      let movingAverageSize = 10;
+      let trendData = [];
+      for (let i = 0; i < records.length; i++) {
+        let currentSet = records.slice(i - movingAverageSize + 1, i + 1);
+        let currentSetAverage =
+          i <= movingAverageSize
+            ? metrics.overallAvg
+            : average(currentSet.map(record => parseFloat(record.y)));
+        trendData.push({
+          y: currentSetAverage,
+          x: records[i].x,
+        });
+      }
+      // alert('records set')
+      this.setState({
+        chartData: records,
+        trendData,
+        metrics,
+        params: results.params,
+        loading: false,
+      });
+    } else {
+      alert('Network response was not OK');
+      console.log('Network response was not OK');
     }
   }
 
@@ -150,9 +172,15 @@ const calculateMetrics = records => {
   );
   let restOfMonthAvg = average(restOfMonth.map(record => parseFloat(record.y)));
 
-  let highest = records.reduce((agg, record) =>  (agg === null || record.y > agg.y) ? record : agg, null);
+  let highest = records.reduce(
+    (agg, record) => (agg === null || record.y > agg.y ? record : agg),
+    null
+  );
 
-  let lowest = records.reduce((agg, record) => (agg === null || record.y < agg.y) ? record : agg, null);
+  let lowest = records.reduce(
+    (agg, record) => (agg === null || record.y < agg.y ? record : agg),
+    null
+  );
 
   return {
     overallAvg,
