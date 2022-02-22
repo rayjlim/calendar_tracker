@@ -77,7 +77,7 @@ const RecordForm = ({ onUpdate }) => {
 
     if (count > 175 || count < 115) {
       //magic numbers
-      alert('Invalid number');
+      alert('Invalid number - not within range');
       return;
     }
     const data = {
@@ -103,7 +103,7 @@ const RecordForm = ({ onUpdate }) => {
       });
       console.log(response);
       if (response.ok) {
-        alert('Save Complete');
+        alert('Save Complete');  // TODO: change to a toaster notification
         await onUpdate();
 
         //reset values

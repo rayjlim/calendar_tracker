@@ -14,6 +14,8 @@ import sub from 'date-fns/sub';
 import parse from 'date-fns/parse';
 import Constants from './constants';
 
+const FULL_DATE_FORMAT = 'yyyy-MM-dd';
+
 class App extends React.Component {
   constructor() {
     super();
@@ -47,8 +49,11 @@ class App extends React.Component {
       });
 
       if (response.ok) {
+        
         const results = await response.json();
+        
         console.log(results);
+      
         //map the data
         const records = results.data.map(record => ({
           id: record.id,
@@ -57,7 +62,6 @@ class App extends React.Component {
           label: record.comment,
         }));
         const metrics = calculateMetrics(records);
-
         //moving average
         let movingAverageSize = 10;
         let trendData = [];
@@ -79,7 +83,8 @@ class App extends React.Component {
           loading: false,
         });
       } else {
-        console.log('Network response was not ok.');
+        alert('Network response was not OK')
+        console.log('Network response was not OK');
       }
     } catch (error) {
       alert('Error: ' + error);
@@ -125,17 +130,17 @@ const calculateMetrics = records => {
   let oneMonthAgo = sub(today, { months: 1 });
 
   var currentWeek = records.filter(item => {
-    let curr = parse(item.x, 'yyyy-MM-dd', new Date());
+    let curr = parse(item.x, 'yyyy-MM-dd', today);
     return oneWeekAgo <= curr && curr <= today;
   });
 
   var pastWeek = records.filter(item => {
-    let curr = parse(item.x, 'yyyy-MM-dd', new Date());
+    let curr = parse(item.x, FULL_DATE_FORMAT, today);
     return twoWeekAgo <= curr && curr <= oneWeekAgo;
   });
 
   var restOfMonth = records.filter(item => {
-    let curr = parse(item.x, 'yyyy-MM-dd', new Date());
+    let curr = parse(item.x, FULL_DATE_FORMAT, today);
     return oneMonthAgo <= curr && curr <= twoWeekAgo;
   });
   let overallAvg = average(records.map(record => parseFloat(record.y)));
@@ -145,13 +150,10 @@ const calculateMetrics = records => {
   );
   let restOfMonthAvg = average(restOfMonth.map(record => parseFloat(record.y)));
 
-  let highest = records.reduce((agg, record) => {
-    return agg === null || record.y > agg.y ? record : agg;
-  }, null);
+  let highest = records.reduce((agg, record) =>  (agg === null || record.y > agg.y) ? record : agg, null);
 
-  let lowest = records.reduce((agg, record) => {
-    return agg === null || record.y < agg.y ? record : agg;
-  }, null);
+  let lowest = records.reduce((agg, record) => (agg === null || record.y < agg.y) ? record : agg, null);
+
   return {
     overallAvg,
     currentWeekAvg,
