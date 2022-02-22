@@ -1,15 +1,15 @@
 import React from "react";
 import { Text, View, StyleSheet } from "react-native";
 
-const styles = StyleSheet.create({
-  actionsContainer: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    alignItems: "center",
-    padding: 10,
-  },
-});
+// const styles = StyleSheet.create({
+//   actionsContainer: {
+//     flex: 1,
+//     flexDirection: "row",
+//     justifyContent: "flex-end",
+//     alignItems: "center",
+//     padding: 10,
+//   },
+// });
 
 const Metrics = ({ data }) => {
   return (

@@ -33,6 +33,10 @@ $router->options('/aggregate/', function () use ($router) {
 
 $router->get('/cron/', 'MetricsController@emailReport');
 
+$router->options('/years/', function () use ($router) {
+    return $router->app->version();
+});
+$router->get('/years/', 'MetricsController@years');
 
 // $app->put( '/record/{id}', 'Tracker\RecordHandler:update')->setName('record-put');
 // $app->get( '/record/{id}', 'Tracker\RecordHandler:get')->setName('record-get-one');

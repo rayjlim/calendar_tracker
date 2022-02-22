@@ -1,80 +1,76 @@
-import React, { Fragment, useState } from 'react';
-import {
-  AppRegistry,
-  StyleSheet,
-  View,
-  Text,
-  Switch,
-} from 'react-native';
-
+import React, { Fragment, useState, useEffect } from 'react';
+import { AppRegistry, StyleSheet, View, Text, Switch } from 'react-native';
+import Constants from './constants';
 import AggregateChart from './components/AggregateChart';
 
-const AggregateSection = ()=> {
+const AggregateSection = () => {
+  const [showMonthly, setShowMonthly] = useState(false);
+  const [showYearly, setShowYearly] = useState(false);
+  const [yearsList, setYearsList] = useState(['all']);
+  const [yearForMonthlySelected, setYearForMonthlySelected] = useState('all');
 
-  const [view, setView] = useState({
-    showMonthly: false,
-    showYearly: false,
-    yearForMonthly: 'all',
-  });
+  useEffect(() => {
+    (async () => {
+      const url = `${Constants.REST_ENDPOINT}years/`;
+      try {
+        const response = await fetch(url, {
+          method: 'GET', // *GET, POST, PUT, DELETE, etc.
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
 
-    const yearsForMonthAgg = [
-      'all',
-      2021,
-      2020,
-      2019,
-      2018,
-      2017,
-      2016,
-      2015,
-      2014,
-      2013,
-      2012,
-      2011,
-    ];
-    return (
-      <View style={styles.appContainer}>
-        <View>
-          <Text>Show Monthly</Text>
-          <Switch
-            onValueChange={value => {
-              setView({ ...view, showMonthly: value });
-            }}
-            value={view.showMonthly}
-          />
-          {view.showMonthly ? (
-            <Fragment>
-              <select
-                onChange={e => {
-                  console.log(e.target.value);
-                  setView({ ...view, yearForMonthly: e.target.value });
-                }}
-              >
-                {yearsForMonthAgg.map(year => (
-                  <option value={year} key={year}> {year}</option>
-                ))}
-              </select>
-              <AggregateChart type="month" year={view.yearForMonthly} />
-            </Fragment>
-          ) : (
-            <Fragment />
-          )}
-        </View>
-        <View>
-          <Text>Show Yearly</Text>
-          <Switch
-            onValueChange={value => {
-              setView({ ...view, showYearly: value });
-            }}
-            value={view.showYearly}
-          />
-          {view.showYearly ? (
-            <AggregateChart type="year" />
-          ) : (
-            <Fragment />
-          )}
-        </View>
+        if (response.ok) {
+          const results = await response.json();
+          console.log('years list response: ' + results);
+
+          setYearsList(['all', ...results.data]);
+        } else {
+          console.log('Network response was not ok.');
+        }
+      } catch (error) {
+        alert('Error: ' + error);
+      }
+    })();
+  }, [setYearsList]);
+
+  return (
+    <View style={styles.appContainer}>
+      <View>
+        <Text>Show Monthly</Text>
+        <Switch
+          onValueChange={value => setShowMonthly(value)}
+          value={showMonthly}
+        />
+        {showMonthly ? (
+          <Fragment>
+            <select
+              onChange={e => {
+                setYearForMonthlySelected(e.target.value);
+              }}
+            >
+              {yearsList.map(year => (
+                <option value={year} key={year}>
+                  {year}
+                </option>
+              ))}
+            </select>
+            <AggregateChart type="month" year={yearForMonthlySelected} />
+          </Fragment>
+        ) : (
+          <Fragment />
+        )}
       </View>
-    );
+      <View>
+        <Text>Show Yearly</Text>
+        <Switch
+          onValueChange={value => setShowYearly(value)}
+          value={showYearly}
+        />
+        {showYearly ? <AggregateChart type="year" /> : <Fragment />}
+      </View>
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({

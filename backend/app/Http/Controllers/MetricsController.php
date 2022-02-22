@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
+define("DEFAULT_GOAL", "weight");
 class MetricsController extends Controller
 {
     /**
-     * API to get display metrics
+     * API to get display metrics for Graphs
      *
      * @param $request  Request data
      */
@@ -20,7 +21,7 @@ class MetricsController extends Controller
             $params['by'] : 'month';
 
         $params['goal'] =  (array_key_exists('goal', $params)) ?
-            $params['goal'] : 'weight';
+            $params['goal'] : DEFAULT_GOAL;
 
         if ($params['by'] == 'month') {
             $MIN_YEAR = MONTHLY_MIN_YEAR;
@@ -39,21 +40,21 @@ class MetricsController extends Controller
             // $points = [];
             $points = DB::select(
                 '
-                select AVG( count ) AS average, month(DATE) as month
+                SELECT AVG(count) AS average, MONTH(DATE) AS month
                 FROM  cpc_logs
-                WHERE goal like ?
+                WHERE goal LIKE ?
                 AND year(date) BETWEEN ? AND ?
-                GROUP by month(date)
-                ORDER by month(date) ',
+                GROUP by MONTH(date)
+                ORDER by MONTH(date) ',
                 [$params['goal'], $params['start'], $params['end']]
             );
         } else {
             $points = DB::select(
                 '
-                SELECT year(date) as year, avg(count) as average
+                SELECT YEAR(date) AS year, AVG(count) AS average
                 FROM `cpc_logs`
                 WHERE goal = ?
-                AND year(date) between ? AND ?
+                AND year(date) BETWEEN ? AND ?
                 GROUP by YEAR(date)
                 ORDER by YEAR(date) ',
                 [$params['goal'], $params['start'], $params['end']]
@@ -63,7 +64,6 @@ class MetricsController extends Controller
         $returnObj = new \stdClass();
         $returnObj->params = $params;
         $returnObj->data = $points;
-
 
         echo json_encode($returnObj);
     }
@@ -77,7 +77,7 @@ class MetricsController extends Controller
     public function emailReport(Request $request)
     {
         $params = $request->all();
-        $goal = 'weight';
+        $goal = DEFAULT_GOAL;
         $month =  (array_key_exists('month', $params)) ?
             $params['month'] :  date('m');
 
@@ -86,12 +86,12 @@ class MetricsController extends Controller
 
         $entries = DB::select(
             '
-                SELECT *
-                FROM `cpc_logs`
-                WHERE goal = ?
-                AND  MONTH(date) = ?
-                AND Day(date) = ?
-                ORDER by YEAR(date) desc',
+            SELECT *
+            FROM `cpc_logs`
+            WHERE goal = ?
+            AND  MONTH(date) = ?
+            AND DAY(date) = ?
+            ORDER BY YEAR(date) DESC',
             [
                 "weight",
                 $month,
@@ -104,11 +104,11 @@ class MetricsController extends Controller
 
         $ytdLogs = DB::select(
             '
-            SELECT year(date) as year, avg(count) as average
+            SELECT YEAR(date) AS year, AVG(count) AS average
             FROM `cpc_logs`
             WHERE goal = ?
-            AND date between ? AND ?
-            GROUP by YEAR(date) ',
+            AND date BETWEEN ? AND ?
+            GROUP BY YEAR(date) ',
             [
                 $goal,
                 $ytdStart,
@@ -151,5 +151,40 @@ class MetricsController extends Controller
 
         mail($to, $subject, $message, $headers);
         echo "mail is sent";
+    }
+
+    /**
+     * API to get years
+     *
+     * @param $request  Request data
+     */
+    public function years(Request $request)
+    {
+        $params = $request->all();
+
+        $params['goal'] =  (array_key_exists('goal', $params)) ?
+            $params['goal'] : DEFAULT_GOAL;
+
+        $points = DB::select(
+            '
+            SELECT YEAR(DATE) as year
+            FROM  cpc_logs
+            WHERE goal like ?
+            GROUP BY YEAR(date)
+            ORDER BY YEAR(date) DESC',
+            [$params['goal']]
+        );
+
+        $returnObj = new \stdClass();
+        $returnObj->params = $params;
+        $returnObj->data =
+            array_map(
+                function ($point) {
+                    return $point->year;
+                },
+                $points
+            );
+
+        echo json_encode($returnObj);
     }
 }
