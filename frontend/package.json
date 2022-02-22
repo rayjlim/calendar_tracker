@@ -8,6 +8,7 @@
     "date-fns": "^2.16.1",
     "react": "^16.13.1",
     "react-chartjs-2": "^2.10.0",
+    "react-date-picker": "^8.4.0",
     "react-dom": "^16.13.1",
     "react-native-swipeable-flat-list": "^0.1.2",
     "react-native-web": "^0.17.5",
