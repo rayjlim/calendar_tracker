@@ -137,7 +137,7 @@ const RecordForm = ({ onUpdate }) => {
         <TouchableHighlight
           style={[styles.actionButton]}
           onPress={() => {
-            const factor = 0.2;
+            const factor = -0.2;
             const updated = +(count + factor).toFixed(2);
             setCount(updated);
           }}
