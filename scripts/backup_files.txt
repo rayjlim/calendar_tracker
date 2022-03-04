@@ -1,9 +1,0 @@
-scripts/.env
-backend/.env
-backend/.env.production
-backend/.htaccess.production
-backend/public/.htaccess.production
-backend/tracks_cron_script.php
-
-frontend/.env
-frontend/.htaccess.production
