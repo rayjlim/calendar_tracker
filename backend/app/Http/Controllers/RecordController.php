@@ -5,8 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Record;
 use Illuminate\Http\Request;
 
+function test()
+{
+    return "aa";
+}
 class RecordController extends Controller
 {
+
     /**
      * Store a new user.
      *
@@ -19,6 +24,7 @@ class RecordController extends Controller
 
         //
     }
+
     /**
      * List records.
      *
@@ -42,8 +48,17 @@ class RecordController extends Controller
             ->orderBy('date')
             ->get();
 
+        //     $fixedRecords = array_map(function ($item)
+        //     {
+        //         // $item->count = number_format($item->count, 2);
+        //         return $item;
+        //     }
+        // , $records);
+
+
         $returnObj = new \stdClass();
         $returnObj->data = $records;
+
         $returnObj->params = $params;
         echo json_encode($returnObj);
     }

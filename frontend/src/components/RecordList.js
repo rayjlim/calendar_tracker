@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import { Text, View, StyleSheet, Switch, FlatList, Button } from 'react-native';
-import parse from 'date-fns/parse'
+import parse from 'date-fns/parse';
 import format from 'date-fns/format';
 import Constants from '../constants';
 
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
 const RecordList = ({ records, onUpdate }) => {
   const [showAll, setShowAll] = useState(false);
 
-  const today = format(new Date(), FULL_DATE_FORMAT)
+  const today = format(new Date(), FULL_DATE_FORMAT);
 
   const displayRecords = showAll
     ? records.reverse()
@@ -26,10 +26,10 @@ const RecordList = ({ records, onUpdate }) => {
 
   const DATA = displayRecords.map(record => ({
     id: record.id,
-    title: `${
-      format(parse(record.x, FULL_DATE_FORMAT, new Date()), 'yyyy-MM-dd (EEE)')}, ${record.y}, ${
-      record.label
-    }`,
+    title: `${format(
+      parse(record.x, FULL_DATE_FORMAT, new Date()),
+      'yyyy-MM-dd (EEE)'
+    )}, ${record.y}, ${record.label}`,
   }));
 
   const deleteRecord = async id => {
@@ -49,7 +49,7 @@ const RecordList = ({ records, onUpdate }) => {
       });
 
       if (response.ok) {
-        alert('Deleted ', id); // TODO : change to toaster notification
+        alert('Deleted ', id);
         await onUpdate();
       } else {
         console.log('Network response was not ok.');

@@ -103,7 +103,7 @@ const RecordForm = ({ onUpdate }) => {
       });
       console.log(response);
       if (response.ok) {
-        alert('Save Complete');  // TODO: change to a toaster notification
+        alert('Save Complete');  
         await onUpdate();
 
         //reset values

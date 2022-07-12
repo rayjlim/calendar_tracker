@@ -26,8 +26,8 @@ header("Access-Control-Allow-Headers: Access-Control-*, Origin, X-Requested-With
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS, HEAD');
 header('Allow: GET, POST, PUT, DELETE, OPTIONS, HEAD');
 
-define("MONTHLY_MIN_YEAR", 2012); // TODO: get from constants
-define("YEARLY_MIN_YEAR", 2010); // TODO: get from constants
+define("MONTHLY_MIN_YEAR", 2012);
+define("YEARLY_MIN_YEAR", 2010);
 
 /*
 |--------------------------------------------------------------------------

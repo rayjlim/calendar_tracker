@@ -33,16 +33,13 @@ class App extends React.Component {
   }
 
   async getChartData() {
-    // Ajax calls here
+    // XHR calls here
     console.log('getChartData');
     const url = `${Constants.REST_ENDPOINT}record/`;
     let response = null;
-    this.setState(
-      
-      {
-        loading: true,
-      }
-    );
+    this.setState({
+      loading: true,
+    });
 
     try {
       response = await fetch(url, {
@@ -66,6 +63,7 @@ class App extends React.Component {
         results = await response.json();
       } catch (error) {
         alert('Error: JSON conversion error ' + error);
+
         // results = {
         //   params: {},
         //   data: [],
@@ -82,9 +80,9 @@ class App extends React.Component {
         y: record.count,
         label: record.comment,
       }));
-      // alert('records mapped')
+      // console.log('records mapped')
       const metrics = calculateMetrics(records);
-      // alert('records calculated')
+      // console.log('records calculated')
       //moving average
       let movingAverageSize = 10;
       let trendData = [];
@@ -99,7 +97,7 @@ class App extends React.Component {
           x: records[i].x,
         });
       }
-      // alert('records set')
+      // console.log('records set')
       this.setState({
         chartData: records,
         trendData,
