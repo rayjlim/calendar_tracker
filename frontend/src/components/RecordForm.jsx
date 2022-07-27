@@ -13,9 +13,6 @@ import {
 } from 'react-native';
 import Constants from '../constants';
 
-const FULL_DATE_FORMAT = 'yyyy-MM-dd';
-const DEFAULT_COUNT = 140.0;
-
 const styles = StyleSheet.create({
   actionsContainer: {
     flex: 1,
@@ -56,19 +53,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 8,
-    // height: "100vh",
-    // flexDirection: "row",
-    // flex: 1,
-    // order: 2,
   },
 });
-const HIGHEST_WEIGHT = 175;
-const LOWEST_WEIGHT = 115;
 
 const RecordForm = ({ onUpdate }) => {
+  // eslint-disable-next-line max-len
+  const countDefault = parseFloat(window.localStorage.getItem(Constants.STORAGE_KEY) || Constants.DEFAULT_COUNT);
   const [recordDate, setRecordDate] = useState(new Date());
-  const [count, setCount] = useState(DEFAULT_COUNT);
+  const [count, setCount] = useState(countDefault);
   const [comment, setComment] = useState('');
+  const [saveLocalStorage, setSaveLocalStorage] = useState(false);
 
   const calendarCheck = () => {
     if (recordDate === null) {
@@ -79,13 +73,19 @@ const RecordForm = ({ onUpdate }) => {
   async function sendRecord() {
     console.log('sendRecord');
 
-    if (count > HIGHEST_WEIGHT || count < LOWEST_WEIGHT) {
-      // magic numbers
+    if (count > Constants.HIGHEST_WEIGHT || count < Constants.LOWEST_WEIGHT) {
       alert('Invalid number - not within range');
       return;
     }
+
+    if (saveLocalStorage) {
+      window.localStorage.setItem(Constants.STORAGE_KEY, count);
+      alert('Saved to local storage');
+      setSaveLocalStorage(false);
+      return;
+    }
     const data = {
-      date: format(recordDate, FULL_DATE_FORMAT, new Date()),
+      date: format(recordDate, Constants.FULL_DATE_FORMAT, new Date()),
       count,
       comment,
       goal: 'weight',
@@ -193,10 +193,16 @@ const RecordForm = ({ onUpdate }) => {
         >
           <option>weight</option>
         </select>
+        <Text style={styles.actionButtonText}>Set as Default: </Text>
+        <input
+          type="checkbox"
+          className="form-control form-control-sm"
+          onChange={() => setSaveLocalStorage(!saveLocalStorage)}
+          checked={saveLocalStorage}
+        />
       </View>
       <View style={styles.actionsContainer}>
         <Text style={styles.actionButtonText}>Count: </Text>
-
         <TextInput
           style={styles.countInput}
           type="text"
