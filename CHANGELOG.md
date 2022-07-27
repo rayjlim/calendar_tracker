@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.0](https://github.com/rayjlim/calendar_tracker/compare/v3.1.0...v4.0.0) (2022-07-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* ⬆️ upgrade to react 17
+
+### Features
+
+* ⬆️ upgrade to react 17 ([2a87143](https://github.com/rayjlim/calendar_tracker/commit/2a8714337d800c39515264ec50f58dfb696d094b))
+
+
+### Bug Fixes
+
+* ♻️ refactor out TODOs into github tasks ([99d170b](https://github.com/rayjlim/calendar_tracker/commit/99d170bfd80deb7b6fefe4c4c823a195e6073dca))
+* 🐛 add in error handlers for safari error ([2163cdf](https://github.com/rayjlim/calendar_tracker/commit/2163cdf45dbb0de718f986dd464761d0970f500c))
+* 🔒️ gpg encrypt secrets ([02688bb](https://github.com/rayjlim/calendar_tracker/commit/02688bbea13152b14c3e2ee1294830d734685401))
+* 🔒️ remove config backup script ([eebe84b](https://github.com/rayjlim/calendar_tracker/commit/eebe84bda16c7573b652272ed2e80ca244d2e490))
+* 🚑 disable service worker because causing safari error ([42afc45](https://github.com/rayjlim/calendar_tracker/commit/42afc458f80b59564ba336542113e8525069e551))
+
 ## [3.1.0](https://github.com/rayjlim/calendar_tracker/compare/v3.0.1...v3.1.0) (2022-02-22)
 
 
