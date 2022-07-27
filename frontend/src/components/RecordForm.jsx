@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { format, sub } from 'date-fns';
 import DatePicker from 'react-date-picker';
 import {
@@ -8,6 +9,7 @@ import {
   View,
   TouchableHighlight,
   StyleSheet,
+// eslint-disable-next-line import/no-unresolved
 } from 'react-native';
 import Constants from '../constants';
 
@@ -60,6 +62,8 @@ const styles = StyleSheet.create({
     // order: 2,
   },
 });
+const HIGHEST_WEIGHT = 175;
+const LOWEST_WEIGHT = 115;
 
 const RecordForm = ({ onUpdate }) => {
   const [recordDate, setRecordDate] = useState(new Date());
@@ -75,38 +79,37 @@ const RecordForm = ({ onUpdate }) => {
   async function sendRecord() {
     console.log('sendRecord');
 
-    if (count > 175 || count < 115) {
-      //magic numbers
+    if (count > HIGHEST_WEIGHT || count < LOWEST_WEIGHT) {
+      // magic numbers
       alert('Invalid number - not within range');
       return;
     }
     const data = {
       date: format(recordDate, FULL_DATE_FORMAT, new Date()),
-      count: count,
-      comment: comment,
+      count,
+      comment,
       goal: 'weight',
     };
     const url = `${Constants.REST_ENDPOINT}record/`;
     try {
       const response = await fetch(url, {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        mode: 'cors', // no-cors, *cors, same-origin
-        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: 'same-origin', // include, *same-origin, omit
+        method: 'POST',
+        body: JSON.stringify(data),
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
         headers: {
           'Content-Type': 'application/json',
-          // 'Content-Type': 'application/x-www-form-urlencoded',
         },
-        redirect: 'follow', // manual, *follow, error
-        referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-        body: JSON.stringify(data), // body data type must match "Content-Type" header
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer',
       });
       console.log(response);
       if (response.ok) {
-        alert('Save Complete');  
+        alert('Save Complete');
         await onUpdate();
 
-        //reset values
+        // reset values
         setRecordDate(new Date());
         setCount(DEFAULT_COUNT);
         setComment('');
@@ -114,7 +117,7 @@ const RecordForm = ({ onUpdate }) => {
         console.log('Network response was not ok.');
       }
     } catch (error) {
-      alert('Error: ' + error);
+      alert(`Error: ${error}`);
     }
   }
 
@@ -130,7 +133,11 @@ const RecordForm = ({ onUpdate }) => {
           setCount(DEFAULT_COUNT);
         }}
       >
-        <Text style={styles.actionButtonText}>Default: {DEFAULT_COUNT}</Text>
+        <Text style={styles.actionButtonText}>
+          Default:
+          {' '}
+          {DEFAULT_COUNT}
+        </Text>
       </TouchableHighlight>
 
       <View style={styles.actionsContainer}>
@@ -238,3 +245,7 @@ const RecordForm = ({ onUpdate }) => {
 };
 
 export default RecordForm;
+
+RecordForm.propTypes = {
+  onUpdate: PropTypes.func.isRequired,
+};

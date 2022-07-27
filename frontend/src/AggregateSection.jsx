@@ -1,5 +1,13 @@
-import React, { Fragment, useState, useEffect } from 'react';
-import { AppRegistry, StyleSheet, View, Text, Switch } from 'react-native';
+import React, { useState, useEffect } from 'react';
+
+import {
+  AppRegistry,
+  StyleSheet,
+  View,
+  Text,
+  Switch,
+  // eslint-disable-next-line import/no-unresolved
+} from 'react-native';
 import Constants from './constants';
 import AggregateChart from './components/AggregateChart';
 
@@ -8,6 +16,12 @@ const AggregateSection = () => {
   const [showYearly, setShowYearly] = useState(false);
   const [yearsList, setYearsList] = useState(['all']);
   const [yearForMonthlySelected, setYearForMonthlySelected] = useState('all');
+
+  const styles = StyleSheet.create({
+    appContainer: {
+      flex: 1,
+    },
+  });
 
   useEffect(() => {
     (async () => {
@@ -22,14 +36,14 @@ const AggregateSection = () => {
 
         if (response.ok) {
           const results = await response.json();
-          console.log('years list response: ' + results);
+          console.log(`years list response: ${results}`);
 
           setYearsList(['all', ...results.data]);
         } else {
           console.log('Network response was not ok.');
         }
       } catch (error) {
-        alert('Error: ' + error);
+        alert(`Error: ${error}`);
       }
     })();
   }, [setYearsList]);
@@ -43,7 +57,7 @@ const AggregateSection = () => {
           value={showMonthly}
         />
         {showMonthly ? (
-          <Fragment>
+          <>
             <select
               onChange={e => {
                 setYearForMonthlySelected(e.target.value);
@@ -56,9 +70,12 @@ const AggregateSection = () => {
               ))}
             </select>
             <AggregateChart type="month" year={yearForMonthlySelected} />
-          </Fragment>
+          </>
         ) : (
-          <Fragment />
+          <>
+            {' '}
+            {' '}
+          </>
         )}
       </View>
       <View>
@@ -67,17 +84,13 @@ const AggregateSection = () => {
           onValueChange={value => setShowYearly(value)}
           value={showYearly}
         />
-        {showYearly ? <AggregateChart type="year" /> : <Fragment />}
+        {showYearly ? <AggregateChart type="year" />
+          // eslint-disable-next-line react/jsx-one-expression-per-line
+          : <>{' '}{' '}</>}
       </View>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  appContainer: {
-    flex: 1,
-  },
-});
 
 AppRegistry.registerComponent('App', () => AggregateSection);
 
