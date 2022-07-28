@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const AggregateChart = ({ type, year = 'all' }) => {
+const AggregateChart = ({ type, year }) => {
   const [loading, setLoading] = useState(true);
   const [chartData, setChartData] = useState([]);
 
@@ -112,5 +112,9 @@ export default AggregateChart;
 
 AggregateChart.propTypes = {
   type: PropTypes.string.isRequired,
-  year: PropTypes.string.isRequired,
+  year: PropTypes.string,
+};
+
+AggregateChart.defaultProps = {
+  year: 'all',
 };
