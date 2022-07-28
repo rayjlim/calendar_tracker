@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 define("DEFAULT_GOAL", "weight");
+
 class MetricsController extends Controller
 {
     /**
@@ -23,11 +24,9 @@ class MetricsController extends Controller
         $params['goal'] =  (array_key_exists('goal', $params)) ?
             $params['goal'] : DEFAULT_GOAL;
 
-        if ($params['by'] == 'month') {
-            $MIN_YEAR = MONTHLY_MIN_YEAR;
-        } else {
-            $MIN_YEAR = YEARLY_MIN_YEAR;
-        }
+        $MIN_YEAR = ($params['by'] == 'month') ?
+                $_ENV['MONTHLY_MIN_YEAR'] : $_ENV['YEARLY_MIN_YEAR'];
+
         $params['start'] = (array_key_exists('start', $params))
             ? $params['start']
             : $MIN_YEAR . "-01-01";
