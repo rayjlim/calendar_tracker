@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.1.2](https://github.com/rayjlim/calendar_tracker/compare/v4.1.1...v4.1.2) (2022-07-28)
+
+
+### Bug Fixes
+
+* ♻️ get contents from .env ([ecfd6bd](https://github.com/rayjlim/calendar_tracker/commit/ecfd6bdf2d96033251125cfc05c92e457e1b857d))
+
 ### [4.1.1](https://github.com/rayjlim/calendar_tracker/compare/v4.1.0...v4.1.1) (2022-07-28)
 
 ## [4.0.0](https://github.com/rayjlim/calendar_tracker/compare/v3.1.0...v4.0.0) (2022-07-27)
