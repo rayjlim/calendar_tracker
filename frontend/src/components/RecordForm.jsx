@@ -111,7 +111,7 @@ const RecordForm = ({ onUpdate }) => {
 
         // reset values
         setRecordDate(new Date());
-        setCount(Constants.DEFAULT_COUNT);
+        setCount(countDefault);
         setComment('');
       } else {
         console.log('Network response was not ok.');
@@ -130,13 +130,13 @@ const RecordForm = ({ onUpdate }) => {
           styles.defaultButton,
         ]}
         onPress={() => {
-          setCount(Constants.DEFAULT_COUNT);
+          setCount(countDefault);
         }}
       >
         <Text style={styles.actionButtonText}>
           Default:
           {' '}
-          {Constants.DEFAULT_COUNT}
+          {countDefault}
         </Text>
       </TouchableHighlight>
 

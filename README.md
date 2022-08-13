@@ -16,6 +16,8 @@ Use `.env.example` as template for `.env` and `.env.production`; edit accordingl
 
 That sets up the API.
 
+> requires `apt install php7.3 php7.3-cli php7.3-common php7.3-xml php7.3-mbstring`
+
 ### Frontend
 
 Go in to the `frontend` folder
