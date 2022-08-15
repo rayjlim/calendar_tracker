@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { format, sub } from 'date-fns';
 import DatePicker from 'react-date-picker';
@@ -57,12 +57,12 @@ const styles = StyleSheet.create({
 });
 
 const RecordForm = ({ onUpdate }) => {
+  const [recordDate, setRecordDate] = useState(new Date());
   // eslint-disable-next-line max-len
   const countDefault = parseFloat(window.localStorage.getItem(Constants.STORAGE_KEY) || Constants.DEFAULT_COUNT);
-  const [recordDate, setRecordDate] = useState(new Date());
-  const [count, setCount] = useState(countDefault);
-  const [comment, setComment] = useState('');
-  const [saveLocalStorage, setSaveLocalStorage] = useState(false);
+  const countRef = useRef(countDefault);
+  const commentRef = useRef('');
+  const [saveToLocalStorage, setSaveToLocalStorage] = useState(false);
 
   const calendarCheck = () => {
     if (recordDate === null) {
@@ -73,21 +73,23 @@ const RecordForm = ({ onUpdate }) => {
   async function sendRecord() {
     console.log('sendRecord');
 
-    if (count > Constants.HIGHEST_WEIGHT || count < Constants.LOWEST_WEIGHT) {
+    if (countRef.current.value > Constants.HIGHEST_WEIGHT
+      || countRef.current.value < Constants.LOWEST_WEIGHT) {
       alert('Invalid number - not within range');
       return;
     }
 
-    if (saveLocalStorage) {
-      window.localStorage.setItem(Constants.STORAGE_KEY, count);
+    if (saveToLocalStorage) {
+      window.localStorage.setItem(Constants.STORAGE_KEY, countRef.current.value);
       alert('Saved to local storage');
-      setSaveLocalStorage(false);
+      setSaveToLocalStorage(false);
       return;
     }
+
     const data = {
       date: format(recordDate, Constants.FULL_DATE_FORMAT, new Date()),
-      count,
-      comment,
+      count: countRef.current.value,
+      comment: commentRef.current.value,
       goal: 'weight',
     };
     const url = `${Constants.REST_ENDPOINT}record/`;
@@ -111,8 +113,8 @@ const RecordForm = ({ onUpdate }) => {
 
         // reset values
         setRecordDate(new Date());
-        setCount(countDefault);
-        setComment('');
+        countRef.current.value = countDefault;
+        commentRef.current.value = '';
       } else {
         console.log('Network response was not ok.');
       }
@@ -120,6 +122,10 @@ const RecordForm = ({ onUpdate }) => {
       alert(`Error: ${error}`);
     }
   }
+  const addFactorToCount = factor => {
+    const updated = +(parseFloat(countRef.current.value) + factor).toFixed(2);
+    countRef.current.value = updated;
+  };
 
   return (
     <View style={styles.centering}>
@@ -130,7 +136,7 @@ const RecordForm = ({ onUpdate }) => {
           styles.defaultButton,
         ]}
         onPress={() => {
-          setCount(countDefault);
+          countRef.current.value = countDefault;
         }}
       >
         <Text style={styles.actionButtonText}>
@@ -145,8 +151,7 @@ const RecordForm = ({ onUpdate }) => {
           style={[styles.actionButton]}
           onPress={() => {
             const factor = -0.2;
-            const updated = +(count + factor).toFixed(2);
-            setCount(updated);
+            addFactorToCount(factor);
           }}
         >
           <Text style={styles.actionButtonText}>-.2</Text>
@@ -155,8 +160,7 @@ const RecordForm = ({ onUpdate }) => {
           style={[styles.actionButton]}
           onPress={() => {
             const factor = -1.0;
-            const updated = +(count + factor).toFixed(2);
-            setCount(updated);
+            addFactorToCount(factor);
           }}
         >
           <Text style={styles.actionButtonText}>-1</Text>
@@ -165,8 +169,7 @@ const RecordForm = ({ onUpdate }) => {
           style={[styles.actionButton]}
           onPress={() => {
             const factor = 1.0;
-            const updated = +(count + factor).toFixed(2);
-            setCount(updated);
+            addFactorToCount(factor);
           }}
         >
           <Text style={styles.actionButtonText}>+1</Text>
@@ -175,8 +178,7 @@ const RecordForm = ({ onUpdate }) => {
           style={[styles.actionButton]}
           onPress={() => {
             const factor = 0.2;
-            const updated = +(count + factor).toFixed(2);
-            setCount(updated);
+            addFactorToCount(factor);
           }}
         >
           <Text style={styles.actionButtonText}> +.2</Text>
@@ -197,8 +199,8 @@ const RecordForm = ({ onUpdate }) => {
         <input
           type="checkbox"
           className="form-control form-control-sm"
-          onChange={() => setSaveLocalStorage(!saveLocalStorage)}
-          checked={saveLocalStorage}
+          onChange={() => setSaveToLocalStorage(!saveToLocalStorage)}
+          checked={saveToLocalStorage}
         />
       </View>
       <View style={styles.actionsContainer}>
@@ -207,9 +209,8 @@ const RecordForm = ({ onUpdate }) => {
           style={styles.countInput}
           type="text"
           keyboardType="numeric"
-          value={count}
-          onChangeText={setCount}
-          placeholder="Count"
+          ref={countRef}
+          defaultValue={countDefault}
         />
       </View>
       <View>
@@ -217,9 +218,8 @@ const RecordForm = ({ onUpdate }) => {
         <TextInput
           style={styles.commentInput}
           type="text"
-          value={comment}
-          onChangeText={setComment}
-          placeholder="comment"
+          ref={commentRef}
+          placeholder="Enter comment"
         />
       </View>
       <View>
