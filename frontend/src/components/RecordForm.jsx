@@ -201,7 +201,6 @@ const RecordForm = ({ onUpdate }) => {
           type="checkbox"
           className="form-control form-control-sm"
           onChange={e => {
-            console.log(saveToLocalRef.current);
             saveToLocalRef.current = !saveToLocalRef.current;
             e.target.checked = saveToLocalRef.current;
           }}
