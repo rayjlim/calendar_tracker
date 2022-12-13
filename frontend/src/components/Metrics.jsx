@@ -13,6 +13,8 @@ const Metrics = ({ data }) => (
       Current Week Avg:
       {' '}
       {data.currentWeekAvg}
+      {', Current Week Missed: '}
+      {data.missedThisWeek}
     </Text>
     <Text>
       Previous Week Avg:

@@ -84,6 +84,7 @@ const calculateMetrics = records => {
     restOfMonthAvg,
     highest,
     lowest,
+    missedThisWeek: 7 - currentWeek.length,
   };
 };
 
