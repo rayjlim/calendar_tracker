@@ -35,3 +35,4 @@ jobs:
 
     - name: Run test suite
       run: composer run-script test
+      working-directory: ./backend
