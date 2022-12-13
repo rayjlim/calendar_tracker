@@ -9,6 +9,8 @@ import {
 
 import sub from 'date-fns/sub';
 import parse from 'date-fns/parse';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import pkg from '../package.json';
 import RecordForm from './components/RecordForm';
@@ -110,7 +112,7 @@ const App = () => {
         referrerPolicy: 'no-referrer',
       });
     } catch (error) {
-      alert(`Error: ${error}`);
+      toast.error(`Error: ${error}`);
       return;
     }
     if (response.ok) {
@@ -118,7 +120,7 @@ const App = () => {
       try {
         results = await response.json();
       } catch (error) {
-        alert(`Error: JSON conversion : ${error}`);
+        toast.error(`Error: JSON conversion : ${error}`);
 
         // results = {
         //   params: {},
@@ -158,7 +160,7 @@ const App = () => {
       setMetrics(metricsResults);
       setIsLoading(false);
     } else {
-      alert('Network response was not OK');
+      toast.error('Network response was not OK');
       console.log('Network response was not OK');
     }
   };
@@ -169,6 +171,9 @@ const App = () => {
 
   return (
     <View style={styles.appContainer}>
+      <div>
+        <ToastContainer />
+      </div>
       <Header title={`Tracker App v${pkg.version}`} />
       <RecordForm onUpdate={getChartData} />
       {isLoading ? (

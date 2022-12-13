@@ -12,6 +12,8 @@ import {
 } from 'react-native';
 import parse from 'date-fns/parse';
 import format from 'date-fns/format';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Constants from '../constants';
 
 const FULL_DATE_FORMAT = 'yyyy-MM-dd';
@@ -48,18 +50,21 @@ const Item = ({
       });
 
       if (response.ok) {
-        alert('Deleted ', targetId);
+        toast(`Deleted ${targetId}`);
         await onUpdate();
       } else {
         console.log('Network response was not ok.');
       }
     } catch (error) {
-      alert(`Error: ${error}`);
+      toast.error(`Error: ${error}`);
     }
   };
 
   return (
     <View style={styles.item}>
+      <div>
+        <ToastContainer />
+      </div>
       <Text style={styles.title}>{title}</Text>
       {showAll ? (
         <Button title="Delete" onPress={() => deleteRecord(id)} />

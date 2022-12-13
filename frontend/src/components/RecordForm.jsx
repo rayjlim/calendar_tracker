@@ -11,6 +11,8 @@ import {
   StyleSheet,
 // eslint-disable-next-line import/no-unresolved
 } from 'react-native';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Constants from '../constants';
 
 const styles = StyleSheet.create({
@@ -71,17 +73,16 @@ const RecordForm = ({ onUpdate }) => {
   };
 
   async function sendRecord() {
-    console.log('sendRecord');
-
+    console.log('sendRecord', countRef.current.value);
     if (countRef.current.value > Constants.HIGHEST_WEIGHT
       || countRef.current.value < Constants.LOWEST_WEIGHT) {
-      alert('Invalid number - not within range');
+      toast.error('Invalid number - not within range');
       return;
     }
 
     if (saveToLocalRef.current) {
       window.localStorage.setItem(Constants.STORAGE_KEY, countRef.current.value);
-      alert('Saved to local storage');
+      toast.success('Saved to local storage');
       saveToLocalRef.current = false;
       return;
     }
@@ -108,7 +109,7 @@ const RecordForm = ({ onUpdate }) => {
       });
       console.log(response);
       if (response.ok) {
-        alert('Save Complete');
+        toast.success('Save Complete');
         await onUpdate();
 
         // reset values
@@ -119,7 +120,7 @@ const RecordForm = ({ onUpdate }) => {
         console.log('Network response was not ok.');
       }
     } catch (error) {
-      alert(`Error: ${error}`);
+      toast.error(`Error: ${error}`);
     }
   }
   const addFactorToCount = factor => {
@@ -129,6 +130,9 @@ const RecordForm = ({ onUpdate }) => {
 
   return (
     <View style={styles.centering}>
+      <div>
+        <ToastContainer />
+      </div>
       <TouchableHighlight
         style={[
           styles.actionButton,
