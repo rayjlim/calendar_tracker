@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.2.0](https://github.com/rayjlim/calendar_tracker/compare/v4.1.4...v4.2.0) (2022-12-13)
+
+
+### Features
+
+* [#27](https://github.com/rayjlim/calendar_tracker/issues/27) implement toastify messages ([6fd87cb](https://github.com/rayjlim/calendar_tracker/commit/6fd87cbbb1a8a405e7e8fd65038127c733832881))
+* add toastify deps ([0dd2dd2](https://github.com/rayjlim/calendar_tracker/commit/0dd2dd233d29a186d5cbeee3258c267d503740cf))
+
+
+### Bug Fixes
+
+* [#89](https://github.com/rayjlim/calendar_tracker/issues/89) disable button after send, prevent double ([9c62750](https://github.com/rayjlim/calendar_tracker/commit/9c627504e7c6fb9043ae2b4b561d572a64eca59c))
+* check that metric is present first ([5642616](https://github.com/rayjlim/calendar_tracker/commit/5642616bcf6b55694572b37c7431b39b2552d358))
+
 ### [4.1.4](https://github.com/rayjlim/calendar_tracker/compare/v4.1.3...v4.1.4) (2022-08-15)
 
 ### [4.1.3](https://github.com/rayjlim/calendar_tracker/compare/v4.1.2...v4.1.3) (2022-08-13)
