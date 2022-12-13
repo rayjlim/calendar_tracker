@@ -29,6 +29,7 @@ const Metrics = ({ data }) => (
       {' '}
       {data.overallAvg}
     </Text>
+    {data.highest && (
     <Text>
       Highest:
       {' '}
@@ -38,6 +39,8 @@ const Metrics = ({ data }) => (
       {' '}
       {data.highest.x}
     </Text>
+    )}
+    {data.lowest && (
     <Text>
       Lowest:
       {' '}
@@ -47,6 +50,7 @@ const Metrics = ({ data }) => (
       {' '}
       {data.lowest.x}
     </Text>
+    )}
   </View>
 );
 
