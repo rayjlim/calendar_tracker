@@ -63,14 +63,20 @@ const RecordForm = ({ onUpdate }) => {
   const countRef = useRef(countDefault);
   const commentRef = useRef('');
   const saveToLocalRef = useRef(false);
+  const [sendingRecord, setSendingRecord] = useState(false);
 
   const calendarCheck = () => {
     if (recordDate === null) {
       setRecordDate(new Date());
     }
   };
-
+  // function wait(timeout) {
+  //   return new Promise(resolve => {
+  //     setTimeout(resolve, timeout);
+  //   });
+  // }
   async function sendRecord() {
+    setSendingRecord(true);
     console.log('sendRecord');
 
     if (countRef.current.value > Constants.HIGHEST_WEIGHT
@@ -106,9 +112,12 @@ const RecordForm = ({ onUpdate }) => {
         redirect: 'follow',
         referrerPolicy: 'no-referrer',
       });
+
       console.log(response);
       if (response.ok) {
+        // await wait(5000);
         alert('Save Complete');
+
         await onUpdate();
 
         // reset values
@@ -121,6 +130,7 @@ const RecordForm = ({ onUpdate }) => {
     } catch (error) {
       alert(`Error: ${error}`);
     }
+    setSendingRecord(false);
   }
   const addFactorToCount = factor => {
     const updated = +(parseFloat(countRef.current.value) + factor).toFixed(2);
@@ -226,12 +236,16 @@ const RecordForm = ({ onUpdate }) => {
         />
       </View>
       <View>
-        <Button
-          onPress={() => {
-            sendRecord();
-          }}
-          title="Submit"
-        />
+        {sendingRecord ? (
+          <Button disabled="true" title="Sending Record" />
+        ) : (
+          <Button
+            onPress={() => {
+              sendRecord();
+            }}
+            title="Submit"
+          />
+        )}
       </View>
       <View style={styles.actionsContainer}>
         <Text>Date: </Text>
