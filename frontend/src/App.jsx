@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   AppRegistry,
   StyleSheet,
@@ -20,7 +20,7 @@ import RecordList from './components/RecordList';
 import AggregateSection from './AggregateSection';
 import Header from './header';
 
-import { FULL_DATE_FORMAT, REST_ENDPOINT } from './constants';
+import { FULL_DATE_FORMAT, REST_ENDPOINT, GOAL_KEY } from './constants';
 import pkg from '../package.json';
 
 const styles = StyleSheet.create({
@@ -87,10 +87,11 @@ const calculateMetrics = records => {
 };
 
 const App = () => {
-  const [metrics, setMetrics] = React.useState([]);
-  const [isLoading, setIsLoading] = React.useState(true);
-  const [chartData, setChartData] = React.useState([]);
-  const [trendData, setTrendData] = React.useState([]);
+  const [metrics, setMetrics] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [chartData, setChartData] = useState([]);
+  const [trendData, setTrendData] = useState([]);
+  const [goal, setGoal] = useState(null);
 
   const getChartData = async () => {
     console.log('getChartData');
@@ -162,6 +163,7 @@ const App = () => {
       toast.error('Network response was not OK');
       console.log('Network response was not OK');
     }
+    setGoal(parseFloat(window.localStorage.getItem(GOAL_KEY)) || null);
   };
 
   useEffect(() => {
@@ -187,6 +189,7 @@ const App = () => {
           />
           <Metrics data={metrics} />
           <Chart
+            goal={goal}
             chartData={chartData}
             trendData={trendData}
           />

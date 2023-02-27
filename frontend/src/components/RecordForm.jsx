@@ -12,8 +12,18 @@ import {
 // eslint-disable-next-line import/no-unresolved
 } from 'react-native';
 import { ToastContainer, toast } from 'react-toastify';
+
+import {
+  DEFAULT_COUNT,
+  GOAL_KEY,
+  STORAGE_KEY,
+  HIGHEST_WEIGHT,
+  LOWEST_WEIGHT,
+  FULL_DATE_FORMAT,
+  REST_ENDPOINT,
+} from '../constants';
+
 import 'react-toastify/dist/ReactToastify.css';
-import Constants from '../constants';
 
 const styles = StyleSheet.create({
   actionsContainer: {
@@ -61,7 +71,7 @@ const styles = StyleSheet.create({
 const RecordForm = ({ onUpdate }) => {
   const [recordDate, setRecordDate] = useState(new Date());
   // eslint-disable-next-line max-len
-  const countDefault = parseFloat(window.localStorage.getItem(Constants.STORAGE_KEY) || Constants.DEFAULT_COUNT);
+  const countDefault = parseFloat(window.localStorage.getItem(STORAGE_KEY) || DEFAULT_COUNT);
   const countRef = useRef(countDefault);
   const commentRef = useRef('');
   const saveToLocalRef = useRef(false);
@@ -80,26 +90,26 @@ const RecordForm = ({ onUpdate }) => {
   async function sendRecord() {
     console.log('sendRecord', countRef.current.value);
 
-    if (countRef.current.value > Constants.HIGHEST_WEIGHT
-      || countRef.current.value < Constants.LOWEST_WEIGHT) {
+    if (countRef.current.value > HIGHEST_WEIGHT
+      || countRef.current.value < LOWEST_WEIGHT) {
       toast.error('Invalid number - not within range');
       return;
     }
 
     if (saveToLocalRef.current) {
-      window.localStorage.setItem(Constants.STORAGE_KEY, countRef.current.value);
+      window.localStorage.setItem(STORAGE_KEY, countRef.current.value);
       toast.success('Saved to local storage');
       saveToLocalRef.current = false;
       return;
     }
 
     const data = {
-      date: format(recordDate, Constants.FULL_DATE_FORMAT, new Date()),
+      date: format(recordDate, FULL_DATE_FORMAT, new Date()),
       count: countRef.current.value,
       comment: commentRef.current.value,
       goal: 'weight',
     };
-    const url = `${Constants.REST_ENDPOINT}record/`;
+    const url = `${REST_ENDPOINT}record/`;
     try {
       const response = await fetch(url, {
         method: 'POST',
@@ -131,10 +141,37 @@ const RecordForm = ({ onUpdate }) => {
     }
     setSendingRecord(false);
   }
+
   const addFactorToCount = factor => {
     const updated = +(parseFloat(countRef.current.value) + factor).toFixed(2);
     countRef.current.value = updated;
   };
+
+  const DECIMAL_REGEX = /^-?\d*(\.\d+)?$/;
+  function saveDefault() {
+    const newValue = countRef.current.value;
+    if (newValue.match(DECIMAL_REGEX)) {
+      window.localStorage.setItem(STORAGE_KEY, newValue);
+      toast.success('Saved default', {
+        autoClose: 500,
+      });
+      return;
+    }
+    toast.error('Default: Invalid number');
+  }
+
+  async function saveGoal() {
+    const newValue = countRef.current.value;
+    if (newValue.match(DECIMAL_REGEX) || newValue === '') {
+      window.localStorage.setItem(GOAL_KEY, newValue);
+      toast.success('Saved Goal', {
+        autoClose: 500,
+      });
+      await onUpdate();
+      return;
+    }
+    toast.error('Goal: Invalid number');
+  }
 
   return (
     <View style={styles.centering}>
@@ -208,14 +245,17 @@ const RecordForm = ({ onUpdate }) => {
         >
           <option>weight</option>
         </select>
-        <Text style={styles.actionButtonText}>Set as Default: </Text>
-        <input
-          type="checkbox"
-          className="form-control form-control-sm"
-          onChange={e => {
-            saveToLocalRef.current = !saveToLocalRef.current;
-            e.target.checked = saveToLocalRef.current;
+        <Button
+          onPress={() => {
+            saveDefault();
           }}
+          title="Default"
+        />
+        <Button
+          onPress={() => {
+            saveGoal();
+          }}
+          title="Goal"
         />
       </View>
       <View style={styles.actionsContainer}>
