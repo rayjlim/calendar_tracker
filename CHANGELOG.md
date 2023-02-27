@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.4.1](https://github.com/rayjlim/calendar_tracker/compare/v4.4.0...v4.4.1) (2023-02-27)
+
+
+### Bug Fixes
+
+* [#97](https://github.com/rayjlim/calendar_tracker/issues/97)  floating point error in php ([217b10f](https://github.com/rayjlim/calendar_tracker/commit/217b10fba316ecafcaeb002209214d1e65318c98))
+
 ## [4.4.0](https://github.com/rayjlim/calendar_tracker/compare/v4.3.0...v4.4.0) (2023-02-27)
 
 
