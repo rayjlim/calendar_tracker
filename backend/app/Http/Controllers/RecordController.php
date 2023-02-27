@@ -9,6 +9,9 @@ function test()
 {
     return "aa";
 }
+
+
+
 class RecordController extends Controller
 {
 
@@ -46,19 +49,17 @@ class RecordController extends Controller
             ->where('date', '>=', $params['start'])
             ->where('date', '<=',  $params['end'])
             ->orderBy('date')
-            ->get();
-
-        //     $fixedRecords = array_map(function ($item)
-        //     {
-        //         // $item->count = number_format($item->count, 2);
-        //         return $item;
-        //     }
-        // , $records);
-
+            ->get()
+            ->toArray();
 
         $returnObj = new \stdClass();
+        // Floating point issue in PHP 7+
+        $records = array_map(function ($record)
+        {
+          $record["count"] = round($record["count"], 1) . '';
+          return $record;
+        }, $records);
         $returnObj->data = $records;
-
         $returnObj->params = $params;
         echo json_encode($returnObj);
     }
