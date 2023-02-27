@@ -1,6 +1,6 @@
 {
   "name": "ui-react-native-web",
-  "version": "4.3.0",
+  "version": "4.4.0",
   "private": true,
   "proxy": "http://localhost/projects/tracks/",
   "dependencies": {
