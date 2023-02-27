@@ -62,9 +62,6 @@ const Item = ({
 
   return (
     <View style={styles.item}>
-      <div>
-        <ToastContainer />
-      </div>
       <Text style={styles.title}>{title}</Text>
       {showAll ? (
         <Button title="Delete" onPress={() => deleteRecord(id)} />
@@ -83,7 +80,7 @@ const RecordList = ({ records, onUpdate }) => {
   const today = format(new Date(), FULL_DATE_FORMAT);
 
   const displayRecords = showAll
-    ? records.reverse()
+    ? [...records].reverse()
     : records.filter(record => record.x === today);
 
   const DATA = displayRecords.map(record => ({
@@ -96,6 +93,7 @@ const RecordList = ({ records, onUpdate }) => {
 
   return (
     <>
+      <ToastContainer />
       <View>
         <Text>Show All</Text>
         <Switch

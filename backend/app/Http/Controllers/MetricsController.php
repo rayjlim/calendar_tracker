@@ -97,8 +97,8 @@ class MetricsController extends Controller
                 $day
             ]
         );
-
-        $ytdStart = date_create()->format('Y-01-01');
+        $now = time();
+        $ytdStart = strtotime("-1 year", $now)->format('Y-m-d');
         $ytdEnd = date_create()->format('Y-m-d');
 
         $ytdLogs = DB::select(
@@ -130,7 +130,7 @@ class MetricsController extends Controller
         $message = "<HTML><BODY>" .
             "<h1>Weight Trends</h1>" .
             "<a href=\"https://tracks.lilplaytime.com/\">Log Entry</a>" .
-            "<h2>" . $ytdLogs[0]->year . " Year to date, Average: " .
+            "<h2>" . $ytdLogs[0]->year . "past Year, Average: " .
             number_format($yearAvg->average, 2) . "</h2>" .
             "<ul>" .
             $printedNonWeight .
