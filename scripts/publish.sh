@@ -95,13 +95,20 @@ if [ -z "$NOFRONTENDBUILD" ]; then
   cd ./frontend/build/
   pwd
   echo $FTP_TARGETFOLDER_UI
-  rsync -rave  'ssh -oHostKeyAlgorithms=+ssh-dss' \
+  rsync --rsh='ssh -p2222' -rave 'ssh -oHostKeyAlgorithms=+ssh-dss' \
     --delete . $FTP_USER@$FTP_HOST:$FTP_TARGETFOLDER_UI/
   
   cd ..
-  rsync -rave  'ssh -oHostKeyAlgorithms=+ssh-dss' \
+  rsync --rsh='ssh -p2222' -rave 'ssh -oHostKeyAlgorithms=+ssh-dss' \
     .htaccess.production $FTP_USER@$FTP_HOST:$FTP_TARGETFOLDER_UI/.htaccess
 
-  ssh  $FTP_USER@$FTP_HOST "chmod -R 755 $FTP_TARGETFOLDER_UI/"
+  ssh $FTP_USER@$FTP_HOST -p 2222 -oHostKeyAlgorithms=+ssh-dss \
+    "chmod -R 755 $FTP_TARGETFOLDER_UI/"
   cd ..
 fi
+
+  # rsync --rsh='ssh -p2222' -rave 'ssh -oHostKeyAlgorithms=+ssh-dss' \
+  #   .htaccess.production $FTP_USER@$FTP_HOST:$FTP_TARGETFOLDER_UI/.htaccess
+
+  # ssh $FTP_USER@$FTP_HOST -p 2222 -oHostKeyAlgorithms=+ssh-dss \
+  #   "chmod -R 755 $FTP_TARGETFOLDER_UI/"

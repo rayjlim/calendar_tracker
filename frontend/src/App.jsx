@@ -12,18 +12,16 @@ import parse from 'date-fns/parse';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import pkg from '../package.json';
-import RecordForm from './components/RecordForm';
-import Header from './header';
 import Chart from './components/LineChart';
 import DayOfWeekChart from './components/DayOfWeekChart';
-
 import Metrics from './components/Metrics';
+import RecordForm from './components/RecordForm';
 import RecordList from './components/RecordList';
 import AggregateSection from './AggregateSection';
-import Constants from './constants';
+import Header from './header';
 
-const FULL_DATE_FORMAT = 'yyyy-MM-dd';
+import { FULL_DATE_FORMAT, REST_ENDPOINT } from './constants';
+import pkg from '../package.json';
 
 const styles = StyleSheet.create({
   appContainer: {
@@ -96,7 +94,7 @@ const App = () => {
 
   const getChartData = async () => {
     console.log('getChartData');
-    const url = `${Constants.REST_ENDPOINT}record/`;
+    const url = `${REST_ENDPOINT}record/`;
     let response = null;
     setIsLoading(true);
 
@@ -172,9 +170,7 @@ const App = () => {
 
   return (
     <View style={styles.appContainer}>
-      <div>
-        <ToastContainer />
-      </div>
+      <ToastContainer />
       <Header title={`Tracker App v${pkg.version}`} />
       <RecordForm onUpdate={getChartData} />
       {isLoading ? (

@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.3.0](https://github.com/rayjlim/calendar_tracker/compare/v4.2.0...v4.3.0) (2023-02-27)
+
+
+### Features
+
+* [#102](https://github.com/rayjlim/calendar_tracker/issues/102) dev ribbon ([3b8634b](https://github.com/rayjlim/calendar_tracker/commit/3b8634b851d63d7a72ae4e7405a45b9b0ae7d329))
+* [#83](https://github.com/rayjlim/calendar_tracker/issues/83) show the count of missed ([122654a](https://github.com/rayjlim/calendar_tracker/commit/122654a0090000fb1c2d98df5c9f265f17147315))
+
+
+### Bug Fixes
+
+* upgrade composer.lock deps ([a1bcc0a](https://github.com/rayjlim/calendar_tracker/commit/a1bcc0a9a12bce005460f55eac24ad1756b78eb6))
+
 ## [4.2.0](https://github.com/rayjlim/calendar_tracker/compare/v4.1.4...v4.2.0) (2022-12-13)
 
 
