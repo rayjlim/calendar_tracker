@@ -2,7 +2,7 @@
   "name": "ui-react-native-web",
   "version": "4.4.1",
   "private": true,
-  "proxy": "http://localhost/projects/tracks/",
+  "homepage": ".",
   "dependencies": {
     "chart.js": "^2.9.3",
     "date-fns": "^2.28.0",
@@ -30,7 +30,7 @@
   },
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
-    "start": "REACT_APP_API_ENDPOINT=http://localhost/projects/tracks/backend/public/ PORT=3003 react-scripts start",
+    "start": "PORT=3003 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
