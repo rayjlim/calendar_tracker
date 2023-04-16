@@ -8,7 +8,7 @@ import {
   Switch,
   // eslint-disable-next-line import/no-unresolved
 } from 'react-native';
-import Constants from './constants';
+import { REST_ENDPOINT } from './constants';
 import AggregateChart from './components/AggregateChart';
 
 const AggregateSection = () => {
@@ -25,7 +25,7 @@ const AggregateSection = () => {
 
   useEffect(() => {
     (async () => {
-      const url = `${Constants.REST_ENDPOINT}years/`;
+      const url = `${REST_ENDPOINT}/years/`;
       try {
         const response = await fetch(url, {
           method: 'GET', // *GET, POST, PUT, DELETE, etc.

@@ -14,7 +14,7 @@ import parse from 'date-fns/parse';
 import format from 'date-fns/format';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Constants from '../constants';
+import { REST_ENDPOINT } from '../constants';
 
 const FULL_DATE_FORMAT = 'yyyy-MM-dd';
 const styles = StyleSheet.create({
@@ -38,11 +38,11 @@ const Item = ({
       return;
     }
     console.log('delete ', targetId);
-    const url = `${Constants.REST_ENDPOINT}record/${targetId}`;
+    const url = `${REST_ENDPOINT}/record/${targetId}`;
     try {
       const response = await fetch(url, {
         method: 'DELETE',
-        mode: 'cors',
+        mode: 'no-cors',
         cache: 'no-cache',
         credentials: 'same-origin',
         redirect: 'follow',

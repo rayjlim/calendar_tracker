@@ -109,12 +109,12 @@ const RecordForm = ({ onUpdate }) => {
       comment: commentRef.current.value,
       goal: 'weight',
     };
-    const url = `${REST_ENDPOINT}record/`;
+    const url = `${REST_ENDPOINT}/record/`;
     try {
       const response = await fetch(url, {
         method: 'POST',
         body: JSON.stringify(data),
-        mode: 'cors',
+        mode: 'no-cors',
         cache: 'no-cache',
         credentials: 'same-origin',
         headers: {

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { View, ActivityIndicator, StyleSheet } from 'react-native';
 
 import { Bar } from 'react-chartjs-2';
-import Constants from '../constants';
+import { REST_ENDPOINT } from '../constants';
 
 const monthNames = [
   'January',
@@ -33,11 +33,11 @@ const AggregateChart = ({ type, year }) => {
   const getChartData = async () => {
     const yearFilter = year !== 'all' ? `&start=${year}-01-01&end=${year}-12-31` : '';
 
-    const url = `${Constants.REST_ENDPOINT}aggregate/?by=${type}${yearFilter}`;
+    const url = `${REST_ENDPOINT}/aggregate/?by=${type}${yearFilter}`;
     try {
       const response = await fetch(url, {
         method: 'GET',
-        mode: 'cors',
+        mode: 'no-cors',
         cache: 'no-cache',
         credentials: 'same-origin',
         headers: {

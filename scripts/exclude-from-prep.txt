@@ -13,3 +13,4 @@ tests/
 .editorconfig
 .styleci.yml
 .phpunit.result.cache
+artisan

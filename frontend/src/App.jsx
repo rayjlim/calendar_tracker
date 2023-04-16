@@ -95,14 +95,14 @@ const App = () => {
 
   const getChartData = async () => {
     console.log('getChartData');
-    const url = `${REST_ENDPOINT}record/`;
+    const url = `${REST_ENDPOINT}/record/`;
     let response = null;
     setIsLoading(true);
 
     try {
       response = await fetch(url, {
         method: 'GET',
-        mode: 'cors',
+        mode: 'no-cors',
         cache: 'no-cache',
         credentials: 'same-origin',
         headers: {

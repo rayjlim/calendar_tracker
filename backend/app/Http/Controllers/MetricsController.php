@@ -129,7 +129,7 @@ class MetricsController extends Controller
 
         $message = "<HTML><BODY>" .
             "<h1>Weight Trends</h1>" .
-            "<a href=\"https://tracks.lilplaytime.com/\">Log Entry</a>" .
+            "<a href=\"https://qty.pot.mybluehost.me/\">Log Entry</a>" .
             "<h2>" . $ytdLogs[0]->year . "past Year, Average: " .
             number_format($yearAvg->average, 2) . "</h2>" .
             "<ul>" .
