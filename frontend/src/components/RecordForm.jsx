@@ -114,7 +114,6 @@ const RecordForm = ({ onUpdate }) => {
       const response = await fetch(url, {
         method: 'POST',
         body: JSON.stringify(data),
-        mode: 'no-cors',
         cache: 'no-cache',
         credentials: 'same-origin',
         headers: {

@@ -102,7 +102,6 @@ const App = () => {
     try {
       response = await fetch(url, {
         method: 'GET',
-        mode: 'no-cors',
         cache: 'no-cache',
         credentials: 'same-origin',
         headers: {

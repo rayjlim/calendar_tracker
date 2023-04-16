@@ -42,7 +42,6 @@ const Item = ({
     try {
       const response = await fetch(url, {
         method: 'DELETE',
-        mode: 'no-cors',
         cache: 'no-cache',
         credentials: 'same-origin',
         redirect: 'follow',
