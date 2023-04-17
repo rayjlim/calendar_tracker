@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.4.2](https://github.com/rayjlim/calendar_tracker/compare/v4.4.1...v4.4.2) (2023-04-17)
+
+
+### Bug Fixes
+
+* [#105](https://github.com/rayjlim/calendar_tracker/issues/105) frontend .env usage ([47e67b1](https://github.com/rayjlim/calendar_tracker/commit/47e67b1563f0546a6260b3e4e51ed774bc568355))
+* cors mode removed ([b0fe749](https://github.com/rayjlim/calendar_tracker/commit/b0fe7498cae57b578265f90ff067dfa931bb4239))
+* license and update production env ([0cd2db8](https://github.com/rayjlim/calendar_tracker/commit/0cd2db8b3a6f6f4031f965d931a80504c7e35804))
+* new host updates; move to assets folder ([65d9bc5](https://github.com/rayjlim/calendar_tracker/commit/65d9bc590f3eee1b90442be035518a767d7d90cd))
+* update secrets ([14bd1fc](https://github.com/rayjlim/calendar_tracker/commit/14bd1fc4f446860f964e049564785656a481cce7))
+
 ### [4.4.1](https://github.com/rayjlim/calendar_tracker/compare/v4.4.0...v4.4.1) (2023-02-27)
 
 
