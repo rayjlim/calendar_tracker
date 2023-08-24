@@ -16,7 +16,7 @@ Use `.env.example` as template for `.env` and `.env.production`; edit accordingl
 
 That sets up the API.
 
-> requires `apt install php7.3 php7.3-cli php7.3-common php7.3-xml php7.3-mbstring`
+> in linux, requires `apt install php8.2 php8.2-cli php8.2-common php8.2-xml php8.2-mbstring`
 
 ### Frontend
 
@@ -34,3 +34,11 @@ See [Additional Docs](docs/index.md)
 
 `Parse error: syntax error, unexpected '?', expecting variable (T_VARIABLE) in /home4/lilplayt/public_html/tracks/vendor/slim/slim/Slim/Factory/AppFactory.php on line 84`
 > caused by bluehost setting old version of php; fix by applying proper version to domain.
+
+## backend note
+
+// ,"lint": "vendor/bin/phpcs --standard=cs-ruleset.xml src",
+// "lint:second-ver": "vendor/bin/phpcs --config-set default_standard PSR2",
+// "analyze": "vendor/bin/phpstan analyse --level 8 src tests",
+// "test": "vendor/bin/codecept run unit",
+// "test:watch": "vendor/bin/phpunit-watcher watch",
