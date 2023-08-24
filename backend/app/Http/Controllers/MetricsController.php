@@ -19,7 +19,6 @@ class MetricsController extends Controller
         $params = $request->all();
 
         $params['by'] =  $params['by'] ?? 'month';
-
         $params['goal'] =  $params['goal'] ?? DEFAULT_GOAL;
 
         $MIN_YEAR = ($params['by'] == 'month') ?
@@ -70,7 +69,6 @@ class MetricsController extends Controller
         $params = $request->all();
         $goal = DEFAULT_GOAL;
         $month = $params['month'] ??  date('m');
-
         $day = $params['day'] ??  date('d');
 
         $entries = DB::select(
@@ -155,9 +153,9 @@ class MetricsController extends Controller
 
         $points = DB::select(
             '
-            SELECT YEAR(DATE) as year
+            SELECT YEAR(DATE) AS year
             FROM  cpc_logs
-            WHERE goal like ?
+            WHERE goal LIKE ?
             GROUP BY YEAR(date)
             ORDER BY YEAR(date) DESC',
             [$params['goal']]
@@ -165,13 +163,10 @@ class MetricsController extends Controller
 
         $returnObj = new \stdClass();
         $returnObj->params = $params;
-        $returnObj->data =
-            array_map(
-                function ($point) {
-                    return $point->year;
-                },
-                $points
-            );
+        $returnObj->data = array_map(
+            fn($point) => $point->year,
+            $points
+        );
 
         echo json_encode($returnObj);
     }

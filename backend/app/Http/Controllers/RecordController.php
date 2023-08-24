@@ -10,13 +10,10 @@ function test()
     return "aa";
 }
 
-
-
 class RecordController extends Controller
 {
-
     /**
-     * Store a new user.
+     * Store a new record.
      *
      * @param  Request  $request
      * @return Response
@@ -24,8 +21,6 @@ class RecordController extends Controller
     public function store(Request $request)
     {
         $name = $request->input('name');
-
-        //
     }
 
     /**
