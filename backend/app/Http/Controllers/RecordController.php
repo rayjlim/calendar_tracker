@@ -38,12 +38,9 @@ class RecordController extends Controller
     {
         $params = $request->all();
 
-        $params['goal'] =  (array_key_exists('goal', $params)) ?
-            $params['goal'] : 'weight';
-        $params['start'] =  (array_key_exists('start', $params)) ?
-            $params['start'] : date("Y-m-d", strtotime("-2 months"));
-        $params['end'] =  (array_key_exists('end', $params)) ?
-            $params['end'] : date('Y-m-d');
+        $params['goal'] =  $params['goal'] ?? 'weight';
+        $params['start'] =  $params['start'] ?? date("Y-m-d", strtotime("-2 months"));
+        $params['end'] = $params['end'] ?? date('Y-m-d');
 
         $records = Record::where('goal', 'like', $params['goal'])
             ->where('date', '>=', $params['start'])

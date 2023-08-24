@@ -18,25 +18,17 @@ class MetricsController extends Controller
     {
         $params = $request->all();
 
-        $params['by'] =  (array_key_exists('by', $params)) ?
-            $params['by'] : 'month';
+        $params['by'] =  $params['by'] ?? 'month';
 
-        $params['goal'] =  (array_key_exists('goal', $params)) ?
-            $params['goal'] : DEFAULT_GOAL;
+        $params['goal'] =  $params['goal'] ?? DEFAULT_GOAL;
 
         $MIN_YEAR = ($params['by'] == 'month') ?
                 $_ENV['MONTHLY_MIN_YEAR'] : $_ENV['YEARLY_MIN_YEAR'];
 
-        $params['start'] = (array_key_exists('start', $params))
-            ? $params['start']
-            : $MIN_YEAR . "-01-01";
-        $params['end'] = (array_key_exists('end', $params))
-            ? $params['end']
-            : date('Y-m-d');
+        $params['start'] = $params['start'] ?? $MIN_YEAR . "-01-01";
+        $params['end'] = $params['end'] ?? date('Y-m-d');
 
         if ($params['by'] == 'month') {
-
-            // $points = [];
             $points = DB::select(
                 '
                 SELECT AVG(count) AS average, MONTH(DATE) AS month
@@ -77,11 +69,9 @@ class MetricsController extends Controller
     {
         $params = $request->all();
         $goal = DEFAULT_GOAL;
-        $month =  (array_key_exists('month', $params)) ?
-            $params['month'] :  date('m');
+        $month = $params['month'] ??  date('m');
 
-        $day =  (array_key_exists('day', $params)) ?
-            $params['day'] :  date('d');
+        $day = $params['day'] ??  date('d');
 
         $entries = DB::select(
             '
@@ -161,8 +151,7 @@ class MetricsController extends Controller
     {
         $params = $request->all();
 
-        $params['goal'] =  (array_key_exists('goal', $params)) ?
-            $params['goal'] : DEFAULT_GOAL;
+        $params['goal'] =  $params['goal'] ?? DEFAULT_GOAL;
 
         $points = DB::select(
             '
