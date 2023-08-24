@@ -18,7 +18,7 @@ class Record extends Model
      * @var array
      */
     protected $fillable = [
-        'goal', 'points','date', 'count', 'comment'
+        'goal', 'points', 'date', 'count', 'comment'
     ];
 
 }

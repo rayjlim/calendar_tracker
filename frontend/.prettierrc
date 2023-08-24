@@ -16,6 +16,5 @@
   "trailingComma": "es5",
   "useTabs": false,
   "vueIndentScriptAndStyle": false,
-  "filepath": "/opt/lampp/htdocs/projects/tracks/ui-react-native-web/src/components/AggregateChart.js",
   "parser": "babel"
 }
