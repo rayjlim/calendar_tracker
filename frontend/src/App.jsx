@@ -4,7 +4,7 @@ import {
   StyleSheet,
   View,
   ActivityIndicator,
-// eslint-disable-next-line import/no-unresolved
+  // eslint-disable-next-line import/no-unresolved
 } from 'react-native';
 
 import sub from 'date-fns/sub';
@@ -17,11 +17,17 @@ import DayOfWeekChart from './components/DayOfWeekChart';
 import Metrics from './components/Metrics';
 import RecordForm from './components/RecordForm';
 import RecordList from './components/RecordList';
-import AggregateSection from './AggregateSection';
-import Header from './header';
+import AggregateSection from './components/AggregateSection';
+import Header from './components/Header';
 
-import { FULL_DATE_FORMAT, REST_ENDPOINT, GOAL_KEY } from './constants';
+import {
+  ENVIRONMENT, FULL_DATE_FORMAT, REST_ENDPOINT, GOAL_KEY,
+} from './constants';
 import pkg from '../package.json';
+
+import './components/ribbon.css';
+
+const showDevRibbon = ENVIRONMENT === 'development';
 
 const styles = StyleSheet.create({
   appContainer: {
@@ -170,33 +176,36 @@ const App = () => {
   }, []);
 
   return (
-    <View style={styles.appContainer}>
-      <ToastContainer />
-      <Header title={`Tracker App v${pkg.version}`} />
-      <RecordForm onUpdate={getChartData} />
-      {isLoading ? (
-        <ActivityIndicator
-          style={[styles.centering]}
-          color="#ff8179"
-          size="large"
-        />
-      ) : (
-        <>
-          <RecordList
-            records={chartData}
-            onUpdate={getChartData}
+    <>
+      {showDevRibbon && <a className="github-fork-ribbon" href="#dev" data-ribbon="Development" title="Development">Development</a>}
+      <View style={styles.appContainer}>
+        <ToastContainer />
+        <Header title={`Tracker App v${pkg.version}`} />
+        <RecordForm onUpdate={getChartData} />
+        {isLoading ? (
+          <ActivityIndicator
+            style={[styles.centering]}
+            color="#ff8179"
+            size="large"
           />
-          <Metrics data={metrics} />
-          <Chart
-            goal={goal}
-            chartData={chartData}
-            trendData={trendData}
-          />
-          <DayOfWeekChart data={chartData} />
-          <AggregateSection />
-        </>
-      )}
-    </View>
+        ) : (
+          <>
+            <RecordList
+              records={chartData}
+              onUpdate={getChartData}
+            />
+            <Metrics data={metrics} />
+            <Chart
+              goal={goal}
+              chartData={chartData}
+              trendData={trendData}
+            />
+            <DayOfWeekChart data={chartData} />
+            <AggregateSection />
+          </>
+        )}
+      </View>
+    </>
   );
 };
 
