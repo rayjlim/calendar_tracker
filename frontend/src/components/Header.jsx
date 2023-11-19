@@ -17,38 +17,25 @@ const styles = StyleSheet.create({
   header: {
     padding: 10,
     paddingVertical: 5,
-    alignItems: 'center',
     flexDirection: 'row',
     minHeight: 50,
-  },
-  headerCenter: {
-    flex: 1,
-    order: 2,
-  },
-  headerLeft: {
-    order: 1,
-    width: 80,
-  },
-  headerRight: {
-    order: 3,
-    width: 80,
+    margin: '0.5em',
   },
   title: {
-    fontSize: 19,
+    fontSize: '1.6rem',
     fontWeight: '600',
     textAlign: 'center',
-    color: 'white',
+    color: 'black',
+    margin: 'auto',
   },
 });
 
 const Header = ({ title }) => (
   <SafeAreaView style={styles.headerContainer}>
     <View style={styles.header}>
-      <View style={styles.headerCenter}>
-        <Text accessibilityRole="heading" aria-level="3" style={styles.title}>
-          {title}
-        </Text>
-      </View>
+      <Text accessibilityRole="heading" aria-level="3" style={styles.title}>
+        {title}
+      </Text>
     </View>
   </SafeAreaView>
 );

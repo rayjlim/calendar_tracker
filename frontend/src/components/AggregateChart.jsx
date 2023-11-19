@@ -36,14 +36,10 @@ const AggregateChart = ({ type, year }) => {
     const url = `${REST_ENDPOINT}/aggregate/?by=${type}${yearFilter}`;
     try {
       const response = await fetch(url, {
-        method: 'GET',
         cache: 'no-cache',
-        credentials: 'same-origin',
         headers: {
           'Content-Type': 'application/json',
         },
-        redirect: 'follow',
-        referrerPolicy: 'no-referrer',
       });
 
       if (response.ok) {

@@ -38,7 +38,7 @@ const AggregateSection = () => {
           const results = await response.json();
           console.log(`years list response: ${results}`);
 
-          setYearsList(['all', ...results.data]);
+          setYearsList([...yearsList, ...results.data]);
         } else {
           console.log('Network response was not ok.');
         }
@@ -46,7 +46,7 @@ const AggregateSection = () => {
         alert(`Error: ${error}`);
       }
     })();
-  }, [setYearsList]);
+  }, []);
 
   return (
     <View style={styles.appContainer}>

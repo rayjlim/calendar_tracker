@@ -43,9 +43,6 @@ const RecordItem = ({
       const response = await fetch(url, {
         method: 'DELETE',
         cache: 'no-cache',
-        credentials: 'same-origin',
-        redirect: 'follow',
-        referrerPolicy: 'no-referrer',
       });
 
       if (response.ok) {
