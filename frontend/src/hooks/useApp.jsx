@@ -54,7 +54,7 @@ const calculateMetrics = records => {
     (agg, record) => (agg === null || record.y < agg.y ? record : agg),
     null,
   );
-
+  const DAYS_IN_WEEK = 7;
   return {
     overallAvg,
     currentWeekAvg,
@@ -62,7 +62,7 @@ const calculateMetrics = records => {
     restOfMonthAvg,
     highest,
     lowest,
-    missedThisWeek: 7 - currentWeek.length,
+    missedThisWeek: DAYS_IN_WEEK - currentWeek.length,
   };
 };
 
@@ -95,15 +95,10 @@ const useApp = () => {
       } catch (error) {
         toast.error(`Error: JSON conversion : ${error}`);
 
-        // results = {
-        //   params: {},
-        //   data: [],
-        // };
         return;
       }
       console.log(results);
 
-      // map the data
       const records = results.data.map(record => ({
         id: record.id,
         x: record.date,

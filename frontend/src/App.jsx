@@ -8,7 +8,6 @@ import {
 } from 'react-native';
 
 import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 import Chart from './components/LineChart';
 import DayOfWeekChart from './components/DayOfWeekChart';
@@ -16,14 +15,14 @@ import Metrics from './components/Metrics';
 import RecordForm from './components/RecordForm';
 import RecordList from './components/RecordList';
 import AggregateSection from './components/AggregateSection';
+import DevRibbon from './components/DevRibbon';
 import Header from './components/Header';
 import useApp from './hooks/useApp';
-import { ENVIRONMENT } from './constants';
+
 import pkg from '../package.json';
 
+import 'react-toastify/dist/ReactToastify.css';
 import './components/ribbon.css';
-
-const showDevRibbon = ENVIRONMENT === 'development';
 
 const styles = StyleSheet.create({
   appContainer: {
@@ -37,14 +36,13 @@ const App = () => {
   } = useApp();
   return (
     <>
-      {showDevRibbon && <a className="github-fork-ribbon" href="#dev" data-ribbon="Development" title="Development">Development</a>}
+      <DevRibbon />
       <View style={styles.appContainer}>
         <ToastContainer />
         <Header title={`Tracker App v${pkg.version}`} />
         <RecordForm onUpdate={getChartData} />
         {isLoading ? (
           <ActivityIndicator
-            style={[styles.centering]}
             color="#ff8179"
             size="large"
           />
