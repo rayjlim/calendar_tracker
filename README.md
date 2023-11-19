@@ -1,3 +1,4 @@
+[![PHP Composer](https://github.com/rayjlim/calendar_tracker/actions/workflows/php.yml/badge.svg)](https://github.com/rayjlim/calendar_tracker/actions/workflows/php.yml)
 # Calendar Tracker
 
 A personal project for tracking goals with inspiration from the Strides app
