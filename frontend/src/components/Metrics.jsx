@@ -4,57 +4,44 @@ import PropTypes from 'prop-types';
 import { Text, View, StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
-  actionsContainer: {},
+  metrics: {
+    marginLeft: '.5rem',
+  },
 });
 
-const Metrics = ({ data }) => (
-  <View style={styles.appContainer}>
-    <Text>
-      Current Week Avg:
-      {' '}
-      {data.currentWeekAvg}
-      {', Current Week Missed: '}
-      {data.missedThisWeek}
-    </Text>
-    <Text>
-      Previous Week Avg:
-      {' '}
-      {data.pastCurrentWeekAvg}
-    </Text>
-    <Text>
-      Rest Of Month Avg:
-      {' '}
-      {data.restOfMonthAvg}
-    </Text>
-    <Text>
-      Overall Avg:
-      {' '}
-      {data.overallAvg}
-    </Text>
-    {data.highest && (
-    <Text>
-      Highest:
-      {' '}
-      {data.highest.y}
-      {' '}
-      on
-      {' '}
-      {data.highest.x}
-    </Text>
-    )}
-    {data.lowest && (
-    <Text>
-      Lowest:
-      {' '}
-      {data.lowest.y}
-      {' '}
-      on
-      {' '}
-      {data.lowest.x}
-    </Text>
-    )}
-  </View>
-);
+const Metrics = ({ data }) => {
+  const {
+    currentWeekAvg, missedThisWeek, pastCurrentWeekAvg, restOfMonthAvg, overallAvg, highest, lowest,
+  } = data;
+
+  return (
+    <View style={styles.metrics}>
+      <Text>
+        {`Current Week Avg: ${currentWeekAvg}, Current Week Missed: ${missedThisWeek}`}
+      </Text>
+      <Text>
+        {`Previous Week Avg: ${pastCurrentWeekAvg}`}
+      </Text>
+      <Text>
+        {`Rest Of Month Avg: ${restOfMonthAvg}`}
+      </Text>
+      <Text>
+        {`Overall Avg: ${overallAvg}`}
+      </Text>
+      {highest && (
+        <Text>
+          {`Highest: ${highest?.y} on ${highest?.x}`}
+        </Text>
+      )}
+      {lowest && (
+        <Text>
+          {`Lowest: ${lowest?.y} on ${lowest?.x}`}
+        </Text>
+      )}
+
+    </View>
+  );
+};
 
 export default Metrics;
 
