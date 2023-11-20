@@ -1,7 +1,7 @@
-import React, { useState, useRef } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { format, sub } from 'date-fns';
-import DatePicker from 'react-date-picker';
+
 import {
   Text,
   TextInput,
@@ -9,19 +9,12 @@ import {
   View,
   TouchableHighlight,
   StyleSheet,
-// eslint-disable-next-line import/no-unresolved
+  // eslint-disable-next-line import/no-unresolved
 } from 'react-native';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 
-import {
-  DEFAULT_COUNT,
-  GOAL_KEY,
-  STORAGE_KEY,
-  HIGHEST_WEIGHT,
-  LOWEST_WEIGHT,
-  FULL_DATE_FORMAT,
-  REST_ENDPOINT,
-} from '../constants';
+import { FULL_DATE_FORMAT } from '../constants';
+import useRecordForm from '../hooks/useRecordForm';
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -69,114 +62,23 @@ const styles = StyleSheet.create({
 });
 
 const RecordForm = ({ onUpdate }) => {
-  const [recordDate, setRecordDate] = useState(new Date());
-  // eslint-disable-next-line max-len
-  const countDefault = parseFloat(window.localStorage.getItem(STORAGE_KEY) || DEFAULT_COUNT);
-  const countRef = useRef(countDefault);
-  const commentRef = useRef('');
-  const saveToLocalRef = useRef(false);
-  const [sendingRecord, setSendingRecord] = useState(false);
-
-  const calendarCheck = () => {
-    if (recordDate === null) {
-      setRecordDate(new Date());
-    }
-  };
-  // function wait(timeout) {
-  //   return new Promise(resolve => {
-  //     setTimeout(resolve, timeout);
-  //   });
-  // }
-  async function sendRecord() {
-    console.log('sendRecord', countRef.current.value);
-
-    if (countRef.current.value > HIGHEST_WEIGHT
-      || countRef.current.value < LOWEST_WEIGHT) {
-      toast.error('Invalid number - not within range');
-      return;
-    }
-
-    if (saveToLocalRef.current) {
-      window.localStorage.setItem(STORAGE_KEY, countRef.current.value);
-      toast.success('Saved to local storage');
-      saveToLocalRef.current = false;
-      return;
-    }
-
-    const data = {
-      date: format(recordDate, FULL_DATE_FORMAT, new Date()),
-      count: countRef.current.value,
-      comment: commentRef.current.value,
-      goal: 'weight',
-    };
-    const url = `${REST_ENDPOINT}/record/`;
-    try {
-      const response = await fetch(url, {
-        method: 'POST',
-        body: JSON.stringify(data),
-        cache: 'no-cache',
-        credentials: 'same-origin',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        redirect: 'follow',
-        referrerPolicy: 'no-referrer',
-      });
-
-      console.log(response);
-      if (response.ok) {
-        toast.success('Save Complete');
-        await onUpdate();
-
-        // reset values
-        setRecordDate(new Date());
-        countRef.current.value = countDefault;
-        commentRef.current.value = '';
-      } else {
-        console.log('Network response was not ok.');
-      }
-    } catch (error) {
-      toast.error(`Error: ${error}`);
-    }
-    setSendingRecord(false);
-  }
-
-  const addFactorToCount = factor => {
-    const updated = +(parseFloat(countRef.current.value) + factor).toFixed(2);
-    countRef.current.value = updated;
-  };
-
-  const DECIMAL_REGEX = /^-?\d*(\.\d+)?$/;
-  function saveDefault() {
-    const newValue = countRef.current.value;
-    if (newValue.match(DECIMAL_REGEX)) {
-      window.localStorage.setItem(STORAGE_KEY, newValue);
-      toast.success('Saved default', {
-        autoClose: 500,
-      });
-      return;
-    }
-    toast.error('Default: Invalid number');
-  }
-
-  async function saveGoal() {
-    const newValue = countRef.current.value;
-    if (newValue.match(DECIMAL_REGEX) || newValue === '') {
-      window.localStorage.setItem(GOAL_KEY, newValue);
-      toast.success('Saved Goal', {
-        autoClose: 500,
-      });
-      await onUpdate();
-      return;
-    }
-    toast.error('Goal: Invalid number');
-  }
+  const {
+    setRecordDate,
+    saveDefault,
+    saveGoal,
+    countRef,
+    countDefault,
+    addFactorToCount,
+    commentRef,
+    isSending,
+    sendRecord,
+    recordDate,
+    changeDate,
+  } = useRecordForm(onUpdate);
 
   return (
     <View style={styles.centering}>
-      <div>
-        <ToastContainer />
-      </div>
+      <ToastContainer />
       <TouchableHighlight
         style={[
           styles.actionButton,
@@ -185,13 +87,11 @@ const RecordForm = ({ onUpdate }) => {
         ]}
         onPress={() => {
           countRef.current.value = countDefault;
-          setRecordDate(new Date());
+          setRecordDate(format(new Date(), FULL_DATE_FORMAT));
         }}
       >
         <Text style={styles.actionButtonText}>
-          Default:
-          {' '}
-          {countDefault}
+          {`Default: ${countDefault}`}
         </Text>
       </TouchableHighlight>
 
@@ -277,28 +177,19 @@ const RecordForm = ({ onUpdate }) => {
         />
       </View>
       <View>
-        {sendingRecord ? (
-          <Button disabled="true" title="Sending Record" />
-        ) : (
-          <Button
-            onPress={() => {
-              sendRecord();
-            }}
-            title="Submit"
-          />
-        )}
+        <Button
+          disabled={isSending}
+          title={isSending ? 'Sending Record...' : 'Submit'}
+          onPress={() => sendRecord()}
+        />
       </View>
       <View style={styles.actionsContainer}>
         <Text>Date: </Text>
-        <DatePicker
-          onChange={setRecordDate}
-          value={recordDate}
-          onCalendarClose={calendarCheck}
-        />
+        <input type="date" value={recordDate} onChange={changeDate} />
         <TouchableHighlight
           style={[styles.actionButton]}
           onPress={() => {
-            setRecordDate(sub(recordDate, { days: 1 }));
+            setRecordDate(format(sub(new Date(recordDate), { days: 0 }), FULL_DATE_FORMAT));
           }}
         >
           <Text style={styles.actionButtonText}>-1</Text>

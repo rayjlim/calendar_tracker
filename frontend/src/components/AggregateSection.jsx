@@ -36,7 +36,7 @@ const AggregateSection = () => {
 
         if (response.ok) {
           const results = await response.json();
-          console.log(`years list response: ${results}`);
+          // console.log(`years list response: ${results}`);
 
           setYearsList([...yearsList, ...results.data]);
         } else {
