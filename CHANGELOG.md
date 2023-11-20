@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.4.4](https://github.com/rayjlim/calendar_tracker/compare/v4.4.3...v4.4.4) (2023-11-20)
+
+
+### Bug Fixes
+
+* change to jsx extension ♻️ ([c084ed1](https://github.com/rayjlim/calendar_tracker/commit/c084ed19ae736eaf2389f1cdc9f07a6b38605ad7))
+* clean up App.jsx ([b1e5f30](https://github.com/rayjlim/calendar_tracker/commit/b1e5f306b105c31630f0861521b8b49d995f8871))
+* refactor app.jsx to custom hook ([623fa53](https://github.com/rayjlim/calendar_tracker/commit/623fa53e22d64d57ab96416028f646e67f4cbca6))
+* refactor Metrics ♻️ ([d76b865](https://github.com/rayjlim/calendar_tracker/commit/d76b865eb3a97915fec86ce7e9064858d0476de3))
+* refactor RecordForm to custom hook ♻️ ([a867256](https://github.com/rayjlim/calendar_tracker/commit/a8672569c87c67f2a7ba3858ce5ae543dc848a92))
+* refactor RecordItem to subcomponent ([92e9478](https://github.com/rayjlim/calendar_tracker/commit/92e9478c2470e1f0adcb98560b3e760033a0d36a))
+* refactor to remove unused♻️ ([a091384](https://github.com/rayjlim/calendar_tracker/commit/a091384d7a0e05dfe5ccfec84e2d67794d91bca3))
+* refactoring ([141ec1d](https://github.com/rayjlim/calendar_tracker/commit/141ec1d03a2702193414b34cbf25f9e8b39195a1))
+* remove unused ([0248be3](https://github.com/rayjlim/calendar_tracker/commit/0248be3b5a04b1b0d680b6b39e8e57b5ffe0332a))
+
 ### [4.4.3](https://github.com/rayjlim/calendar_tracker/compare/v4.4.2...v4.4.3) (2023-08-25)
 
 ### [4.4.2](https://github.com/rayjlim/calendar_tracker/compare/v4.4.1...v4.4.2) (2023-04-17)
