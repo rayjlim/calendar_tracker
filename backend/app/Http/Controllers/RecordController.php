@@ -5,24 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Record;
 use Illuminate\Http\Request;
 
-function test()
-{
-    return "aa";
-}
-
 class RecordController extends Controller
 {
-    /**
-     * Store a new record.
-     *
-     * @param  Request  $request
-     * @return Response
-     */
-    public function store(Request $request)
-    {
-        $name = $request->input('name');
-    }
-
     /**
      * List records.
      *
@@ -53,7 +37,7 @@ class RecordController extends Controller
         }, $records);
         $returnObj->data = $records;
         $returnObj->params = $params;
-        echo json_encode($returnObj);
+        return json_encode($returnObj);
     }
 
     /**
@@ -73,7 +57,7 @@ class RecordController extends Controller
 
         $record->save();
 
-        echo json_encode([
+        return json_encode([
             'success' => true,
             'record' => $record
         ]);
@@ -88,7 +72,7 @@ class RecordController extends Controller
     {
         Record::findOrFail($id)->delete();
 
-        echo json_encode([
+        return json_encode([
             'success' => true
         ]);
     }
