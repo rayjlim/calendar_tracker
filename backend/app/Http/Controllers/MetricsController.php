@@ -85,8 +85,8 @@ class MetricsController extends Controller
                 $day
             ]
         );
-        $now = time();
-        $ytdStart = strtotime("-1 year", $now)->format('Y-m-d');
+        $timestamp = strtotime("-1 year", time());
+        $ytdStart = date('Y-m-d', $timestamp);
         $ytdEnd = date_create()->format('Y-m-d');
 
         $ytdLogs = DB::select(
@@ -127,7 +127,7 @@ class MetricsController extends Controller
         $subject = "On this day " . date('M d');
         $to =  $_ENV['REPORT_TO'];
 
-        $headers = "From: tracks@lilplaytime.com\r\n";
+        $headers = "From: tracks@qty.pot.mybluehost.me\r\n";
         $headers .= "Reply-To: " . $_ENV['REPORT_TO'] . "\r\n";
         $headers .= "X-Mailer: PHP/" . phpversion();
         $headers .= "MIME-Version: 1.0\r\n";
@@ -137,7 +137,7 @@ class MetricsController extends Controller
         echo $message;
 
         mail($to, $subject, $message, $headers);
-        echo "mail is sent";
+        return "mail is sent";
     }
 
     /**
