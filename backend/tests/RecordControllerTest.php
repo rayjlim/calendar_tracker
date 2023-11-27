@@ -12,6 +12,9 @@ class RecordControllerTest extends TestCase
      */
     public function test_list_base_path()
     {
+        // $recordMock = Mockery::mock(Record::class);
+        // $recordMock->shouldReceive('where')
+        // ->andReturn([]);
         $this->get('/record/');
 
         $this->seeStatusCode(200);
@@ -47,4 +50,20 @@ class RecordControllerTest extends TestCase
             'sleep', $targetValue->params->goal
         );
     }
+
+
+    /**
+     * Test list default
+     *
+     * @return void
+     */
+    // public function test_add_record()
+    // {
+    //     $this->post('/record/');
+    //     $response = $this->response->getContent();
+    //     $targetValue = json_decode($response);
+    //     $this->assertEquals(
+    //         'sleep', $targetValue->params->goal
+    //     );
+    // }
 }

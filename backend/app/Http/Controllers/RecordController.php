@@ -28,16 +28,17 @@ class RecordController extends Controller
             ->get()
             ->toArray();
 
-        $returnObj = new \stdClass();
         // Floating point issue in PHP 7+
         $records = array_map(function ($record)
         {
           $record["count"] = round($record["count"], 1) . '';
           return $record;
         }, $records);
-        $returnObj->data = $records;
-        $returnObj->params = $params;
-        return json_encode($returnObj);
+
+        return json_encode([
+            'data' => $records,
+            'params' => $params
+        ]);
     }
 
     /**

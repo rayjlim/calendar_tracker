@@ -55,7 +55,7 @@ class MetricsController extends Controller
         $returnObj->params = $params;
         $returnObj->data = $points;
 
-        echo json_encode($returnObj);
+        return json_encode($returnObj);
     }
 
     /**
@@ -168,6 +168,6 @@ class MetricsController extends Controller
             $points
         );
 
-        echo json_encode($returnObj);
+        return json_encode($returnObj);
     }
 }
