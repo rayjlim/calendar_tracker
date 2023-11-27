@@ -118,7 +118,7 @@ class MetricsController extends Controller
         $message = "<HTML><BODY>" .
             "<h1>Weight Trends</h1>" .
             "<a href=\"" . $_ENV['APP_URL'] . "\">Log Entry</a>" .
-            "<h2>" . $ytdLogs[0]->year . "past Year, Average: " .
+            "<h2>" . $ytdLogs[0]->year . " past Year, Average: " .
             number_format($yearAvg->average, 2) . "</h2>" .
             "<ul>" .
             $printedNonWeight .
@@ -169,5 +169,27 @@ class MetricsController extends Controller
         );
 
         return json_encode($returnObj);
+    }
+
+    public function onThisDay(Request $request)
+    {
+        $month =  $params['month'] ?? date('m');
+        $day =  $params['day'] ?? date('d');
+
+        $entries = DB::select(
+            '
+            SELECT date, count, comment
+            FROM `cpc_logs`
+            WHERE goal = ?
+            AND  MONTH(date) = ?
+            AND DAY(date) = ?
+            ORDER BY YEAR(date) DESC',
+            [
+                "weight",
+                $month,
+                $day
+            ]
+        );
+        return json_encode($entries);
     }
 }

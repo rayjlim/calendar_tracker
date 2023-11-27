@@ -37,27 +37,17 @@ const App = () => {
   return (
     <>
       <DevRibbon />
+      <ToastContainer />
       <View style={styles.appContainer}>
-        <ToastContainer />
         <Header title={`Tracker App v${pkg.version}`} />
         <RecordForm onUpdate={getChartData} />
         {isLoading ? (
-          <ActivityIndicator
-            color="#ff8179"
-            size="large"
-          />
+          <ActivityIndicator color="#ff8179" size="large" />
         ) : (
           <>
-            <RecordList
-              records={chartData}
-              onUpdate={getChartData}
-            />
+            <RecordList records={chartData} onUpdate={getChartData} />
             <Metrics data={metrics} />
-            <Chart
-              goal={goal}
-              chartData={chartData}
-              trendData={trendData}
-            />
+            <Chart goal={goal} chartData={chartData} trendData={trendData} />
             <DayOfWeekChart data={chartData} />
             <AggregateSection />
           </>
