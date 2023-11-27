@@ -22,7 +22,7 @@ class MetricsController extends Controller
         $params['goal'] =  $params['goal'] ?? DEFAULT_GOAL;
 
         $MIN_YEAR = ($params['by'] == 'month') ?
-                $_ENV['MONTHLY_MIN_YEAR'] : $_ENV['YEARLY_MIN_YEAR'];
+            $_ENV['MONTHLY_MIN_YEAR'] : $_ENV['YEARLY_MIN_YEAR'];
 
         $params['start'] = $params['start'] ?? $MIN_YEAR . "-01-01";
         $params['end'] = $params['end'] ?? date('Y-m-d');
@@ -117,7 +117,7 @@ class MetricsController extends Controller
 
         $message = "<HTML><BODY>" .
             "<h1>Weight Trends</h1>" .
-            "<a href=\"https://qty.pot.mybluehost.me/\">Log Entry</a>" .
+            "<a href=\"" . $_ENV['APP_URL'] . "\">Log Entry</a>" .
             "<h2>" . $ytdLogs[0]->year . "past Year, Average: " .
             number_format($yearAvg->average, 2) . "</h2>" .
             "<ul>" .
@@ -127,7 +127,7 @@ class MetricsController extends Controller
         $subject = "On this day " . date('M d');
         $to =  $_ENV['REPORT_TO'];
 
-        $headers = "From: tracks@qty.pot.mybluehost.me\r\n";
+        $headers = "From: tracks@" . $_ENV['ORIGIN'] . "\r\n";
         $headers .= "Reply-To: " . $_ENV['REPORT_TO'] . "\r\n";
         $headers .= "X-Mailer: PHP/" . phpversion();
         $headers .= "MIME-Version: 1.0\r\n";
@@ -164,7 +164,7 @@ class MetricsController extends Controller
         $returnObj = new \stdClass();
         $returnObj->params = $params;
         $returnObj->data = array_map(
-            fn($point) => $point->year,
+            fn ($point) => $point->year,
             $points
         );
 
