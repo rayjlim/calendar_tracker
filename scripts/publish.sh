@@ -63,6 +63,7 @@ if [ -z "$NOFRONTENDBUILD" ]; then
     exit 1
   fi
 
+  rsync -avz  ".htaccess.production"  ./build/.htaccess
   cd ..
 fi
 
