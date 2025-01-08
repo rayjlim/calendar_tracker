@@ -12,6 +12,9 @@
 | and give it the Closure to call when that URI is requested.
 |
 */
+$router->options('{any:.*}', function () {
+    return response()->json(['status' => 'OK'], 200);
+});
 
 $router->get('/', function () use ($router) {
     return $router->app->version();
@@ -21,22 +24,14 @@ $router->get('/record/', 'RecordController@list');
 $router->post('/record/', 'RecordController@add');
 $router->delete('/record/{id}', 'RecordController@remove');
 
-$router->options('/record[/{id}]', function () use ($router) {
-    return $router->app->version();
-});
-
 $router->get('/aggregate/', 'MetricsController@get');
-
-$router->options('/aggregate/', function () use ($router) {
-    return $router->app->version();
-});
 
 $router->get('/cron/', 'MetricsController@emailReport');
 
-$router->options('/years/', function () use ($router) {
-    return $router->app->version();
-});
 $router->get('/years/', 'MetricsController@years');
+
+$router->get('/onThisDay/', 'MetricsController@onThisDay');
+
 
 // $app->put( '/record/{id}', 'Tracker\RecordHandler:update')->setName('record-put');
 // $app->get( '/record/{id}', 'Tracker\RecordHandler:get')->setName('record-get-one');

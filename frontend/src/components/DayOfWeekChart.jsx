@@ -4,7 +4,24 @@ import PropTypes from 'prop-types';
 import { View, StyleSheet } from 'react-native';
 import { parse, format } from 'date-fns';
 import { Bar } from 'react-chartjs-2';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
 
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+);
 const styles = StyleSheet.create({
   appContainer: {
     margin: '0',
@@ -37,24 +54,69 @@ const DayOfWeekChart = ({ data }) => {
     const average = total / weekDayMapping[day].length;
     chartData.push(average.toFixed(3));
   });
-
+  const yMinValue = Math.min(...chartData);
+  const yMaxValue = Math.max(...chartData);
+  const options = {
+    plugins: {
+      legend: {
+        display: false,
+      },
+      tooltip: {
+        callbacks: {
+          label: data2 => `Value: ${data2.formattedValue}`,
+        },
+      },
+    },
+    scales: {
+      y: {
+        min: yMinValue - 1,
+        max: yMaxValue + 1,
+        suggestedMin: 140,
+        suggestedMax: 155,
+      },
+    },
+    datalabels: {
+      // formatter: value => { "₺" + new Intl.NumberFormat("tr-TR").format(value) },
+      color: 'white',
+      font: {
+        weight: 'bold',
+        size: 14,
+        family: 'poppins',
+      },
+    },
+  };
+  const backgroundColors = ['#53D9D9', '#002B49', '#0067A0'];
+  const dataReady = {
+    labels: daysOfTheWeek,
+    datasets: [
+      {
+        label: daysOfTheWeek,
+        data: chartData,
+        backgroundColor: backgroundColors,
+        borderWidth: 1,
+      },
+    ],
+  };
   return (
     <View className="chart" style={styles.appContainer}>
       <Bar
-        data={{
-          labels: daysOfTheWeek,
-          datasets: [{
-            label: 'Day of the Week',
-            backgroundColor: 'green',
-            data: chartData,
-          }],
-        }}
-        options={{
-          hover: {
-            mode: 'index',
-            intersect: false,
-          },
-        }}
+        data={dataReady}
+        options={options}
+
+      // {
+      //   labels: daysOfTheWeek,
+      //   datasets: [{
+      //     label: 'Day of the Week',
+      //     backgroundColor: 'green',
+      //     data: chartData,
+      //   }],
+      // }
+      // options={{
+      //   hover: {
+      //     mode: 'index',
+      //     intersect: false,
+      //   },
+      // }}
       />
     </View>
   );

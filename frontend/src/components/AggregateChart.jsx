@@ -2,9 +2,26 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 // eslint-disable-next-line import/no-unresolved
 import { View, ActivityIndicator, StyleSheet } from 'react-native';
-
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 import { REST_ENDPOINT } from '../constants';
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+);
 
 const monthNames = [
   'January',
@@ -74,7 +91,9 @@ const AggregateChart = ({ type, year }) => {
     borderColor: 'pink',
     data: chartData,
   };
-
+  const yMinValue = Math.min(...chartData.map(i => i.y));
+  const yMaxValue = Math.max(...chartData.map(i => i.y));
+  console.log(yMinValue, yMinValue);
   return (
     <View style={styles.appContainer}>
       {loading ? (
@@ -91,9 +110,27 @@ const AggregateChart = ({ type, year }) => {
               datasets: [set1],
             }}
             options={{
+              plugins: {
+                legend: {
+                  display: false,
+                },
+                tooltip: {
+                  callbacks: {
+                    label: data2 => `Value: ${data2.formattedValue}`,
+                  },
+                },
+              },
               hover: {
                 mode: 'index',
                 intersect: false,
+              },
+              scales: {
+                y: {
+                  min: yMinValue - 1,
+                  max: yMaxValue + 1,
+                  suggestedMin: 140,
+                  suggestedMax: 155,
+                },
               },
             }}
           />

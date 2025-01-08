@@ -15,7 +15,7 @@ const AggregateSection = () => {
   const [showMonthly, setShowMonthly] = useState(false);
   const [showYearly, setShowYearly] = useState(false);
   const [yearsList, setYearsList] = useState(['all']);
-  const [yearForMonthlySelected, setYearForMonthlySelected] = useState('all');
+  const [yearForMonthReport, setYearForMonthReport] = useState('all');
 
   const styles = StyleSheet.create({
     appContainer: {
@@ -56,11 +56,11 @@ const AggregateSection = () => {
           onValueChange={value => setShowMonthly(value)}
           value={showMonthly}
         />
-        {showMonthly ? (
+        {showMonthly && (
           <>
             <select
               onChange={e => {
-                setYearForMonthlySelected(e.target.value);
+                setYearForMonthReport(e.target.value);
               }}
             >
               {yearsList.map(year => (
@@ -69,12 +69,7 @@ const AggregateSection = () => {
                 </option>
               ))}
             </select>
-            <AggregateChart type="month" year={yearForMonthlySelected} />
-          </>
-        ) : (
-          <>
-            {' '}
-            {' '}
+            <AggregateChart type="month" year={yearForMonthReport} />
           </>
         )}
       </View>
@@ -84,9 +79,7 @@ const AggregateSection = () => {
           onValueChange={value => setShowYearly(value)}
           value={showYearly}
         />
-        {showYearly ? <AggregateChart type="year" />
-          // eslint-disable-next-line react/jsx-one-expression-per-line
-          : <>{' '}{' '}</>}
+        {showYearly && <AggregateChart type="year" />}
       </View>
     </View>
   );

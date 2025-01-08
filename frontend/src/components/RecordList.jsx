@@ -38,8 +38,8 @@ const RecordList = ({ records, onUpdate }) => {
   });
 
   const styling = {
-    'margin-top': '0',
-    'margin-bottom': '0',
+    marginTop: '0',
+    marginBottom: '0',
     margin: 'auto',
   };
 

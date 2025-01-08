@@ -15,3 +15,5 @@ backend/tracks_cron_script.php
 frontend/.env.development
 frontend/.env.production
 backend/node_modules/*
+
+.codegpt
