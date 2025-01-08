@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Line } from 'react-chartjs-2';
 
 const Chart = ({ chartData, trendData, goal }) => {
-  console.log(chartData);
+  console.log(chartData, trendData);
   const s1 = {
     label: 'Weight',
     borderColor: 'blue',
@@ -17,6 +17,7 @@ const Chart = ({ chartData, trendData, goal }) => {
     fill: 'none',
     data: trendData,
   };
+
   console.log(`goal ${goal}`);
   const datasets = goal ? [s1, s2, {
     label: 'Goal',
@@ -33,13 +34,7 @@ const Chart = ({ chartData, trendData, goal }) => {
       <Line
         data={{ datasets }}
         options={{
-          scales: {
-            xAxes: [
-              {
-                type: 'time',
-              },
-            ],
-          },
+
           tooltips: {
             mode: 'index',
             intersect: false,

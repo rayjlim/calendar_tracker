@@ -74,7 +74,9 @@ const AggregateChart = ({ type, year }) => {
     borderColor: 'pink',
     data: chartData,
   };
-
+  const yMinValue = Math.min(...chartData.map(i => i.y));
+  const yMaxValue = Math.max(...chartData.map(i => i.y));
+  console.log(yMinValue, yMinValue);
   return (
     <View style={styles.appContainer}>
       {loading ? (
@@ -91,9 +93,27 @@ const AggregateChart = ({ type, year }) => {
               datasets: [set1],
             }}
             options={{
+              plugins: {
+                legend: {
+                  display: false,
+                },
+                tooltip: {
+                  callbacks: {
+                    label: data2 => `Value: ${data2.formattedValue}`,
+                  },
+                },
+              },
               hover: {
                 mode: 'index',
                 intersect: false,
+              },
+              scales: {
+                y: {
+                  min: yMinValue - 1,
+                  max: yMaxValue + 1,
+                  suggestedMin: 140,
+                  suggestedMax: 155,
+                },
               },
             }}
           />
