@@ -16,3 +16,7 @@ tests/
 artisan
 
 *.asc
+
+node_modules/
+node_modules/*
+package*.json

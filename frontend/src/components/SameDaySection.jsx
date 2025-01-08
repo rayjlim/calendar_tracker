@@ -50,7 +50,9 @@ const SameDaySection = () => {
     setShowSameDay(value);
     getSameDayData();
   };
+
   console.log(yearsList);
+
   return (
     <View style={styles.appContainer}>
       <View>

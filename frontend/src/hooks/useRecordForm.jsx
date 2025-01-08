@@ -56,11 +56,11 @@ const useRecordForm = onUpdate => {
       setIsSending(true);
       const response = await fetch(url, {
         method: 'POST',
-        body: JSON.stringify(data),
         cache: 'no-cache',
         headers: {
           'Content-Type': 'application/json',
         },
+        body: JSON.stringify(data),
       });
 
       console.log(response);

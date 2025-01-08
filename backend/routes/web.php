@@ -32,6 +32,5 @@ $router->get('/years/', 'MetricsController@years');
 
 $router->get('/onThisDay/', 'MetricsController@onThisDay');
 
-
 // $app->put( '/record/{id}', 'Tracker\RecordHandler:update')->setName('record-put');
 // $app->get( '/record/{id}', 'Tracker\RecordHandler:get')->setName('record-get-one');

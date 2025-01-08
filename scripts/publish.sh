@@ -35,13 +35,14 @@ if [ -z "$NOBACKENDBUILD" ]; then
   cd ../backend
   mkdir -p ./build/
   rsync -ravz --exclude-from '../scripts/exclude-from-prep.txt' --delete . ./build/
-  rsync -avz  "public/.htaccess.production"  ./build/public/.htaccess
+  rsync -avz  "public/.htaccess"  ./build/public/.htaccess
   rsync -avz  ".htaccess.production"  ./build/.htaccess
   rsync -avz  ".env.production"  ./build/.env
   rsync -avz  "../scripts/exclude-from-prod.txt"   ./build/
 
   cd ./build/
-  /usr/local/bin/composer install  --no-dev
+  # composer.bat update  --no-dev
+  composer.bat install  --no-dev
   # chmod 755 *.php
 
   echo "build ready"
