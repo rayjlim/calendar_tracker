@@ -54,14 +54,28 @@ const Chart = ({ chartData, trendData, goal }) => {
       <Line
         data={{ datasets }}
         options={{
-
-          tooltips: {
-            mode: 'index',
-            intersect: false,
-          },
-          hover: {
-            mode: 'index',
-            intersect: false,
+          plugins: {
+            legend: {
+              display: false,
+            },
+            tooltip: {
+              callbacks: {
+                label: point => {
+                  const output = [];
+                  let outputLine1fea = chartData[point.dataIndex].y;
+                  const hasTrendData = trendData[point.dataIndex].y !== undefined;
+                  if (hasTrendData) {
+                    outputLine1fea += `:trend ${trendData[point.dataIndex].y}`;
+                  }
+                  output.push(outputLine1fea);
+                  const hasComment = chartData[point.dataIndex].label !== '';
+                  if (hasComment) {
+                    output.push(`${chartData[point.dataIndex].label}`);
+                  }
+                  return output;
+                },
+              },
+            },
           },
         }}
       />
