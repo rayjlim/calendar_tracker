@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.5.1](https://github.com/rayjlim/calendar_tracker/compare/v4.5.0...v4.5.1) (2025-01-08)
+
+
+### Bug Fixes
+
+* deployment issues; miss .htaccess in public folder ([7d82c5c](https://github.com/rayjlim/calendar_tracker/commit/7d82c5cef126be29db9cf1fd640a3c2437d755da))
+
 ## [4.5.0](https://github.com/rayjlim/calendar_tracker/compare/v4.4.4...v4.5.0) (2025-01-08)
 
 
