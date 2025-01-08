@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.5.0](https://github.com/rayjlim/calendar_tracker/compare/v4.4.4...v4.5.0) (2025-01-08)
+
+
+### Features
+
+* BE for on this day ([bac6bd8](https://github.com/rayjlim/calendar_tracker/commit/bac6bd8274d796956d1f3dfaa6151cb4b33e7296))
+* npm-watch for auto reload of BE tests ([1545c73](https://github.com/rayjlim/calendar_tracker/commit/1545c73a784b7ff60fc82e59b0a5fb38c5f550c6))
+* show same day values ([255b837](https://github.com/rayjlim/calendar_tracker/commit/255b8371e4b4e9fbf7f6b97ec69e7b6d86f96bf9))
+
+
+### Bug Fixes
+
+* 💫 chart definitions for dep update ([ec88943](https://github.com/rayjlim/calendar_tracker/commit/ec8894372b2e7f0a9be38c63cc802ae1c49bf74d))
+* build adding unnecessary files ([c759f8c](https://github.com/rayjlim/calendar_tracker/commit/c759f8c60af316b90136f9bb60317ce0aafc3223))
+* change workspace name ([cea6eec](https://github.com/rayjlim/calendar_tracker/commit/cea6eecc86450c4a3fe69c4e35d7510df015d197))
+* controllers to return response ([acdeb0c](https://github.com/rayjlim/calendar_tracker/commit/acdeb0c6c9e480551406772c723d574234cfdf1c))
+* cron start date calc ([c2935ea](https://github.com/rayjlim/calendar_tracker/commit/c2935eac0eac62755cb4c25266aae85e25b97b52))
+* get domain from env vars ([15c39ad](https://github.com/rayjlim/calendar_tracker/commit/15c39adadbe19ce984553c81c4ace0f8913d0cea))
+* skip test due to unable to mock DB ([abeb7c5](https://github.com/rayjlim/calendar_tracker/commit/abeb7c56e4cbf26f14566e25953fb0b23af845af))
+* test list action ([385463a](https://github.com/rayjlim/calendar_tracker/commit/385463a364e27c9c33e4a9664f1e415f90e9eb26))
+
 ### [4.4.4](https://github.com/rayjlim/calendar_tracker/compare/v4.4.3...v4.4.4) (2023-11-20)
 
 
