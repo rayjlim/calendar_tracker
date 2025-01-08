@@ -148,7 +148,6 @@ class MetricsController extends Controller
     public function years(Request $request)
     {
         $params = $request->all();
-
         $params['goal'] =  $params['goal'] ?? DEFAULT_GOAL;
 
         $points = DB::select(
@@ -171,8 +170,14 @@ class MetricsController extends Controller
         return json_encode($returnObj);
     }
 
+    /**
+     * API to get Same Day entries
+     *
+     * @param $request  Request data
+     */
     public function onThisDay(Request $request)
     {
+        $params = $request->all();
         $month =  $params['month'] ?? date('m');
         $day =  $params['day'] ?? date('d');
 

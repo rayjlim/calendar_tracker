@@ -4,7 +4,24 @@ import PropTypes from 'prop-types';
 import { View, StyleSheet } from 'react-native';
 import { parse, format } from 'date-fns';
 import { Bar } from 'react-chartjs-2';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
 
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+);
 const styles = StyleSheet.create({
   appContainer: {
     margin: '0',

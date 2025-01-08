@@ -2,9 +2,26 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 // eslint-disable-next-line import/no-unresolved
 import { View, ActivityIndicator, StyleSheet } from 'react-native';
-
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 import { REST_ENDPOINT } from '../constants';
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+);
 
 const monthNames = [
   'January',

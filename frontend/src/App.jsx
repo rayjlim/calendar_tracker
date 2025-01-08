@@ -23,6 +23,7 @@ import pkg from '../package.json';
 
 import 'react-toastify/dist/ReactToastify.css';
 import './components/ribbon.css';
+import SameDaySection from './components/SameDaySection';
 
 const styles = StyleSheet.create({
   appContainer: {
@@ -48,6 +49,7 @@ const App = () => {
             <RecordList records={chartData} onUpdate={getChartData} />
             <Metrics data={metrics} />
             <Chart goal={goal} chartData={chartData} trendData={trendData} />
+            <SameDaySection />
             <DayOfWeekChart data={chartData} />
             <AggregateSection />
           </>
