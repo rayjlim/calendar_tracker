@@ -8,6 +8,7 @@
     "date-fns": "^2.28.0",
     "prop-types": "^15.8.1",
     "react": "^17.0.0",
+    "react-calendar-heatmap": "^1.9.0",
     "react-chartjs-2": "^5.0.0",
     "react-dom": "^17.0.0",
     "react-native-web": "^0.18.0",

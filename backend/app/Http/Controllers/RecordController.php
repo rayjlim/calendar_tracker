@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Record;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RecordController extends Controller
 {
@@ -29,10 +30,9 @@ class RecordController extends Controller
             ->toArray();
 
         // Floating point issue in PHP 7+
-        $records = array_map(function ($record)
-        {
-          $record["count"] = round($record["count"], 1) . '';
-          return $record;
+        $records = array_map(function ($record) {
+            $record["count"] = round($record["count"], 1) . '';
+            return $record;
         }, $records);
 
         return json_encode([
@@ -76,5 +76,57 @@ class RecordController extends Controller
         return json_encode([
             'success' => true
         ]);
+    }
+
+    /**
+     * API to get Same Day entries
+     *
+     * @param $request  Request data
+     */
+    public function onThisDay(Request $request)
+    {
+        $params = $request->all();
+        $month =  $params['month'] ?? date('m');
+        $day =  $params['day'] ?? date('d');
+
+        $entries = DB::select(
+            '
+            SELECT date, count, comment
+            FROM `cpc_logs`
+            WHERE goal = ?
+            AND  MONTH(date) = ?
+            AND DAY(date) = ?
+            ORDER BY YEAR(date) DESC',
+            [
+                "weight",
+                $month,
+                $day
+            ]
+        );
+        return json_encode($entries);
+    }
+    /**
+     * API to get the dates for a specific year
+     *
+     * @param $request  Request data
+     */
+    public function yearLogs(Request $request)
+    {
+        $params = $request->all();
+        $year =  $params['year'] ?? date('Y');
+
+        $entries = DB::select(
+            '
+            SELECT date
+            FROM `cpc_logs`
+            WHERE goal = ?
+            AND  YEAR(date) = ?
+            ORDER BY date ASC',
+            [
+                "weight",
+                $year
+            ]
+        );
+        return json_encode($entries);
     }
 }
