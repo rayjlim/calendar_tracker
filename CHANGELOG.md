@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.6.0](https://github.com/rayjlim/calendar_tracker/compare/v4.5.1...v4.6.0) (2025-01-09)
+
+
+### Features
+
+* ✨new Heatmap component calls api ([49f934e](https://github.com/rayjlim/calendar_tracker/commit/49f934ebf3decc87704804c06c39dc8e6f88cfda))
+* ➕ react heatmap ([2257902](https://github.com/rayjlim/calendar_tracker/commit/2257902585d7238a5235adf5e3b2b8c60b9270c4))
+* backend for heatmap ([ef6a527](https://github.com/rayjlim/calendar_tracker/commit/ef6a52702a440e7caa2a8e9f1ca41754125b7859))
+
 ### [4.5.1](https://github.com/rayjlim/calendar_tracker/compare/v4.5.0...v4.5.1) (2025-01-08)
 
 
