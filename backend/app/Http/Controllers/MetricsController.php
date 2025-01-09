@@ -170,31 +170,5 @@ class MetricsController extends Controller
         return json_encode($returnObj);
     }
 
-    /**
-     * API to get Same Day entries
-     *
-     * @param $request  Request data
-     */
-    public function onThisDay(Request $request)
-    {
-        $params = $request->all();
-        $month =  $params['month'] ?? date('m');
-        $day =  $params['day'] ?? date('d');
 
-        $entries = DB::select(
-            '
-            SELECT date, count, comment
-            FROM `cpc_logs`
-            WHERE goal = ?
-            AND  MONTH(date) = ?
-            AND DAY(date) = ?
-            ORDER BY YEAR(date) DESC',
-            [
-                "weight",
-                $month,
-                $day
-            ]
-        );
-        return json_encode($entries);
-    }
 }

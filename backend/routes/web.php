@@ -23,14 +23,13 @@ $router->get('/', function () use ($router) {
 $router->get('/record/', 'RecordController@list');
 $router->post('/record/', 'RecordController@add');
 $router->delete('/record/{id}', 'RecordController@remove');
+$router->get('/yearLogs/', 'RecordController@yearLogs');
+
+$router->get('/onThisDay/', 'RecordController@onThisDay');
 
 $router->get('/aggregate/', 'MetricsController@get');
-
 $router->get('/cron/', 'MetricsController@emailReport');
-
 $router->get('/years/', 'MetricsController@years');
-
-$router->get('/onThisDay/', 'MetricsController@onThisDay');
 
 // $app->put( '/record/{id}', 'Tracker\RecordHandler:update')->setName('record-put');
 // $app->get( '/record/{id}', 'Tracker\RecordHandler:get')->setName('record-get-one');
