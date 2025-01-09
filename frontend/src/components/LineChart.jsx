@@ -23,7 +23,7 @@ ChartJS.register(
 );
 
 const Chart = ({ chartData, trendData, goal }) => {
-  console.log(chartData, trendData);
+  // console.log(chartData, trendData);
   const s1 = {
     label: 'Weight',
     borderColor: 'blue',

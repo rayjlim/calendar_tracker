@@ -61,7 +61,7 @@ const AggregateChart = ({ type, year }) => {
 
       if (response.ok) {
         const results = await response.json();
-        console.log(results);
+        // console.log(results);
 
         const records = results.data.map(record => ({
           x:
@@ -84,7 +84,7 @@ const AggregateChart = ({ type, year }) => {
     getChartData();
   }, [year]);
 
-  console.log(chartData);
+  // console.log(chartData);
   const set1 = {
     label: type,
     backgroundColor: 'red',
@@ -93,7 +93,7 @@ const AggregateChart = ({ type, year }) => {
   };
   const yMinValue = Math.min(...chartData.map(i => i.y));
   const yMaxValue = Math.max(...chartData.map(i => i.y));
-  console.log(yMinValue, yMinValue);
+
   return (
     <View style={styles.appContainer}>
       {loading ? (
