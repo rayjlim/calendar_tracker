@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { format, add } from 'date-fns';
 import { toast } from 'react-toastify';
 
@@ -113,6 +113,19 @@ const useRecordForm = onUpdate => {
     }
     toast.error('Goal: Invalid number');
   }
+
+  useEffect(() => {
+    const handleKeyDown = async event => {
+      if ((event.ctrlKey || event.metaKey) && event.key === 's') {
+        event.preventDefault();
+        await sendRecord();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
   return {
     setRecordDate,
     saveDefault,
