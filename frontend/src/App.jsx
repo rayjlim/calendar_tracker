@@ -50,7 +50,16 @@ const App = () => {
           <>
             <RecordList records={chartData} onUpdate={getChartData} />
             <Metrics data={metrics} />
-            <Chart goal={goal} chartData={chartData} trendData={trendData} />
+            {
+              chartData.length > 1 && (
+                <Chart
+                  goal={goal}
+                  chartData={chartData}
+                  trendData={trendData}
+                />
+              )
+            }
+
             <Heatmap />
             <SameDaySection />
             <DayOfWeekChart data={chartData} />
