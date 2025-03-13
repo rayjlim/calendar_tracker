@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.7.0](https://github.com/rayjlim/calendar_tracker/compare/v4.6.0...v4.7.0) (2025-03-13)
+
+
+### Features
+
+* [#86](https://github.com/rayjlim/calendar_tracker/issues/86) save on shortcut keys ([f49fa92](https://github.com/rayjlim/calendar_tracker/commit/f49fa92e3fe806e105766b434f67f05f61aeaf99))
+
+
+### Bug Fixes
+
+* error when no data ([4bb54bd](https://github.com/rayjlim/calendar_tracker/commit/4bb54bdcc182e3cc75ce31450ff4b0f04465c6a3))
+
 ## [4.6.0](https://github.com/rayjlim/calendar_tracker/compare/v4.5.1...v4.6.0) (2025-01-09)
 
 
