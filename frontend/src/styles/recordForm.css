@@ -1,0 +1,64 @@
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+}
+
+.actions-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 10px;
+}
+
+.action-button {
+  padding: 10px;
+  color: white;
+  border-radius: 6px;
+  width: 80px;
+  background-color: #808080;
+  margin: 0 5px;
+  border: none;
+  cursor: pointer;
+}
+
+.action-button:hover {
+  opacity: 0.9;
+}
+
+.default-button {
+  width: 98%;
+ 
+}
+.blue-button {
+  background-color: #007bff;
+  color: white;
+}
+.orange-button {
+  background-color: orange;
+  color: white;
+}
+.green-button {
+  background-color: green;
+  color: white;
+}
+.destructive-button {
+  background-color: #ff4b21;
+}
+
+.input-field {
+  background-color: #FFF;
+  border: 1px solid #EEE;
+  padding: 5px;
+  margin: 5px;
+}
+
+.count-input {
+  width: 7em;
+}
+
+.comment-input {
+  width: auto;
+}

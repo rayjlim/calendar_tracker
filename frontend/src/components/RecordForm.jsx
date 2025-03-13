@@ -1,65 +1,30 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { format, sub } from 'date-fns';
-
-import {
-  Text,
-  TextInput,
-  Button,
-  View,
-  TouchableHighlight,
-  StyleSheet,
-  // eslint-disable-next-line import/no-unresolved
-} from 'react-native';
 import { ToastContainer } from 'react-toastify';
-
 import { FULL_DATE_FORMAT } from '../constants';
 import useRecordForm from '../hooks/useRecordForm';
+import '../styles/recordForm.css';
 
-import 'react-toastify/dist/ReactToastify.css';
+const AdjustmentButton = memo(({ value, onClick, children }) => (
+  <button
+    type="button"
+    className="action-button"
+    onClick={() => onClick(value)}
+  >
+    {children}
+  </button>
+));
 
-const styles = StyleSheet.create({
-  actionsContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    padding: 10,
-  },
-  actionButton: {
-    padding: 10,
-    color: 'white',
-    borderRadius: 6,
-    width: 80,
-    backgroundColor: '#808080',
-    marginRight: 5,
-    marginLeft: 5,
-  },
-  defaultButton: {
-    width: '98%',
-  },
-  actionButtonDestructive: {
-    backgroundColor: '#ff4b21',
-  },
-  actionButtonText: {
-    textAlign: 'center',
-  },
-  countInput: {
-    width: '7em',
-    backgroundColor: '#FFF',
-    border: '1px solid #EEE',
-  },
-  commentInput: {
-    width: '25em',
-    backgroundColor: '#FFF',
-    border: '1px solid #EEE',
-  },
-  centering: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 8,
-  },
-});
+const DefaultButton = memo(({ countDefault, onClick }) => (
+  <button
+    type="button"
+    className="action-button destructive-button default-button"
+    onClick={onClick}
+  >
+    {`Default: ${countDefault}`}
+  </button>
+));
 
 const RecordForm = ({ onUpdate }) => {
   const {
@@ -76,131 +41,109 @@ const RecordForm = ({ onUpdate }) => {
     changeDate,
   } = useRecordForm(onUpdate);
 
+  const handleSubmit = e => {
+    e.preventDefault();
+    sendRecord();
+  };
+
+  const handleDefaultReset = () => {
+    countRef.current.value = countDefault;
+    setRecordDate(format(new Date(), FULL_DATE_FORMAT));
+  };
+
   return (
-    <View style={styles.centering}>
+    <form onSubmit={handleSubmit} className="form-container">
       <ToastContainer />
-      <TouchableHighlight
-        style={[
-          styles.actionButton,
-          styles.actionButtonDestructive,
-          styles.defaultButton,
-        ]}
-        onPress={() => {
-          countRef.current.value = countDefault;
-          setRecordDate(format(new Date(), FULL_DATE_FORMAT));
-        }}
-      >
-        <Text style={styles.actionButtonText}>
-          {`Default: ${countDefault}`}
-        </Text>
-      </TouchableHighlight>
+      <DefaultButton countDefault={countDefault} onClick={handleDefaultReset} />
 
-      <View style={styles.actionsContainer}>
-        <TouchableHighlight
-          style={[styles.actionButton]}
-          onPress={() => {
-            const factor = -0.2;
-            addFactorToCount(factor);
-          }}
-        >
-          <Text style={styles.actionButtonText}>-.2</Text>
-        </TouchableHighlight>
-        <TouchableHighlight
-          style={[styles.actionButton]}
-          onPress={() => {
-            const factor = -1.0;
-            addFactorToCount(factor);
-          }}
-        >
-          <Text style={styles.actionButtonText}>-1</Text>
-        </TouchableHighlight>
-        <TouchableHighlight
-          style={[styles.actionButton]}
-          onPress={() => {
-            const factor = 1.0;
-            addFactorToCount(factor);
-          }}
-        >
-          <Text style={styles.actionButtonText}>+1</Text>
-        </TouchableHighlight>
-        <TouchableHighlight
-          style={[styles.actionButton]}
-          onPress={() => {
-            const factor = 0.2;
-            addFactorToCount(factor);
-          }}
-        >
-          <Text style={styles.actionButtonText}> +.2</Text>
-        </TouchableHighlight>
-      </View>
+      <div className="actions-container">
+        <AdjustmentButton value={-0.2} onClick={addFactorToCount}>-.2</AdjustmentButton>
+        <AdjustmentButton value={-1.0} onClick={addFactorToCount}>-1</AdjustmentButton>
+        <AdjustmentButton value={1.0} onClick={addFactorToCount}>+1</AdjustmentButton>
+        <AdjustmentButton value={0.2} onClick={addFactorToCount}>+.2</AdjustmentButton>
+      </div>
 
-      <View style={styles.actionsContainer}>
-        <Text style={styles.actionButtonText}>Track</Text>
-
+      <div className="actions-container">
+        {/* eslint-disable-next-line  */}
+        <label htmlFor="goalEntry">Track</label>
         <select
-          className="form-control form-control-sm"
+          className="input-field"
           name="goal"
           id="goalEntry"
+          aria-label="Track goal type"
         >
           <option>weight</option>
         </select>
-        <Button
-          onPress={() => {
-            saveDefault();
-          }}
-          title="Default"
-        />
-        <Button
-          onPress={() => {
-            saveGoal();
-          }}
-          title="Goal"
-        />
-      </View>
-      <View style={styles.actionsContainer}>
-        <Text style={styles.actionButtonText}>Count: </Text>
-        <TextInput
-          style={styles.countInput}
-          type="text"
-          keyboardType="numeric"
+        <button type="button" className="action-button blue-button" onClick={saveDefault}>Default</button>
+        <button type="button" className="action-button orange-button" onClick={saveGoal}>Goal</button>
+      </div>
+
+      <div className="actions-container">
+        {/* eslint-disable-next-line  */}
+        <label htmlFor="countInput">Count:</label>
+        <input
+          id="countInput"
+          className="input-field count-input"
+          type="number"
+          step="0.1"
           ref={countRef}
           defaultValue={countDefault}
         />
-      </View>
-      <View>
-        <Text style={styles.actionButtonText}>Comment</Text>
-        <TextInput
-          style={styles.commentInput}
+      </div>
+
+      <div className="actions-container">
+        {/* eslint-disable-next-line  */}
+        <label htmlFor="commentInput" id="commentLabel">Comment</label>
+        <input
+          id="commentInput"
+          className="input-field comment-input"
           type="text"
           ref={commentRef}
           placeholder="Enter comment"
+          aria-labelledby="commentLabel"
         />
-      </View>
-      <View>
-        <Button
-          disabled={isSending}
-          title={isSending ? 'Sending Record...' : 'Submit'}
-          onPress={() => sendRecord()}
+      </div>
+
+      <button type="submit" disabled={isSending} className="action-button green-button">
+        {isSending ? 'Sending Record...' : 'Submit'}
+      </button>
+
+      <div className="actions-container">
+        {/* eslint-disable-next-line  */}
+        <label htmlFor="dateInput">Date:</label>
+        <input
+          id="dateInput"
+          type="date"
+          value={recordDate}
+          onChange={changeDate}
         />
-      </View>
-      <View style={styles.actionsContainer}>
-        <Text>Date: </Text>
-        <input type="date" value={recordDate} onChange={changeDate} />
-        <TouchableHighlight
-          style={[styles.actionButton]}
-          onPress={() => {
+        <button
+          type="button"
+          className="action-button"
+          onClick={() => {
             setRecordDate(format(sub(new Date(recordDate), { days: 0 }), FULL_DATE_FORMAT));
           }}
         >
-          <Text style={styles.actionButtonText}>-1</Text>
-        </TouchableHighlight>
-      </View>
-    </View>
+          -1
+        </button>
+      </div>
+    </form>
   );
 };
 
-export default RecordForm;
+AdjustmentButton.propTypes = {
+  value: PropTypes.number.isRequired,
+  onClick: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired,
+};
+
+DefaultButton.propTypes = {
+  countDefault: PropTypes.number.isRequired,
+  onClick: PropTypes.func.isRequired,
+};
 
 RecordForm.propTypes = {
   onUpdate: PropTypes.func.isRequired,
 };
+
+export default RecordForm;
