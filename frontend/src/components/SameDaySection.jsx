@@ -19,13 +19,19 @@ const SameDaySection = () => {
     },
   });
 
-  const getSameDayData = () => {
+  const getSameDayData = (selectedDate = '') => {
     console.log(REST_ENDPOINT);
     (async () => {
-      const url = `${REST_ENDPOINT}/onThisDay/`;
+      let url = `${REST_ENDPOINT}/onThisDay/`;
+      if (selectedDate) {
+        const date = new Date(selectedDate);
+        const month = date.getMonth() + 1; // getMonth() returns 0-11
+        const day = date.getDate() + 1;
+        url = `${REST_ENDPOINT}/onThisDay/?month=${month}&day=${day}`;
+      }
       try {
         const response = await fetch(url, {
-          method: 'GET', // *GET, POST, PUT, DELETE, etc.
+          method: 'GET',
           cache: 'no-cache',
           headers: {
             'Content-Type': 'application/json',
@@ -63,7 +69,24 @@ const SameDaySection = () => {
         />
         {showSameDay && (
           <>
-            <span>Same Day section</span>
+            <h3>Same Day section</h3>
+            <form>
+              <div>
+                <label htmlFor="sameDayDate">
+                  Select Date:
+                  <input
+                    type="date"
+                    id="sameDayDate"
+                    name="sameDayDate"
+                    onChange={e => {
+                      const selectedDate = e.target.value;
+                      console.log(selectedDate);
+                      getSameDayData(selectedDate);
+                    }}
+                  />
+                </label>
+              </div>
+            </form>
             <ul>
               {yearsList.map(item => (
                 <li key={item.date}>{`${item.date} ${item.count} ${item.comment}`}</li>
