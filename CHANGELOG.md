@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.8.0](https://github.com/rayjlim/calendar_tracker/compare/v4.7.0...v4.8.0) (2025-03-16)
+
+
+### Features
+
+* [#128](https://github.com/rayjlim/calendar_tracker/issues/128) date picker for same day component ([8cfa3c9](https://github.com/rayjlim/calendar_tracker/commit/8cfa3c91d0ae7160ebaa2a267191d02b4fd1e9d5))
+
 ## [4.7.0](https://github.com/rayjlim/calendar_tracker/compare/v4.6.0...v4.7.0) (2025-03-13)
 
 
