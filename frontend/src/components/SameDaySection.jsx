@@ -20,7 +20,7 @@ const SameDaySection = () => {
   });
 
   const getSameDayData = (selectedDate = '') => {
-    console.log(REST_ENDPOINT);
+    // console.log(REST_ENDPOINT);
     (async () => {
       let url = `${REST_ENDPOINT}/onThisDay/`;
       if (selectedDate) {
@@ -40,11 +40,11 @@ const SameDaySection = () => {
 
         if (response.ok) {
           const results = await response.json();
-          // console.log(`years list response: ${results}`);
+          // // console.log(`years list response: ${results}`);
 
           setYearsList([...results]);
         } else {
-          console.log('Network response was not ok.');
+          throw new Error('Network response was not ok.');
         }
       } catch (error) {
         alert(`Error: ${error}`);
@@ -57,7 +57,7 @@ const SameDaySection = () => {
     getSameDayData();
   };
 
-  console.log(yearsList);
+  // console.log(yearsList);
 
   return (
     <View style={styles.appContainer}>
@@ -80,7 +80,7 @@ const SameDaySection = () => {
                     name="sameDayDate"
                     onChange={e => {
                       const selectedDate = e.target.value;
-                      console.log(selectedDate);
+                      // console.log(selectedDate);
                       getSameDayData(selectedDate);
                     }}
                   />

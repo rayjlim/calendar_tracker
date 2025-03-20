@@ -44,7 +44,7 @@ const DayOfWeekChart = ({ data }) => {
     Sat: [],
 
   });
-  console.log('weekDayMapping', weekDayMapping);
+  // console.log('weekDayMapping', weekDayMapping);
   const chartData = [];
   daysOfTheWeek.forEach(day => {
     const total = weekDayMapping[day].reduce(
