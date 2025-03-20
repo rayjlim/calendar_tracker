@@ -124,7 +124,7 @@ const RecordForm = ({ onUpdate }) => {
             setRecordDate(format(sub(new Date(recordDate), { days: 0 }), FULL_DATE_FORMAT));
           }}
         >
-          -1
+          -1 day
         </button>
       </div>
     </form>

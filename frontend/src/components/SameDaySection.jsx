@@ -91,7 +91,6 @@ const SameDaySection = () => {
               {yearsList.map(item => (
                 <li key={item.date}>{`${item.date} ${item.count} ${item.comment}`}</li>
               ))}
-
             </ul>
           </>
         )}

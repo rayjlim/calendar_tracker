@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React from 'react';
 import { render } from '@testing-library/react';
 import DayOfWeekChart from './DayOfWeekChart';
@@ -39,7 +40,7 @@ describe('DayOfWeekChart Component', () => {
   // it('processes data correctly for each day of the week', () => {
   //   const consoleSpy = jest.spyOn(console, 'log');
   //   render(<DayOfWeekChart data={mockData} />);
-    
+
   //   expect(consoleSpy).toHaveBeenCalledWith('weekDayMapping', expect.objectContaining({
   //     Mon: expect.arrayContaining([150]),
   //     Tue: expect.arrayContaining([151]),
@@ -59,8 +60,8 @@ describe('DayOfWeekChart Component', () => {
   });
 
   it('validates props', () => {
-    const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
-    
+    const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => { });
+
     render(<DayOfWeekChart data={mockData} />);
     expect(consoleSpy).not.toHaveBeenCalled();
 

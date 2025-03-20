@@ -49,7 +49,7 @@ const RecordItem = ({
         toast(`Deleted ${targetId}`);
         await onUpdate();
       } else {
-        console.log('Network response was not ok.');
+        throw new Error('Network response was not ok.');
       }
     } catch (error) {
       toast.error(`Error: ${error}`);

@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+import React from 'react';
 import { render, screen } from '@testing-library/react';
 import Header from './Header';
 
@@ -14,7 +16,7 @@ describe('Header Component', () => {
     expect(screen.getByText(testTitle)).toBeInTheDocument();
   });
 
-  it('has the correct heading level', () => {
+  test('has the correct heading level', () => {
     render(<Header title="Test Title" />);
     expect(screen.getByRole('heading', { level: 1 })).toBeInTheDocument();
   });
