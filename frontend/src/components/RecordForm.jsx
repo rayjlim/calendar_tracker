@@ -54,8 +54,6 @@ const RecordForm = ({ onUpdate }) => {
   return (
     <form onSubmit={handleSubmit} className="form-container">
       <ToastContainer />
-      <DefaultButton countDefault={countDefault} onClick={handleDefaultReset} />
-
       <div className="actions-container">
         <AdjustmentButton value={-0.2} onClick={addFactorToCount}>-.2</AdjustmentButton>
         <AdjustmentButton value={-1.0} onClick={addFactorToCount}>-1</AdjustmentButton>
@@ -74,7 +72,6 @@ const RecordForm = ({ onUpdate }) => {
         >
           <option>weight</option>
         </select>
-        <button type="button" className="action-button blue-button" onClick={saveDefault}>Default</button>
         <button type="button" className="action-button orange-button" onClick={saveGoal}>Goal</button>
       </div>
 
@@ -89,6 +86,9 @@ const RecordForm = ({ onUpdate }) => {
           ref={countRef}
           defaultValue={countDefault}
         />
+        <button type="submit" disabled={isSending} className="action-button green-button">
+          {isSending ? 'Sending Record...' : 'Submit'}
+        </button>
       </div>
 
       <div className="actions-container">
@@ -103,11 +103,10 @@ const RecordForm = ({ onUpdate }) => {
           aria-labelledby="commentLabel"
         />
       </div>
-
-      <button type="submit" disabled={isSending} className="action-button green-button">
-        {isSending ? 'Sending Record...' : 'Submit'}
-      </button>
-
+      <div className="actions-container">
+        <DefaultButton countDefault={countDefault} onClick={handleDefaultReset} />
+        <button type="button" className="action-button blue-button" onClick={saveDefault}>Default</button>
+      </div>
       <div className="actions-container">
         {/* eslint-disable-next-line  */}
         <label htmlFor="dateInput">Date:</label>
