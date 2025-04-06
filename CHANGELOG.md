@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.8.1](https://github.com/rayjlim/calendar_tracker/compare/v4.8.0...v4.8.1) (2025-04-06)
+
+
+### Bug Fixes
+
+* [#35](https://github.com/rayjlim/calendar_tracker/issues/35) more unit test coverage ([830f1cb](https://github.com/rayjlim/calendar_tracker/commit/830f1cbd8c8528b40a027e858d3d47716cce1e34))
+* [#35](https://github.com/rayjlim/calendar_tracker/issues/35) unit test for header, Day of the week chart ([004323f](https://github.com/rayjlim/calendar_tracker/commit/004323fe0b6df7c701d7ae8b1dd22145109b5b11))
+* [#38](https://github.com/rayjlim/calendar_tracker/issues/38) partial implementation of codeception ([e968276](https://github.com/rayjlim/calendar_tracker/commit/e9682767f9878a826ace15f07f1aedb7c8b9d810))
+* [#60](https://github.com/rayjlim/calendar_tracker/issues/60) partial implementation of unit test ([b2548e3](https://github.com/rayjlim/calendar_tracker/commit/b2548e39bc720124c50e4ac39cfc2d43e1a9d29f))
+
 ## [4.8.0](https://github.com/rayjlim/calendar_tracker/compare/v4.7.0...v4.8.0) (2025-03-16)
 
 
