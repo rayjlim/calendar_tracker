@@ -16,16 +16,6 @@ const AdjustmentButton = memo(({ value, onClick, children }) => (
   </button>
 ));
 
-const DefaultButton = memo(({ countDefault, onClick }) => (
-  <button
-    type="button"
-    className="action-button destructive-button default-button"
-    onClick={onClick}
-  >
-    {`Default: ${countDefault}`}
-  </button>
-));
-
 const RecordForm = ({ onUpdate }) => {
   const {
     setRecordDate,
@@ -72,7 +62,13 @@ const RecordForm = ({ onUpdate }) => {
         >
           <option>weight</option>
         </select>
-        <button type="button" className="action-button orange-button" onClick={saveGoal}>Goal</button>
+        <button
+          type="button"
+          className="action-button orange-button"
+          onClick={saveGoal}
+        >
+          Goal
+        </button>
       </div>
 
       <div className="actions-container">
@@ -86,7 +82,11 @@ const RecordForm = ({ onUpdate }) => {
           ref={countRef}
           defaultValue={countDefault}
         />
-        <button type="submit" disabled={isSending} className="action-button green-button">
+        <button
+          type="submit"
+          disabled={isSending}
+          className="action-button green-button"
+        >
           {isSending ? 'Sending Record...' : 'Submit'}
         </button>
       </div>
@@ -104,8 +104,20 @@ const RecordForm = ({ onUpdate }) => {
         />
       </div>
       <div className="actions-container">
-        <DefaultButton countDefault={countDefault} onClick={handleDefaultReset} />
-        <button type="button" className="action-button blue-button" onClick={saveDefault}>Default</button>
+        <button
+          type="button"
+          className="action-button destructive-button default-button"
+          onClick={handleDefaultReset}
+        >
+          {`Use Default: ${countDefault}`}
+        </button>
+        <button
+          type="button"
+          className="action-button blue-button"
+          onClick={saveDefault}
+        >
+          Set Default
+        </button>
       </div>
       <div className="actions-container">
         {/* eslint-disable-next-line  */}
@@ -134,11 +146,6 @@ AdjustmentButton.propTypes = {
   value: PropTypes.number.isRequired,
   onClick: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
-};
-
-DefaultButton.propTypes = {
-  countDefault: PropTypes.number.isRequired,
-  onClick: PropTypes.func.isRequired,
 };
 
 RecordForm.propTypes = {

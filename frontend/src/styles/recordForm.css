@@ -11,6 +11,8 @@
   justify-content: flex-end;
   align-items: center;
   padding: 10px;
+  gap: 8px;
+  width: 100%;
 }
 
 .action-button {
@@ -29,10 +31,11 @@
 }
 
 .default-button {
-  width: 98%;
+  width: 50%;
  
 }
 .blue-button {
+   width: 50%;
   background-color: #007bff;
   color: white;
 }
@@ -66,8 +69,5 @@
 }
 
 .actions-container {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  width: 100%;
+
 }
