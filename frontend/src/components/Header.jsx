@@ -28,11 +28,11 @@ const styles = StyleSheet.create({
     margin: 'auto',
   },
   subtitle: {
-    fontSize: '.7rem',
-    fontWeight: '200',
+    fontSize: '.8rem',
+    fontWeight: '500',
     textAlign: 'right',
-    color: 'grey',
-    margin: 'auto',
+    color: 'black',
+    margin: '0',
   },
 });
 
