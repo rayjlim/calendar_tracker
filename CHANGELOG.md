@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.8.4](https://github.com/rayjlim/calendar_tracker/compare/v4.8.3...v4.8.4) (2025-07-15)
+
+
+### Bug Fixes
+
+* **Header:** 💄[#140](https://github.com/rayjlim/calendar_tracker/issues/140) adjust subtitle styling for better visibility ([3b0c74b](https://github.com/rayjlim/calendar_tracker/commit/3b0c74b8bf70ab49fb0192974871d47b9ac6c8de))
+
 ### [4.8.3](https://github.com/rayjlim/calendar_tracker/compare/v4.8.2...v4.8.3) (2025-07-15)
 
 ### [4.8.2](https://github.com/rayjlim/calendar_tracker/compare/v4.8.1...v4.8.2) (2025-07-06)
