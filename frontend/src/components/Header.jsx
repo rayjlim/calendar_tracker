@@ -15,11 +15,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#ff8179',
   },
   header: {
-    padding: 10,
-    paddingVertical: 5,
+    padding: '.5rem',
     flexDirection: 'row',
-    minHeight: 50,
-    margin: '0.5em',
+    minHeight: 40,
+    margin: '0',
   },
   title: {
     fontSize: '1.6rem',
@@ -28,13 +27,23 @@ const styles = StyleSheet.create({
     color: 'black',
     margin: 'auto',
   },
+  subtitle: {
+    fontSize: '.7rem',
+    fontWeight: '200',
+    textAlign: 'right',
+    color: 'grey',
+    margin: 'auto',
+  },
 });
 
-const Header = ({ title }) => (
+const Header = ({ title, subtitle }) => (
   <SafeAreaView style={styles.headerContainer}>
     <View style={styles.header}>
       <Text accessibilityRole="heading" aria-level="3" style={styles.title}>
         {title}
+      </Text>
+      <Text accessibilityRole="heading" aria-level="5" style={styles.subtitle}>
+        {subtitle}
       </Text>
     </View>
   </SafeAreaView>
@@ -44,4 +53,5 @@ export default Header;
 
 Header.propTypes = {
   title: PropTypes.string.isRequired,
+  subtitle: PropTypes.string.isRequired,
 };

@@ -53,26 +53,6 @@ const RecordForm = ({ onUpdate }) => {
 
       <div className="actions-container">
         {/* eslint-disable-next-line  */}
-        <label htmlFor="goalEntry">Track</label>
-        <select
-          className="input-field"
-          name="goal"
-          id="goalEntry"
-          aria-label="Track goal type"
-        >
-          <option>weight</option>
-        </select>
-        <button
-          type="button"
-          className="action-button orange-button"
-          onClick={saveGoal}
-        >
-          Goal
-        </button>
-      </div>
-
-      <div className="actions-container">
-        {/* eslint-disable-next-line  */}
         <label htmlFor="countInput">Count:</label>
         <input
           id="countInput"
@@ -89,6 +69,7 @@ const RecordForm = ({ onUpdate }) => {
         >
           {isSending ? 'Sending Record...' : 'Submit'}
         </button>
+
       </div>
 
       <div className="actions-container">
@@ -118,6 +99,13 @@ const RecordForm = ({ onUpdate }) => {
         >
           Set Default
         </button>
+        <button
+          type="button"
+          className="action-button orange-button"
+          onClick={saveGoal}
+        >
+          Goal
+        </button>
       </div>
       <div className="actions-container">
         {/* eslint-disable-next-line  */}
@@ -137,6 +125,16 @@ const RecordForm = ({ onUpdate }) => {
         >
           -1 day
         </button>
+        {/* eslint-disable-next-line  */}
+        <label htmlFor="goalEntry">Track</label>
+        <select
+          className="input-field"
+          name="goal"
+          id="goalEntry"
+          aria-label="Track goal type"
+        >
+          <option>weight</option>
+        </select>
       </div>
     </form>
   );

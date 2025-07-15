@@ -10,8 +10,8 @@
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
-  padding: 10px;
-  gap: 8px;
+  padding: .25rem;
+  gap: .25rem;
   width: 100%;
 }
 

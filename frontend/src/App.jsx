@@ -79,7 +79,7 @@ const App = () => {
         <DevRibbon />
         <ToastContainer />
         <View style={styles.appContainer}>
-          <Header title={`Tracker App v${pkg.version}`} />
+          <Header title="Tracker App" subtitle={`v${pkg.version}`} />
           <RecordForm onUpdate={getChartData} />
           {isLoading ? (
             <LoadingSpinner />
